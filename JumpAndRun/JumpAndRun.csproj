@@ -67,7 +67,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="About.html" />
+    <Content Include="Character.html" />
+    <Content Include="Datenschutz.html" />
     <Content Include="GameWebsite.html" />
+    <Content Include="HallOfFame.html" />
+    <Content Include="Impressum.html" />
+    <Content Include="NewGame.html" />
     <Content Include="StartingPage.html" />
     <Content Include="Web.config" />
   </ItemGroup>
