@@ -74,6 +74,8 @@
     <Content Include="GameWebsite.html" />
     <Content Include="HallOfFame.html" />
     <Content Include="Impressum.html" />
+    <Content Include="level1.html" />
+    <Content Include="main.js" />
     <Content Include="NewGame.html" />
     <Content Include="StartingPage.html" />
     <Content Include="style.css" />
