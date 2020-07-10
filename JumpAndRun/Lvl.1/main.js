@@ -6,6 +6,7 @@ context = document.querySelector("canvas").getContext("2d");
 context.canvas.height = 180;
 context.canvas.width = 320;
 
+//character
 rectangle = {
 
     height: 32,
@@ -18,6 +19,7 @@ rectangle = {
 
 };
 
+//Controlling Keys/Events
 controller = {
 
     left: false,
@@ -45,8 +47,10 @@ controller = {
 
 };
 
+//Game-Loop Function
 loop = function () {
 
+    //Falling 
     if (controller.up && rectangle.jumping == false) {
 
         rectangle.y_velocity -= 20;
@@ -54,11 +58,15 @@ loop = function () {
 
     }
 
+    //Moving left
+
     if (controller.left) {
 
         rectangle.x_velocity -= 0.5;
 
     }
+
+    //Moving right
 
     if (controller.right) {
 

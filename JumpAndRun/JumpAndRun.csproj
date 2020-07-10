@@ -69,7 +69,6 @@
   <ItemGroup>
     <Content Include="About.html" />
     <Content Include="Datenschutz.html" />
-    <Content Include="Lvl.1\game.js" />
     <Content Include="Impressum.html" />
     <Content Include="Lvl.1\level1.html" />
     <Content Include="Lvl.1\main.js" />
