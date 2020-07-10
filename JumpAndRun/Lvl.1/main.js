@@ -3,17 +3,18 @@
  * MN;PS
  * Darstellung und Aufruf Fenster & Figur
  */
-var context, controller, rectangle, loop;
+var context, controller, rectangle, loop, height, width;
 
-//context = document.querySelector("canvas").getContext("2d");
 context = document.getElementById("myCanvas").getContext("2d");
+//document.getElementById("myCanvas").getContext("2d").getContext.width;
 
 
-//context.canvas.height = 180;
-//context.canvas.width = 320;
+
+window.screen.height;
+window.screen.width;
 
 context.canvas.height = 360;
-context.canvas.width = 640;
+context.canvas.width = window.screen.width;
 
 
 //character
@@ -103,37 +104,43 @@ loop = function () {
 
     // if rectangle is going off the left of the screen
     // Defines X-Position of the ground
-    if (rectangle.x < -64) {
+    if (rectangle.x < -(context.canvas.width/10)) {
 
-        rectangle.x = 640;
+        rectangle.x = context.canvas.width;
 
-    } else if (rectangle.x > 640) {// if rectangle goes past right boundary
+    } else if (rectangle.x > context.canvas.width) {// if rectangle goes past right boundary
 
-        rectangle.x = -64;
+        rectangle.x = -(context.canvas.width / 10);
 
     }
-
     //Black Screen
-    context.fillStyle = "#202020";
-    //context.fillRect(0, 0, 640, 180);// x, y, width, height
-    context.fillRect(0, 0, 640, 360);// x, y, width, height
+        //context.fillStyle = "#202020";
+        context.fillStyle = "grey";
+        context.fillRect(0, 0, context.canvas.width, context.canvas.height);// x, y, width, height
+        
 
 
     //Red Box
-    context.fillStyle = "#ff0000";// hex for red
-    context.beginPath();
-    context.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-    context.fill();
-    //Graue Linie
-    context.strokeStyle = "#202830";
-    context.lineWidth = 4;
-    context.beginPath();
-    context.moveTo(0, 164);
-    context.lineTo(320, 164);
-    context.stroke();
+        //context.fillStyle = "#ff0000";// hex for red
+        context.fillStyle = "blue";
+        context.beginPath();
+        context.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+        context.fill();
+        
+
+
+
+    ////Graue Linie
+    //context.strokeStyle = "#202830";
+    //context.lineWidth = 4;
+    //context.beginPath();
+    //context.moveTo(0, 164);
+    //context.lineTo(320, 164);
+    //context.stroke();
 
     // call update when the browser is ready to draw again
     window.requestAnimationFrame(loop);
+
 
 };
 
