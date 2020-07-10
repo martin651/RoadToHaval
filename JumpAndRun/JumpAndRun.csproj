@@ -70,8 +70,11 @@
     <Content Include="About.html" />
     <Content Include="Datenschutz.html" />
     <Content Include="Impressum.html" />
+    <Content Include="Lvl.1\controller.js" />
+    <Content Include="Lvl.1\display.js" />
     <Content Include="Lvl.1\level1.html" />
     <Content Include="Lvl.1\main.js" />
+    <Content Include="Lvl.1\world+player.js" />
     <Content Include="MainMenu.html" />
     <Content Include="NewGame.html" />
     <Content Include="style.css" />
