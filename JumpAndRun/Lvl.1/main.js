@@ -1,4 +1,8 @@
-﻿//Test
+﻿/*Test 
+ * Aktivität 14.02 Bewegung der Figur
+ * MN;PS
+ * Darstellung und Aufruf Fenster & Figur
+ */
 var context, controller, rectangle, loop;
 
 context = document.querySelector("canvas").getContext("2d");
