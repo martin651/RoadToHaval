@@ -68,17 +68,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.html" />
-    <Content Include="Character.html" />
     <Content Include="Datenschutz.html" />
-    <Content Include="dickeyarrak.html" />
     <Content Include="game.js" />
-    <Content Include="GameWebsite.html" />
-    <Content Include="HallOfFame.html" />
     <Content Include="Impressum.html" />
     <Content Include="level1.html" />
     <Content Include="main.js" />
+    <Content Include="MainMenu.html" />
     <Content Include="NewGame.html" />
-    <Content Include="StartingPage.html" />
     <Content Include="style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
