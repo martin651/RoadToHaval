@@ -5,20 +5,26 @@
  */
 var context, controller, rectangle, loop;
 
-context = document.querySelector("canvas").getContext("2d");
+//context = document.querySelector("canvas").getContext("2d");
+context = document.getElementById("myCanvas").getContext("2d");
 
-context.canvas.height = 180;
-context.canvas.width = 320;
+
+//context.canvas.height = 180;
+//context.canvas.width = 320;
+
+context.canvas.height = 360;
+context.canvas.width = 640;
+
 
 //character
 rectangle = {
 
-    height: 32,
+    height: 50, //char-höhe
     jumping: true,
-    width: 32,
-    x: 144, // center of the canvas
+    width: 25, //Char-breite
+    x: 0, // x-startposition
     x_velocity: 0,
-    y: 0,
+    y: 0, //y-startposition
     y_velocity: 0
 
 };
@@ -54,15 +60,17 @@ controller = {
 //Game-Loop Function
 loop = function () {
 
-    //Falling 
-    if (controller.up && rectangle.jumping == false) {
 
-        rectangle.y_velocity -= 20;
+    //Jumping Function
+    
+    if (controller.up && rectangle.jumping == false) {
+        
+        rectangle.y_velocity -= 20 //Jumping strength;
         rectangle.jumping = true;
 
     }
 
-    //Moving left
+    //Moving left -> Speed
 
     if (controller.left) {
 
@@ -70,7 +78,7 @@ loop = function () {
 
     }
 
-    //Moving right
+    //Moving right -> Speed character
 
     if (controller.right) {
 
@@ -79,37 +87,44 @@ loop = function () {
     }
 
     rectangle.y_velocity += 1.5;// gravity
-    rectangle.x += rectangle.x_velocity;
-    rectangle.y += rectangle.y_velocity;
-    rectangle.x_velocity *= 0.9;// friction
-    rectangle.y_velocity *= 0.9;// friction
+    rectangle.x += rectangle.x_velocity;//Position.X + Move.X
+    rectangle.y += rectangle.y_velocity;//Position.Y + Move.Y
+    rectangle.x_velocity *= 0.9;// friction - slow down
+    rectangle.y_velocity *= 0.9;// friction - jumping strenth
 
     // if rectangle is falling below floor line
-    if (rectangle.y > 180 - 16 - 32) {
-
-        rectangle.jumping = false;
-        rectangle.y = 180 - 16 - 32;
+    // Defines Y-Position of the ground
+    if (rectangle.y > 360 - 32 - 64) {
+                rectangle.jumping = false;
+        rectangle.y = 360 - 32 - 64;
         rectangle.y_velocity = 0;
 
     }
 
     // if rectangle is going off the left of the screen
-    if (rectangle.x < -32) {
+    // Defines X-Position of the ground
+    if (rectangle.x < -64) {
 
-        rectangle.x = 320;
+        rectangle.x = 640;
 
-    } else if (rectangle.x > 320) {// if rectangle goes past right boundary
+    } else if (rectangle.x > 640) {// if rectangle goes past right boundary
 
-        rectangle.x = -32;
+        rectangle.x = -64;
 
     }
 
+    //Black Screen
     context.fillStyle = "#202020";
-    context.fillRect(0, 0, 320, 180);// x, y, width, height
+    //context.fillRect(0, 0, 640, 180);// x, y, width, height
+    context.fillRect(0, 0, 640, 360);// x, y, width, height
+
+
+    //Red Box
     context.fillStyle = "#ff0000";// hex for red
     context.beginPath();
     context.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
     context.fill();
+    //Graue Linie
     context.strokeStyle = "#202830";
     context.lineWidth = 4;
     context.beginPath();
