@@ -68,17 +68,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.html" />
-    <Content Include="Character.html" />
     <Content Include="Datenschutz.html" />
-    <Content Include="dickeyarrak.html" />
-    <Content Include="game.js" />
-    <Content Include="GameWebsite.html" />
-    <Content Include="HallOfFame.html" />
+    <Content Include="Lvl.1\game.js" />
     <Content Include="Impressum.html" />
-    <Content Include="level1.html" />
-    <Content Include="main.js" />
+    <Content Include="Lvl.1\level1.html" />
+    <Content Include="Lvl.1\main.js" />
+    <Content Include="MainMenu.html" />
     <Content Include="NewGame.html" />
-    <Content Include="StartingPage.html" />
     <Content Include="style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -94,6 +90,11 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Fin Lvl\" />
+    <Folder Include="Lvl.1\pictures\" />
+    <Folder Include="Lvl.2\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
