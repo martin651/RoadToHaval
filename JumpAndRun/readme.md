@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿# ReadMe 
 
-namespace JumpAndRun
-{
-	public class readme
-	{
-	}
-}
+### Table of Contents
+1) Allgemeine Informationen
+2) Verwendete Technologien
+3) Beschreibung des Programms
+4) Kollaborationen
+5) FAQ
+6) Copyright / Lizenzen
+
+
+##### Allgemeine Informationen
+***
+Dieses Projekt wurde von den Studenten der FHDW Pavo Simic und Martin Naumann im Rahmen
+einer Projektarbeit im Modul "Projekte der Wirtschaftsinformatik" angefertigt.
+Das Projekt / Spiel trägt den Namen "RoadToHaval".
