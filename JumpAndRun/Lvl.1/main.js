@@ -115,8 +115,9 @@ loop = function () {
     }
     //Black Screen
         //context.fillStyle = "#202020";
-        context.fillStyle = "grey";
+        /*context.fillStyle = "grey";
         context.fillRect(0, 0, context.canvas.width, context.canvas.height);// x, y, width, height
+        */
         
 
 
