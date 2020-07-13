@@ -20,9 +20,10 @@
                 object.y = 360 - 32 - 64;
                 object.y_velocity = 0;
             }
-
-            if (object.x < 0) { object.x = 0; object.velocity_x = 0; } //Begrenzung Spielwelt
+            //Begrenzung Spielwelt linker Rand
+            if (object.x < 0) { object.x = 0; object.velocity_x = 0; } 
             else if (object.x + object.width > this.width) { object.x = this.width - object.width; object.velocity_x = 0; }
+            //Begrenzung Spielwelt oberer Rand
             if (object.y < 0) { object.y = 0; object.velocity_y = 0; }
             else if (object.y + object.height > this.height) { object.jumping = false; object.y = this.height - object.height; object.velocity_y = 0; }
 
@@ -55,7 +56,7 @@ Game.Player = function (x, y) {
 
     this.color = "#ff0000";
     this.height = 32;
-    this.jumping = true;
+    this.jumping = false;
     this.velocity_x = 0;
     this.velocity_y = 0;
     this.width = 32;
@@ -69,8 +70,9 @@ Game.Player.prototype = {
     constructor: Game.Player,
 
     jump: function () {
+        
         this.jumping = true;
-        this.velocity_y -= 60;
+        this.velocity_y -= 60;               
     },
 
     moveLeft: function () { this.velocity_x -= 0.5; },
