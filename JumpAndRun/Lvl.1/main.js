@@ -16,6 +16,13 @@ window.screen.width;
 context.canvas.height = 360;
 context.canvas.width = window.screen.width;
 
+var resize = function (event) {
+    //Margin on both sides (16px) and aspect ratio (Seitenverhältnis)
+    display.resize(document.documentElement.clientWidth - 32, document.documentElement.clientHeight - 32, game.world.height / game.world.width);
+    //
+    display.render();
+}
+
 var render = function () {
 
     //Background
@@ -26,6 +33,16 @@ var render = function () {
 
     //
     display.render();
+}
+
+var update = function () {
+
+    if (controller.left.active) { game.world.player.moveLeft(); }
+    if (controller.right.active) { game.world.player.moveRight(); }
+    if (controller.up.active) { game.world.player.jump(); controller.up.active = false; }
+
+    game.update();
+
 }
 
 
