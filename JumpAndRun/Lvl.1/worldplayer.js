@@ -70,11 +70,19 @@ Game.Player.prototype = {
     constructor: Game.Player,
 
     jump: function () {
-        
-        this.jumping = true;
-        this.velocity_y -= 60;               
-    },
 
+        if (!this.jumping) {
+
+            this.jumping = true;
+            this.velocity_y -= 60;
+            this.jumping = false;
+               
+
+        };
+      
+    },  
+          
+ 
     moveLeft: function () { this.velocity_x -= 0.5; },
     moveRight: function () { this.velocity_x += 0.5; },
 
