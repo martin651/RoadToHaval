@@ -1,7 +1,7 @@
 ﻿//Anzeige 
 const Display = function (canvas) {
 
-    this.buffer = document.createElement("canvas").getContext("2d"),
+    this.buffer = document.getElementById("myCanvas").getContext("2d"),
         this.context = canvas.getContext("2d");
 
     this.context.canvas.width = window.screen.width
