@@ -16,6 +16,18 @@ window.screen.width;
 context.canvas.height = 360;
 context.canvas.width = window.screen.width;
 
+var render = function () {
+
+    //Background
+    display.fill(game.world.background_color)
+    //rectangle/Character
+    display.drawRectangle(game.world.player.x, game.world.player.y
+    game.world.player.width, game.world.player.height, game.world.player.color)
+
+    //
+    display.render();
+}
+
 
 //character
 rectangle = {
@@ -118,6 +130,7 @@ loop = function () {
         /*context.fillStyle = "grey";
         context.fillRect(0, 0, context.canvas.width, context.canvas.height);// x, y, width, height
         */
+    
         
 
 

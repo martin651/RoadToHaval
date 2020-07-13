@@ -1,21 +1,19 @@
 ﻿const Game = function () {
+
     this.world = {
+
         background: "grey";
-
-       var context.canvas.width = window.screen.width
-       var context.canvas.height = 360       // x, y, width, height
-
 
         friction: 0.9,
         gravity: 3,
 
         player: new Game.Player(),
 
-        height: context.canvas.height;
-        width: context.canvas.width;
+        height: 360;
+        width: window.screen.width;
 
 
-
+    /*
     // if rectangle is falling below floor line
     // Defines Y-Position of the ground
     if(Object.y > 360 - 32 - 64) {
@@ -35,8 +33,9 @@
 
         Object.x = -(context.canvas.width / 10);
 
+    }*/
+
     }
 
-
-    }
+    //this.player =
 }
