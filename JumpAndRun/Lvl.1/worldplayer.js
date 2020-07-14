@@ -18,7 +18,7 @@
             if (object.y > 360 - 32 - 64) {
                 object.jumping = false; //jump once
                 object.y = 360 - 32 - 64; //defines position of ground
-                //object.velocity_y = 0; //set
+                
             }
             //boundry of the world (left rim)
             if (object.x < 0) { object.x = 0; object.velocity_x = 0; } 
