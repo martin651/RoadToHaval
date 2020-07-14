@@ -16,7 +16,7 @@
 
             // Ground
             if (object.y > 360 - 32 - 64) {
-                //object.jumping = false;
+                object.jumping = false;
                 object.y = 360 - 32 - 64;
                 object.y_velocity = 0;
             }
@@ -75,7 +75,7 @@ Game.Player.prototype = {
 
             this.jumping = true;
             this.velocity_y -= 60;
-            this.jumping = false;
+            
                
 
         };
