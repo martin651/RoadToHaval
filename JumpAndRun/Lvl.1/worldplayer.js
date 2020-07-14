@@ -16,14 +16,14 @@
 
             // Ground
             if (object.y > 360 - 32 - 64) {
-                object.jumping = false;
-                object.y = 360 - 32 - 64;
-                object.y_velocity = 0;
+                object.jumping = false; //jump once
+                object.y = 360 - 32 - 64; //defines position of ground
+                //object.velocity_y = 0; //set
             }
-            //Begrenzung Spielwelt linker Rand
+            //boundry of the world (left rim)
             if (object.x < 0) { object.x = 0; object.velocity_x = 0; } 
             else if (object.x + object.width > this.width) { object.x = this.width - object.width; object.velocity_x = 0; }
-            //Begrenzung Spielwelt oberer Rand
+            //boundry of the world  (upper rim)
             if (object.y < 0) { object.y = 0; object.velocity_y = 0; }
             else if (object.y + object.height > this.height) { object.jumping = false; object.y = this.height - object.height; object.velocity_y = 0; }
 
