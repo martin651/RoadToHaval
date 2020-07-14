@@ -8,6 +8,7 @@
         gravity: 3,
 
         player: new Game.Player(),
+        npc: new Game.Npc(),
 
         height: 360,
         width: window.screen.width,
@@ -52,6 +53,7 @@
 
 Game.prototype = { constructor: Game };
 
+//Definition of Player-Character
 Game.Player = function (x, y) {
 
     this.color = "#ff0000";
@@ -65,6 +67,7 @@ Game.Player = function (x, y) {
 
 };
 
+//Definition character function
 Game.Player.prototype = {
 
     constructor: Game.Player,
@@ -94,6 +97,48 @@ Game.Player.prototype = {
     }
 
 };
+
+//Import NPC
+//Definition NPC
+Game.Npc = function (x, y) {
+
+    this.color = "#0000FF";
+    this.height = 32;
+    this.moving = false;
+    this.velocity_x = 0;
+    this.velocity_y = 0;
+    this.width = 32;
+    this.x = 0+window.screen.width;
+    this.y = 360 - 32 - 64;
+
+};
+
+Game.Npc.prototype = {
+
+    constructor: Game.Npc,
+
+    // moving functions
+
+    //stop:function ()
+    //moveLeft: function () {
+
+    //    this.velocity_x -= 0.5;
+                              
+    //},
+
+    //moveRight: function () {
+
+    //    this.velocity_x += 0.5;
+
+    //},
+
+    //update: function () {
+
+    //    this.x += this.velocity_x;
+    //    this.y += this.velocity_y;
+
+    //}
+}
 
 
 
