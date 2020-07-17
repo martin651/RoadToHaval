@@ -7,7 +7,7 @@ const Display = function (canvas) {
     this.context.canvas.width = window.screen.width
     this.context.canvas.height = 360       // x, y, width, height
 
-    //drawing red rectangle  
+    //drawing rectangle  
     this.drawRectangle = function (x, y, width, height, color) {
 
         this.buffer.fillStyle = color;

@@ -33,12 +33,23 @@
 
         update: function () {
 
+            //Player moves
             this.player.velocity_y += this.gravity;
             this.player.update();
 
             this.player.velocity_x *= this.friction;
             this.player.velocity_y *= this.friction;
 
+            //*****NEW NEW NEW*******//
+
+            //NPC moves
+            this.npc.velocity_y += this.gravity;
+            this.npc.update();
+
+            this.npc.velocity_x *= this.friction;
+            this.npc.velocity_y *= this.friction;
+
+            //*****NEW NEW NEW*******//
             this.collideObject(this.player);
 
         }
@@ -98,18 +109,19 @@ Game.Player.prototype = {
 
 };
 
+//*****NEW NEW NEW*******//
+
 //Import NPC
 //Definition NPC
 Game.Npc = function (x, y) {
 
     this.color = "#0000FF";
     this.height = 32;
-    this.moving = false;
     this.velocity_x = 0;
     this.velocity_y = 0;
     this.width = 32;
-    this.x = 0+window.screen.width;
-    this.y = 360 - 32 - 64;
+    this.x = 1550//window.screen.width;   //starting position
+    this.y = 360 - 32 - 64; //on the ground
 
 };
 
@@ -117,28 +129,27 @@ Game.Npc.prototype = {
 
     constructor: Game.Npc,
 
-    // moving functions
+    //moving functions
 
-    //stop:function ()
-    //moveLeft: function () {
+    
+    move: function () {
 
-    //    this.velocity_x -= 0.5;
-                              
-    //},
 
-    //moveRight: function () {
+        this.velocity_x -= 0.7;
 
-    //    this.velocity_x += 0.5;
 
-    //},
+    },
 
-    //update: function () {
+    update: function () {
 
-    //    this.x += this.velocity_x;
-    //    this.y += this.velocity_y;
+        this.x += this.velocity_x;
 
-    //}
-}
+
+
+    }
+};
+
+//*****NEW NEW NEW*******//
 
 
 

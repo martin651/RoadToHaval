@@ -28,7 +28,7 @@ var render = function () {
     //Background
     display.fill(game.world.background_color)
     //rectangle/Character
-    display.drawRectangle(game.world.player.x, game.world.player.y
+    display.drawRectangle(game.world.player.x, game.world.player.y,
     game.world.player.width, game.world.player.height, game.world.player.color)
 
     //
