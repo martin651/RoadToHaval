@@ -28,6 +28,9 @@ Game.World = function (friction = 0.9, gravity = 3) {
     //Tile Größe in Pixeln
     this.tile_size = 64;
     //Codierung der einzelnen Tiles (Beispiel)
+    //Codierung der Map
+    //--> Prison Pixel Art.png
+    // --> Tiles müssen evtl. noch erweitert werden, da Map noch zu klein ist
     this.map = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
         25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
         50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74,
@@ -36,9 +39,11 @@ Game.World = function (friction = 0.9, gravity = 3) {
 ];
 
     /* Height and Width now depend on the map size. */
-    this.height = this.tile_size * this.rows;
-    this.width = this.tile_size * this.columns;
+    //this.height = this.tile_size * this.rows;
+    //this.width = this.tile_size * this.columns;
 
+    this.height = 360;
+    this.width = window.screen.width;
 };
 
 Game.World.prototype = {

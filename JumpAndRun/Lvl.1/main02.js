@@ -52,7 +52,7 @@
     }, { once: true });
 
     //Map aus PNG Datei ziehen und darstellen
-    display.tile_sheet.image.src = "level1world.json";
+    display.tile_sheet.image.src = "pictures/Prison Pixel Art.png";
 
     window.addEventListener("keydown", keyDownUp);
     window.addEventListener("keyup", keyDownUp);
