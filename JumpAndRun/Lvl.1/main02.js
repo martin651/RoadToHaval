@@ -17,8 +17,8 @@
 
     var render = function () {
 
-        display.fill(game.world.background_color);// Clear background to game's background color.
-        display.drawRectangle(game.world.player.x, game.world.player.y, game.world.player.width, game.world.player.height, game.world.player.color);
+        display.drawMap(game.world.map, game.world.columns);
+        display.drawPlayer(game.world.player, game.world.player.color1, game.world.player.color2);
         display.render();
 
     };
@@ -42,12 +42,20 @@
     display.buffer.canvas.height = game.world.height;
     display.buffer.canvas.width = game.world.width;
 
+    //Map laden
+    display.tile_sheet.image.addEventListener("load", function (event) {
+    
+        resize();
+
+        engine.start();
+
+    }, { once: true });
+
+    //Map aus PNG Datei ziehen und darstellen
+    display.tile_sheet.image.src = "world.png";
+
     window.addEventListener("keydown", keyDownUp);
     window.addEventListener("keyup", keyDownUp);
     window.addEventListener("resize", resize);
 
-    resize();
-
-    engine.start();
-
-});
+    });
