@@ -8,7 +8,7 @@ const Display = function (canvas) {
     this.context.canvas.height = 360       // x, y, width, height
 
     //New Tilesheet Object
-    this.tile_sheet = new Display.TileSheet(16, 0);
+    this.tile_sheet = new Display.TileSheet(64, 0);
 
     /* This function draws the map to the buffer. */ 
     this.drawMap = function (map, columns) {

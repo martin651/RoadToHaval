@@ -52,7 +52,7 @@
     }, { once: true });
 
     //Map aus PNG Datei ziehen und darstellen
-    display.tile_sheet.image.src = "world.png";
+    display.tile_sheet.image.src = "level1world.json";
 
     window.addEventListener("keydown", keyDownUp);
     window.addEventListener("keyup", keyDownUp);

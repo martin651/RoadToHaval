@@ -81,12 +81,12 @@
     <Content Include="NewGame.html" />
     <Content Include="style.css" />
     <Content Include="Web.config" />
-    <Content Include="world.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="level1world.json" />
     <None Include="packages.config" />
     <Content Include="readme.md" />
     <None Include="Web.Debug.config">
