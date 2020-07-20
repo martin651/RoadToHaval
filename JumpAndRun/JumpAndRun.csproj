@@ -87,7 +87,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="level1world.json" />
+    <Content Include="Haval.json" />
     <None Include="packages.config" />
     <Content Include="readme.md" />
     <None Include="Web.Debug.config">

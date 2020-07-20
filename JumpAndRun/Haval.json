@@ -1,0 +1,14 @@
+{ "columns":55,
+ "image":"Prison Pixel Art.png",
+ "imageheight":360,
+ "imagewidth":1600,
+ "margin":0,
+ "name":"Haval",
+ "spacing":0,
+ "tilecount":500,
+ "tiledversion":"1.4.1",
+ "tileheight":36,
+ "tilewidth":32,
+ "type":"tileset",
+ "version":1.4
+}
