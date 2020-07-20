@@ -92,11 +92,11 @@ Game.World.Player = function (x, y) {
 
     this.color1 = "#404040";
     this.color2 = "#f0f0f0";
-    this.height = 32;
+    this.height = 60;
     this.jumping = true;
     this.velocity_x = 0;
     this.velocity_y = 0;
-    this.width = 40;
+    this.width = 64;
     this.x = 0;
     this.y = 0;
 
