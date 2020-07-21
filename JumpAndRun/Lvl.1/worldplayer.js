@@ -120,7 +120,7 @@ Game.Npc = function (x, y) {
     this.velocity_x = 0;
     this.velocity_y = 0;
     this.width = 32;
-    this.x = 1550//window.screen.width;   //starting position
+    this.x = window.screen.width;   //starting position
     this.y = 360 - 32 - 64; //on the ground
 
 };
