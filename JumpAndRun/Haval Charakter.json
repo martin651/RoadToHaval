@@ -1,0 +1,14 @@
+{ "columns":7,
+ "image":"Haval Charakter.PNG",
+ "imageheight":121,
+ "imagewidth":799,
+ "margin":0,
+ "name":"Haval Charakter",
+ "spacing":0,
+ "tilecount":7,
+ "tiledversion":"1.4.1",
+ "tileheight":121,
+ "tilewidth":100,
+ "type":"tileset",
+ "version":1.4
+}
