@@ -21,6 +21,12 @@ Game.World = function (friction = 0.9, gravity = 3) {
     /* Player is now its own class inside of the Game.World object. */
     this.player = new Game.World.Player();
 
+    //*****NEW NEW NEW*******//
+    /* NPC is now its own class inside of the Game.World object. */
+    this.npc = new Game.World.Npc();
+    //*****NEW NEW NEW*******//
+
+
     // Anzahl Tile Spalten
     this.columns =50;
     //Anzahl Tile Zeilen
@@ -52,11 +58,13 @@ Game.World = function (friction = 0.9, gravity = 3) {
     //this.width = window.screen.width;
 };
 
+
+//World-Level own class - functions
 Game.World.prototype = {
 
     constructor: Game.World,
 
-    collideObject: function (object) {// Same as in part 2.
+    collideObject: function (object) {
 
 
         // Ground
@@ -81,13 +89,25 @@ Game.World.prototype = {
         this.player.velocity_x *= this.friction;
         this.player.velocity_y *= this.friction;
 
+        //*****NEW NEW NEW*******//
+
+        //NPC moves
+        this.npc.velocity_y += this.gravity;
+        this.npc.update();
+
+        this.npc.velocity_x *= this.friction;
+        this.npc.velocity_y *= this.friction;
+
+        //*****NEW NEW NEW*******//
+
         this.collideObject(this.player);
 
     }
 
 };
 
-//Player eigene Klasse
+//Player own class - attitudes//
+
 Game.World.Player = function (x, y) {
 
     this.color1 = "#404040";
@@ -102,9 +122,14 @@ Game.World.Player = function (x, y) {
 
 };
 
+//Player Char - constructor + function//
+
+
 Game.World.Player.prototype = {
 
     constructor: Game.World.Player,
+
+    
 
     jump: function () {
 
@@ -129,6 +154,48 @@ Game.World.Player.prototype = {
 
 };
 
+//*****NEW NEW NEW*******//
+
+//Import NPC
+//Definition NPC
+Game.World.Npc = function (x, y) {
+
+    this.color1 = "#0000FF";
+    this.color2 = "#f0f0f0";
+    this.height = 60;
+    this.velocity_x = 0;
+    this.velocity_y = 0;
+    this.width = 64;
+    this.x = window.screen.width;   //starting position
+    this.y = 360 - 32 - 64; //on the ground
+
+};
+
+Game.World.Npc.prototype = {
+
+    constructor: Game.World.Npc,
+
+    //moving functions
+
+
+    move: function () {
+
+
+        this.velocity_x -= 0.7;
+
+
+    },
+
+    update: function () {
+
+        this.x += this.velocity_x;
+
+
+
+    }
+};
+
+//*****NEW NEW NEW*******//
 
 
 

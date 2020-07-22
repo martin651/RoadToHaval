@@ -21,6 +21,9 @@
 
         display.drawMap(game.world.map, game.world.columns);
         display.drawPlayer(game.world.player, game.world.player.color1, game.world.player.color2);
+        //*****NEW NEW NEW*******//
+        display.drawPlayer(game.world.npc, game.world.npc.color1, game.world.npc.color2);//draws enenmy
+        //*****NEW NEW NEW*******//
         display.render();
 
     };
@@ -30,6 +33,21 @@
         if (controller.left.active) { game.world.player.moveLeft(); }
         if (controller.right.active) { game.world.player.moveRight(); }
         if (controller.up.active) { game.world.player.jump(); controller.up.active = false; }
+
+        //*****NEW NEW NEW*******//
+        //if player moves - enenmy start to move//
+        if (game.world.player.x != 0) { game.world.npc.move(); }
+        //*****NEW NEW NEW*******//
+
+        //*****TEST TEST TEST*******//
+        /*--IDEE--> Auslagerung in die NPC Klasse ??? */
+        //Everytime a NPC is leaving the screen a new one will be created 
+        if (game.world.npc.x < 0) {
+            game.world.npc.constructor();
+
+        }
+
+
 
         game.update();
 

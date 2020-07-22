@@ -27,7 +27,7 @@ const Display = function (canvas) {
 
     };
 
-    //Ersetzt DrawRectangle
+    //substitution of DrawRectangle
     this.drawPlayer = function (rectangle, color1, color2) {
 
         this.buffer.fillStyle = color1;
