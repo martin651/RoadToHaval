@@ -8,8 +8,6 @@
 
     };
 
-    console.log(window.screen.width);
-
     var resize = function (event) {
 
         display.resize(document.documentElement.clientWidth - 32, document.documentElement.clientHeight - 32, game.world.height / game.world.width);
@@ -47,6 +45,7 @@
 
         }
 
+        
 
 
         game.update();

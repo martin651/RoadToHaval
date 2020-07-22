@@ -64,6 +64,18 @@ Game.World.prototype = {
 
     constructor: Game.World,
 
+    //*****NEW NEW NEW*******//
+
+    /*collision: function (object, object){
+
+
+
+
+
+    }*/
+
+    //*****NEW NEW NEW*******//
+
     collideObject: function (object) {
 
 
@@ -80,6 +92,7 @@ Game.World.prototype = {
         else if (object.y + object.height > this.height) { object.jumping = false; object.y = this.height - object.height; object.velocity_y = 0; }
 
     },
+
 
     update: function () {
 
@@ -129,7 +142,13 @@ Game.World.Player.prototype = {
 
     constructor: Game.World.Player,
 
-    
+    //*****NEW NEW NEW*******//
+    //getting position for collision detection
+    getbottom: function () { return this.y + this.height; },
+    getright: function () { return this.x + this.width; },
+    //*****NEW NEW NEW*******//
+
+    //move+jump function
 
     jump: function () {
 
@@ -162,11 +181,11 @@ Game.World.Npc = function (x, y) {
 
     this.color1 = "#f0f0f0";
     this.color2 = "#0000FF";
-    this.height = 60;
+    this.height = 58;
     this.velocity_x = 0;
     this.velocity_y = 0;
-    this.width = 64;
-    this.x = window.screen.width;   //starting position
+    this.width = 58;
+    this.x = 1600;   //starting position
     this.y = 360 - 32 - 64; //on the ground
 
 };
@@ -175,8 +194,12 @@ Game.World.Npc.prototype = {
 
     constructor: Game.World.Npc,
 
-    //moving functions
+    //getting position for collision detection
 
+    getleft: function () { return this.x },
+    gettop: function () {return this.y},
+
+    //move function
 
     move: function () {
 
@@ -185,6 +208,11 @@ Game.World.Npc.prototype = {
 
 
     },
+
+    //death function
+    /*
+    death: function () {}
+    */
 
     update: function () {
 
