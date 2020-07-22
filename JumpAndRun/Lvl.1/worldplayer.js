@@ -136,7 +136,7 @@ Game.World.Player.prototype = {
         if (!this.jumping) {
 
             this.jumping = true;
-            this.velocity_y -= 60;
+            this.velocity_y -= 65;
 
         }
 
@@ -160,8 +160,8 @@ Game.World.Player.prototype = {
 //Definition NPC
 Game.World.Npc = function (x, y) {
 
-    this.color1 = "#0000FF";
-    this.color2 = "#f0f0f0";
+    this.color1 = "#f0f0f0";
+    this.color2 = "#0000FF";
     this.height = 60;
     this.velocity_x = 0;
     this.velocity_y = 0;
