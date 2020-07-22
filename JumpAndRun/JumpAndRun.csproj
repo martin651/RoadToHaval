@@ -76,8 +76,8 @@
     <Content Include="Lvl.1\level1.html" />
     <Content Include="Lvl.1\main.js" />
     <Content Include="Lvl.1\main02.js" />
-    <Content Include="Lvl.1\pictures\Haval Charakter.PNG" />
     <Content Include="Lvl.1\pictures\Prison Pixel Art.png" />
+    <Content Include="Lvl.1\pictures\RoadToHaval.PNG" />
     <Content Include="Lvl.1\worldplayer.js" />
     <Content Include="MainMenu.html" />
     <Content Include="NewGame.html" />
@@ -92,6 +92,7 @@
     <Content Include="Haval Charakter.json" />
     <None Include="packages.config" />
     <Content Include="readme.md" />
+    <Content Include="RoadToHaval.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

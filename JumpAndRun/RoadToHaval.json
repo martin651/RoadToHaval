@@ -1,0 +1,14 @@
+{ "columns":8,
+ "image":"RoadToHaval.PNG",
+ "imageheight":305,
+ "imagewidth":685,
+ "margin":0,
+ "name":"RoadToHaval",
+ "spacing":0,
+ "tilecount":32,
+ "tiledversion":"1.4.1",
+ "tileheight":76,
+ "tilewidth":85,
+ "type":"tileset",
+ "version":1.4
+}
