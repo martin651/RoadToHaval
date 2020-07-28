@@ -8,7 +8,7 @@ const Display = function (canvas) {
     this.context.canvas.height = 360       // x, y, width, height
 
     //New Tilesheet Object
-    this.tile_sheet = new Display.TileSheet(32, 50);
+    //this.tile_sheet = new Display.TileSheet(32, 50);
 
     /* This function draws the map to the buffer. */ 
     this.drawMap = function (map, columns) {
@@ -68,13 +68,13 @@ Display.prototype = {
 
 };
 
-Display.TileSheet = function (tile_size, columns) {
-    //Anlegen neues Image
-    this.image = new Image();
-    this.tile_size = tile_size;
-    this.columns = columns;
+//Display.TileSheet = function (tile_size, columns) {
+//    //Anlegen neues Image
+//    this.image = new Image();
+//    this.tile_size = tile_size;
+//    this.columns = columns;
 
-};
+//};
 
-//Anzeigen TileSheet
-Display.TileSheet.prototype = {};
+////Anzeigen TileSheet
+//Display.TileSheet.prototype = {};

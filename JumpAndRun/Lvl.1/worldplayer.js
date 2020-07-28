@@ -26,7 +26,12 @@ Game.World = function (friction = 0.9, gravity = 3) {
     //Anzahl Tile Zeilen
     this.rows = 11;
     //Tile Größe in Pixeln
-    this.tile_size = 32;
+    //this.tile_size = 32;
+    // Tile Size jetzt hier mit drin
+    this.tile_set = new Game.World.TileSet(8, 16);
+    this.player = new Game.World.Object.Player(100, 100);
+
+
     //Codierung der einzelnen Tiles (Beispiel)
     //Codierung der Map
     //--> Prison Pixel Art.png
@@ -45,8 +50,8 @@ Game.World = function (friction = 0.9, gravity = 3) {
     ];
 
     /* Height and Width now depend on the map size. */
-    this.height = this.tile_size * this.rows;
-    this.width = this.tile_size * this.columns;
+    this.height = this.tile_set.tile_size * this.rows;
+    this.width = this.tile_set.tile_size * this.columns;
 
     //this.height = 360;
     //this.width = window.screen.width;
@@ -75,15 +80,30 @@ Game.World.prototype = {
 
     update: function () {
 
-        this.player.velocity_y += this.gravity;
-        this.player.update();
+        //this.player.velocity_y += this.gravity;
+        //this.player.update();
 
-        this.player.velocity_x *= this.friction;
-        this.player.velocity_y *= this.friction;
+        //this.player.velocity_x *= this.friction;
+        //this.player.velocity_y *= this.friction;
+
+        this.player.updatePosition(this.gravity, this.friction);
 
         this.collideObject(this.player);
 
+        this.player.updateAnimation();
+
     }
+
+};
+
+Game.World.Object = function (x, y, width, height) {
+
+    this.height = height;
+    this.width = width;
+    this.x = x;
+    this.x_old = x;
+    this.y = y;
+    this.y_old = y;
 
 };
 
@@ -102,10 +122,20 @@ Game.World.Player = function (x, y) {
 
 };
 
-Game.World.Player.prototype = {
+Game.World.Object.Player.prototype = {
 
-    constructor: Game.World.Player,
+    constructor: Game.World.Object.Player,
+    // frame-sets für Animationen
+    frame_sets: {
 
+        "idle-left": [],
+        "jump-left": [],
+        "move-left": [],
+        "idle-right": [],
+        "jump-right": [],
+        "move-right": []
+    },
+    //bleibt gleich
     jump: function () {
 
         if (!this.jumping) {
@@ -117,10 +147,17 @@ Game.World.Player.prototype = {
 
     },
 
-    moveLeft: function () { this.velocity_x -= 0.5; },
-    moveRight: function () { this.velocity_x += 0.5; },
+    moveLeft: function () {
+        this.direction_x = -1; // Laufrichtung (-1 -> links, 1 -> rechts)
+        this.velocity_x -= 0.5;
+    },
 
-    update: function () {
+    moveRight: function (frame_set) {
+        this.direction_x = 1; // Laufrichtung (-1 -> links, 1 -> rechts)
+        this.velocity_x += 0.5;
+    },
+
+    updateAnimation : function () {
 
         this.x += this.velocity_x;
         this.y += this.velocity_y;
