@@ -13,92 +13,392 @@
 
 Game.prototype = { constructor: Game };
 
-//******Game.Animator - Bereich*****//
-/*
- * 
- * Game.Animator = function(frame_set, delay, mode = "loop") {
+/*BEGIN ----------------------------------------------------NEW NEW NEW ----------------------------------------------------*/
 
- this.count       = 0;
- this.delay       = (delay >= 1) ? delay : 1;
- this.frame_set   = frame_set;
- this.frame_index = 0;
- this.frame_value = frame_set[0];
- this.mode        = mode;
+
+
+//_____________________________________________________________________________________//
+
+//OBJECT Definition
+Game.Object = function (x, y, width, height) {
+
+    this.height = height;
+    this.width = width;
+    this.x = x;
+    this.y = y;
 
 };
-Game.Animator.prototype = {
+Game.Object.prototype = {
 
- constructor:Game.Animator,
+    constructor: Game.Object,
 
- animate:function() {
+    /* Now does rectangular collision detection. */
+    collideObject: function (object) {
 
-   switch(this.mode) {
+        if (this.getRight() < object.getLeft() ||
+            this.getBottom() < object.getTop() ||
+            this.getLeft() > object.getRight() ||
+            this.getTop() > object.getBottom()) return false;
 
-     case "loop" : this.loop(); break;
-     case "pause":              break;
+        return true;
 
-   }
+    },
 
- },
- * 
- *  changeFrameSet(frame_set, mode, delay = 10, frame_index = 0) {
+    /* Does rectangular collision detection with the center of the object. */
+    collideObjectCenter: function (object) {
 
-   if (this.frame_set === frame_set) { return; }
+        let center_x = object.getCenterX();
+        let center_y = object.getCenterY();
 
-   this.count       = 0;
-   this.delay       = delay;
-   this.frame_set   = frame_set;
-   this.frame_index = frame_index;
-   this.frame_value = frame_set[frame_index];
-   this.mode        = mode;
+        if (center_x < this.getLeft() || center_x > this.getRight() ||
+            center_y < this.getTop() || center_y > this.getBottom()) return false;
 
- },
+        return true;
 
- loop:function() {
+    },
 
-   this.count ++;
+    getBottom: function () { return this.y + this.height; },
+    getCenterX: function () { return this.x + this.width * 0.5; },
+    getCenterY: function () { return this.y + this.height * 0.5; },
+    getLeft: function () { return this.x; },
+    getRight: function () { return this.x + this.width; },
+    getTop: function () { return this.y; },
+    setBottom: function (y) { this.y = y - this.height; },
+    setCenterX: function (x) { this.x = x - this.width * 0.5; },
+    setCenterY: function (y) { this.y = y - this.height * 0.5; },
+    setLeft: function (x) { this.x = x; },
+    setRight: function (x) { this.x = x - this.width; },
+    setTop: function (y) { this.y = y; }
 
-   while(this.count > this.delay) {
+};
+//OBJECT 
 
-     this.count -= this.delay;
 
-     this.frame_index = (this.frame_index < this.frame_set.length - 1) ? this.frame_index + 1 : 0;
+//MOVING OBJECT Definition
+Game.MovingObject = function (x, y, width, height, velocity_max = 15) {
 
-     this.frame_value = this.frame_set[this.frame_index];
+    Game.Object.call(this, x, y, width, height);
 
-   }
+    this.jumping = false;
+    this.velocity_max = velocity_max;// added velocity_max so velocity can't go past 16
+    this.velocity_x = 0;
+    this.velocity_y = 0;
+    this.x_old = x;
+    this.y_old = y;
 
- }
- };
+};
+/* added setCenterX, setCenterY, getCenterX, and getCenterY */
+Game.MovingObject.prototype = {
 
- * 
- * 
- * 
- * 
- * 
- * 
- * /
-//******Game.Animator - Bereich*****/
+    getOldBottom: function () { return this.y_old + this.height; },
+    getOldCenterX: function () { return this.x_old + this.width * 0.5; },
+    getOldCenterY: function () { return this.y_old + this.height * 0.5; },
+    getOldLeft: function () { return this.x_old; },
+    getOldRight: function () { return this.x_old + this.width; },
+    getOldTop: function () { return this.y_old; },
+    setOldBottom: function (y) { this.y_old = y - this.height; },
+    setOldCenterX: function (x) { this.x_old = x - this.width * 0.5; },
+    setOldCenterY: function (y) { this.y_old = y - this.height * 0.5; },
+    setOldLeft: function (x) { this.x_old = x; },
+    setOldRight: function (x) { this.x_old = x - this.width; },
+    setOldTop: function (y) { this.y_old = y; }
 
+};
+Object.assign(Game.MovingObject.prototype, Game.Object.prototype);
+Game.MovingObject.prototype.constructor = Game.MovingObject;
+//MOVING OBJECT
+
+//_____________________________________________________________________________________//
+
+//PLAYER = MOVING OBJECT Definition
+Game.Player = function (x, y) {
+
+    Game.MovingObject.call(this, x, y, 64, 60);
+
+    //Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-left"], 10);
+
+    this.jumping = true;
+    this.direction_x = -1;
+    this.velocity_x = 0;
+    this.velocity_y = 0;
+
+};
+Game.Player.prototype = {
+
+    /*
+    frame_sets: {
+
+        "idle-left": [0],
+        "jump-left": [1],
+        "move-left": [2, 3, 4, 5],
+        "idle-right": [6],
+        "jump-right": [7],
+        "move-right": [8, 9, 10, 11]
+
+    },
+    */
+    jump: function () {
+
+        /* Made it so you can only jump if you aren't falling faster than 10px per frame. */
+        if (!this.jumping && this.velocity_y < 10) {
+
+            this.jumping = true;
+            this.velocity_y -= 13;
+
+        }
+
+    },
+
+    moveLeft: function () {
+
+        this.direction_x = -1;
+        this.velocity_x -= 0.55;
+
+    },
+
+    moveRight: function (/*frame_set*/) {
+
+        this.direction_x = 1;
+        this.velocity_x += 0.55;
+
+    },
+    /*
+    updateAnimation: function () {
+
+        if (this.velocity_y < 0) {
+
+            if (this.direction_x < 0) this.changeFrameSet(this.frame_sets["jump-left"], "pause");
+            else this.changeFrameSet(this.frame_sets["jump-right"], "pause");
+
+        } else if (this.direction_x < 0) {
+
+            if (this.velocity_x < -0.1) this.changeFrameSet(this.frame_sets["move-left"], "loop", 5);
+            else this.changeFrameSet(this.frame_sets["idle-left"], "pause");
+
+        } else if (this.direction_x > 0) {
+
+            if (this.velocity_x > 0.1) this.changeFrameSet(this.frame_sets["move-right"], "loop", 5);
+            else this.changeFrameSet(this.frame_sets["idle-right"], "pause");
+
+        }
+
+        this.animate();
+
+    },
+    */
+    updatePosition: function (gravity, friction) {
+
+        this.x_old = this.x;
+        this.y_old = this.y;
+
+        this.velocity_y += gravity;
+        this.velocity_x *= friction;
+
+        /* Made it so that velocity cannot exceed velocity_max */
+        if (Math.abs(this.velocity_x) > this.velocity_max)
+            this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
+
+        if (Math.abs(this.velocity_y) > this.velocity_max)
+            this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
+
+        this.x += this.velocity_x;
+        this.y += this.velocity_y;
+
+    }
+
+};
+Object.assign(Game.Player.prototype, Game.MovingObject.prototype);
+//Object.assign(Game.Player.prototype, Game.Animator.prototype);
+Game.Player.prototype.constructor = Game.Player;
+//PLAYER Definition
+
+
+//NPC = MOVING OBJECT Definition
+Game.Npc = function (x, y) {
+
+    Game.MovingObject.call(this, x, y, 58, 58);
+
+    //Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-left"], 10);
+
+    this.moving = false; //analog ==> Game.World.Npc.moving
+    this.direction_x = -1;
+    this.velocity_x = 0;
+    this.velocity_y = 0;
+
+};
+Game.Npc.prototype = {
+
+    /*
+    frame_sets: {
+
+        "idle-left": [0],
+        "jump-left": [1],
+        "move-left": [2, 3, 4, 5],
+        "idle-right": [6],
+        "jump-right": [7],
+        "move-right": [8, 9, 10, 11]
+
+    },
+    */
+    /*
+    jump: function () {
+
+        // Made it so you can only jump if you aren't falling faster than 10px per frame. 
+        if (!this.jumping && this.velocity_y < 10) {
+
+            this.jumping = true;
+            this.velocity_y -= 13;
+
+        }
+
+    },
+    */
+    moveLeft: function () { //analog ==> Game.World.Npc.move()
+
+        this.direction_x = -1;
+
+        if (this.moving == false) {
+
+            this.velocity_x -= 0.7
+        };
+
+    },
+
+    /*
+    moveRight: function (/*frame_set) {
+
+        this.direction_x = 1;
+        this.velocity_x += 0.55;
+
+    },
+    */
+    /*updateAnimation
+     * 
+    updateAnimation: function () {
+
+        //WIRD nicht benötigt!!!
+        if (this.velocity_y < 0) {
+
+            if (this.direction_x < 0) this.changeFrameSet(this.frame_sets["jump-left"], "pause");
+            else this.changeFrameSet(this.frame_sets["jump-right"], "pause");
+
+        } 
+
+        ==> WIRD BENÖTIGT
+        else if (this.direction_x < 0) {
+
+            if (this.velocity_x < -0.1) this.changeFrameSet(this.frame_sets["move-left"], "loop", 5);
+            else this.changeFrameSet(this.frame_sets["idle-left"], "pause");
+
+        } 
+
+        //WIRD nicht benötigt!!!
+
+        else if (this.direction_x > 0) {
+
+            if (this.velocity_x > 0.1) this.changeFrameSet(this.frame_sets["move-right"], "loop", 5);
+            else this.changeFrameSet(this.frame_sets["idle-right"], "pause");
+
+        }
+
+        ==> WIRD BENÖTIGT
+        this.animate();
+
+    },
+    */
+    updatePosition: function (gravity, friction) {
+
+        this.x_old = this.x;
+        this.y_old = this.y;
+
+        this.velocity_y += gravity;
+        this.velocity_x *= friction;
+
+        /* Made it so that velocity cannot exceed velocity_max */
+        if (Math.abs(this.velocity_x) > this.velocity_max)
+            this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
+
+        if (Math.abs(this.velocity_y) > this.velocity_max)
+            this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
+
+        this.x += this.velocity_x;
+        this.y += this.velocity_y;
+
+    }
+
+};
+Object.assign(Game.Npc.prototype, Game.MovingObject.prototype);
+//Object.assign(Game.Npc.prototype, Game.Animator.prototype);
+Game.Npc.prototype.constructor = Game.Npc;
+//NPC Definition
+
+/* The carrot class extends Game.Object and Game.Animation. */
+Game.Koeftespiess = function (x, y) {
+
+    Game.Object.call(this, x, y, 7, 14);
+    //Game.Animator.call(this, Game.Carrot.prototype.frame_sets["twirl"], 15);
+
+    //this.frame_index = Math.floor(Math.random() * 2);
+
+    /* base_x and base_y are the point around which the carrot revolves. position_x
+    and y are used to track the vector facing away from the base point to give the carrot
+    the floating effect. */
+    this.base_x = x;
+    this.base_y = y;
+    this.position_x = Math.random() * Math.PI * 2;
+    this.position_y = this.position_x * 2;
+
+};
+Game.Koeftespiess.prototype = {
+
+    //frame_sets: { "twirl": [12, 13] },
+
+    updatePosition: function () {
+
+        this.position_x += 0.1;
+        this.position_y += 0.2;
+
+        this.x = this.base_x + Math.cos(this.position_x) * 2;
+        this.y = this.base_y + Math.sin(this.position_y);
+
+    }
+
+};
+Object.assign(Game.Koeftespiess.prototype, Game.Object.prototype);
+//Object.assign(Game.Koeftespiess.prototype, Game.Animator.prototype);
+Game.Koeftespiess.prototype.constructor = Game.Koeftespiess;
+
+/*END ----------------------------------------------------NEW NEW NEW ----------------------------------------------------*/
+
+
+
+
+/* ------------------------------ OLD WORLD DECLARATION -------------------------*/
+
+//WORLD CLASS
 Game.World = function (friction = 0.9, gravity = 3) {
 
     this.friction = friction;
     this.gravity = gravity;
 
-    /* Player is now its own class inside of the Game.World object. */
-    this.player = new Game.World.Player();
+    // BEGINN -----> Export as own class
+
+        ///* Player is now its own class inside of the Game.World object. */
+        //this.player = new Game.World.Player();
 
     
-    /* NPC is now its own class inside of the Game.World object. */
-    this.npc = new Game.World.Npc();
+        ///* NPC is now its own class inside of the Game.World object. */
+        //this.npc = new Game.World.Npc();
 
-    //****NEW NEW NEW****//
+        ////****NEW NEW NEW****//
 
-    /* NPC is now its own class inside of the Game.World object. */
-    this.koftespiess = new Game.World.Koftespiess();
+        ///* NPC is now its own class inside of the Game.World object. */
+        //this.koftespiess = new Game.World.Koftespiess();
 
-    //****NEW NEW NEW****//
-   
+        ////****NEW NEW NEW****//
+
+
+    // ENDE -----> Export as own class
 
 
     // Anzahl Tile Spalten
@@ -128,12 +428,8 @@ Game.World = function (friction = 0.9, gravity = 3) {
     this.height = this.tile_size * this.rows;
     this.width = this.tile_size * this.columns;
 
-    //this.height = 360;
-    //this.width = window.screen.width;
+  
 };
-
-
-//World-Level own class - functions
 Game.World.prototype = {
 
     constructor: Game.World,
@@ -267,9 +563,9 @@ Game.World.prototype = {
     }
 
 };
+//WORLD END CLASS
 
-//Player own class - attitudes//
-
+//PLAYER class
 Game.World.Player = function (x, y) {
 
     this.color1 = "#404040";
@@ -287,10 +583,6 @@ Game.World.Player = function (x, y) {
     this.top = null;
 
 };
-
-//Player Char - constructor + function//
-
-
 Game.World.Player.prototype = {
 
     constructor: Game.World.Player,
@@ -334,11 +626,10 @@ Game.World.Player.prototype = {
     }
 
 };
+//PLAYER END CLASS//
 
 
-
-
-//Definition NPC
+//NPC CLASS
 Game.World.Npc = function (x, y) {
 
     this.color1 = "#f0f0f0";
@@ -356,7 +647,6 @@ Game.World.Npc = function (x, y) {
     this.moving = false;
 
 };
-//NPC - constructor + function//
 Game.World.Npc.prototype = {
 
     constructor: Game.World.Npc,
@@ -379,12 +669,6 @@ Game.World.Npc.prototype = {
         };
     },
 
-
-    //death function
-    /*
-    death: function () {}
-    */
-
     update: function () {
 
         this.x += this.velocity_x;
@@ -393,13 +677,12 @@ Game.World.Npc.prototype = {
         this.gettop();
         this.getbottom();
 
-
-
     }
 };
+//NPC  CLASS END//
 
-//******NEW NEW NEW*******//
-//Definition Item "Köftespieß" own class
+
+//ITEM CLASS "Köftespieß"
 Game.World.Koftespiess = function (x, y) {
 
     /*
@@ -428,8 +711,6 @@ Game.World.Koftespiess = function (x, y) {
     this.position_x = Math.random() * Math.PI * 2;
     this.position_y = this.position_x * 2;
 };
-
-    //Item - constructor + function//
 Game.World.Koftespiess.prototype = {
 
     // frame_sets: { "twirl": [12, 13] },
@@ -449,7 +730,6 @@ Game.World.Koftespiess.prototype = {
 
 
 };
-
-
+//ITEM CLASS END//
 
 
