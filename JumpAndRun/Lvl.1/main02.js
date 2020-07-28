@@ -31,27 +31,45 @@
         if (controller.left.active) { game.world.player.moveLeft(); }
         if (controller.right.active) { game.world.player.moveRight(); }
         if (controller.up.active) { game.world.player.jump(); controller.up.active = false; }
-
-        //*****NEW NEW NEW*******//
-        //if player moves - enenmy start to move//
-        if (game.world.player.x != 0) { game.world.npc.move(); }
-        //*****NEW NEW NEW*******//
-
-        //*****TEST TEST TEST*******//
-        /*--IDEE--> Auslagerung in die NPC Klasse ??? */
-        //Everytime a NPC is leaving the screen a new one will be created 
-        if (game.world.npc.x < 0) {
-            game.world.npc.constructor();
-
-        }
+        
 
         
+        
+
+
+
+        /*___________AUSGELAGERT in WORLDPLAYER.js
+        *****NEW NEW NEW*******
+        //if player moves - enenmy start to move//
+        //if (game.world.player.x != 0) {
+        //    game.world.npc.move();
+        //}
+        /*
+        if (game.world.npc.x = game.world.player) {
+
+            game.world.npc.moving == false;
+        }
+        
+
+        //Everytime a NPC is leaving the screen a new one will be created 
+        //if (game.world.npc.x < 0) {
+        //    game.world.npc.constructor();
+
+        //}
+        
+        ENDE ___________AUSGELAGERT in WORLDPLAYER.js__________*/
+
+
+        //_____WICHTIG_________//
+        // if collision GAME OVER -> controller left/right/up inactive
 
 
         game.update();
 
     };
 
+  
+    
 
     var controller = new Controller();
     var display = new Display(document.getElementById("myCanvas"));

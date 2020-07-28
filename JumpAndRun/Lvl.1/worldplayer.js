@@ -64,18 +64,6 @@ Game.World.prototype = {
 
     constructor: Game.World,
 
-    //*****NEW NEW NEW*******//
-
-    /*collision: function (object, object){
-
-
-
-
-
-    }*/
-
-    //*****NEW NEW NEW*******//
-
     collideObject: function (object) {
 
 
@@ -90,8 +78,48 @@ Game.World.prototype = {
         //boundry of the world  (upper rim)
         if (object.y < 0) { object.y = 0; object.velocity_y = 0; }
         else if (object.y + object.height > this.height) { object.jumping = false; object.y = this.height - object.height; object.velocity_y = 0; }
+        //on Top
+        if (object.getbottom() >= object.gettop()) { object.y = object.y + object.height; }
+
 
     },
+
+
+    /////-----HIER WEITERMACHEN-------/////////
+    //COLLISION AND REPSONSE 28.07.2020//
+
+    goCollision: function (player, npc) {
+
+
+        // GAME OVER Collision
+        if (this.player.getright() >= this.npc.getleft() && this.player.getleft() < this.npc.getright() && this.player.y == this.npc.y) {
+
+            this.npc.moving = true;
+            this.npc.velocity_x = 0;
+            this.player.velocity_x = 0;
+            console.log("G O COLLISION");
+
+
+            return true;
+        };
+
+        
+            return false;
+        
+    },
+
+    toCollision: function (player, npc) {
+
+
+        // Top Collision
+        if (this.player.getbottom() >= this.npc.gettop() && this.player.getleft() >= this.npc.getleft() && this.player.getright() >= this.npc.getright){
+
+            console.log("TOP COLLISION");
+        };
+        return false;
+    },
+
+
 
 
     update: function () {
@@ -102,18 +130,58 @@ Game.World.prototype = {
         this.player.velocity_x *= this.friction;
         this.player.velocity_y *= this.friction;
 
-        //*****NEW NEW NEW*******//
+        /*_______FROM VERSION_3.1 NPC______*/
 
         //NPC moves
-        this.npc.velocity_y += this.gravity;
+        //this.npc.velocity_y += this.gravity;
         this.npc.update();
 
         this.npc.velocity_x *= this.friction;
         this.npc.velocity_y *= this.friction;
-
-        //*****NEW NEW NEW*******//
+        /*ENDE _______FROM VERSION_3.1 NPC______*/
 
         this.collideObject(this.player);
+        this.goCollision();
+        this.toCollision();
+
+        
+       
+
+        /*_______FROM MAIN.js______*****NEW NEW NEW********/
+        //if player moves - enenmy start to move//
+        if (this.player.x != 0) {
+           
+            this.npc.move();
+        };
+
+        //Everytime a NPC is leaving the screen a new one will be created 
+        if (this.npc.x < 0) {
+            this.npc.constructor();
+
+        };        
+
+
+         /*ENDE_______FROM MAIN.js______*****NEW NEW NEW********/
+
+        //<<<<<DEMO COLLISION>>>>>>//
+
+        //----CHECK postition PLAYER & NPC
+
+            //Get position player
+            //console.log("x: ", this.player.getright() + "y: ", this.player.getbottom());
+
+            //Get position player
+            //console.log("x: ", this.npc.getleft() /*+ "y: ", this.player.getbottom()*/);
+
+        //if (this.player.right >= this.npc.left) {
+
+        //    this.npc.moving = true
+        //    this.npc.velocity_x = 0;
+            
+
+        //    console.log("GAME OVER");
+        //};
+        
 
     }
 
@@ -132,6 +200,10 @@ Game.World.Player = function (x, y) {
     this.width = 64;
     this.x = 0;
     this.y = 0;
+    this.right = null;
+    this.left = null;
+    this.bottom = null;
+    this.top = null;
 
 };
 
@@ -144,8 +216,13 @@ Game.World.Player.prototype = {
 
     //*****NEW NEW NEW*******//
     //getting position for collision detection
-    getbottom: function () { return this.y + this.height; },
-    getright: function () { return this.x + this.width; },
+
+    gettop: function () { return this.top = this.y + this.height; },
+    getbottom: function () { return this.bottom = this.y; },
+    getright: function () { return this.right = this.x + this.width; },
+    getleft: function () { return this.left = this.x; },
+
+
     //*****NEW NEW NEW*******//
 
     //move+jump function
@@ -168,6 +245,10 @@ Game.World.Player.prototype = {
 
         this.x += this.velocity_x;
         this.y += this.velocity_y;
+        this.getright();
+        this.getleft();
+        this.getbottom();
+        this.gettop();
 
     }
 
@@ -182,11 +263,16 @@ Game.World.Npc = function (x, y) {
     this.color1 = "#f0f0f0";
     this.color2 = "#0000FF";
     this.height = 58;
+    this.top = null;
+    this.left = null;
+    this.right = null;
+    this.bottom = null;
     this.velocity_x = 0;
     this.velocity_y = 0;
     this.width = 58;
     this.x = 1600;   //starting position
     this.y = 360 - 32 - 64; //on the ground
+    this.moving = false;
 
 };
 
@@ -196,18 +282,22 @@ Game.World.Npc.prototype = {
 
     //getting position for collision detection
 
-    getleft: function () { return this.x },
-    gettop: function () {return this.y},
+    getbottom: function () { return this.bottom = this.y; },
+    getright: function () { return this.right = this.left + this.width; },
+    getleft: function () { return this.left = this.x; },
+    gettop: function () { return this.top = this.y + this.height; },
 
     //move function
 
     move: function () {
 
+        if (this.moving == false) {
 
-        this.velocity_x -= 0.7;
+            this.velocity_x -= 0.7;
 
-
+        };
     },
+
 
     //death function
     /*
@@ -217,6 +307,10 @@ Game.World.Npc.prototype = {
     update: function () {
 
         this.x += this.velocity_x;
+        this.getleft();
+        this.getright();
+        this.gettop();
+        this.getbottom();
 
 
 

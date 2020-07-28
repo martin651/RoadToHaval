@@ -28,7 +28,7 @@ var render = function () {
     //Background
     display.fill(game.world.background_color)
     //rectangle/Character
-    display.drawRectangle(game.world.player.x, game.world.player.y
+    display.drawRectangle(game.world.player.x, game.world.player.y,
     game.world.player.width, game.world.player.height, game.world.player.color)
 
     //
@@ -40,6 +40,7 @@ var update = function () {
     if (controller.left.active) { game.world.player.moveLeft(); }
     if (controller.right.active) { game.world.player.moveRight(); }
     if (controller.up.active) { game.world.player.jump(); controller.up.active = false; }
+    
 
     game.update();
 
