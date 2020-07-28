@@ -1,6 +1,6 @@
 ﻿const Game = function () {
 
-    //Eigene Klasse World
+    //Im Vergleich zu Version_3 gleich geblieben
     this.world = new Game.World();
 
     this.update = function () {
@@ -13,6 +13,73 @@
 
 Game.prototype = { constructor: Game };
 
+//******Game.Animator - Bereich*****//
+/*
+ * 
+ * Game.Animator = function(frame_set, delay, mode = "loop") {
+
+ this.count       = 0;
+ this.delay       = (delay >= 1) ? delay : 1;
+ this.frame_set   = frame_set;
+ this.frame_index = 0;
+ this.frame_value = frame_set[0];
+ this.mode        = mode;
+
+};
+Game.Animator.prototype = {
+
+ constructor:Game.Animator,
+
+ animate:function() {
+
+   switch(this.mode) {
+
+     case "loop" : this.loop(); break;
+     case "pause":              break;
+
+   }
+
+ },
+ * 
+ *  changeFrameSet(frame_set, mode, delay = 10, frame_index = 0) {
+
+   if (this.frame_set === frame_set) { return; }
+
+   this.count       = 0;
+   this.delay       = delay;
+   this.frame_set   = frame_set;
+   this.frame_index = frame_index;
+   this.frame_value = frame_set[frame_index];
+   this.mode        = mode;
+
+ },
+
+ loop:function() {
+
+   this.count ++;
+
+   while(this.count > this.delay) {
+
+     this.count -= this.delay;
+
+     this.frame_index = (this.frame_index < this.frame_set.length - 1) ? this.frame_index + 1 : 0;
+
+     this.frame_value = this.frame_set[this.frame_index];
+
+   }
+
+ }
+ };
+
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * /
+//******Game.Animator - Bereich*****/
+
 Game.World = function (friction = 0.9, gravity = 3) {
 
     this.friction = friction;
@@ -21,10 +88,17 @@ Game.World = function (friction = 0.9, gravity = 3) {
     /* Player is now its own class inside of the Game.World object. */
     this.player = new Game.World.Player();
 
-    //*****NEW NEW NEW*******//
+    
     /* NPC is now its own class inside of the Game.World object. */
     this.npc = new Game.World.Npc();
-    //*****NEW NEW NEW*******//
+
+    //****NEW NEW NEW****//
+
+    /* NPC is now its own class inside of the Game.World object. */
+    this.koftespiess = new Game.World.Koftespiess();
+
+    //****NEW NEW NEW****//
+   
 
 
     // Anzahl Tile Spalten
@@ -130,24 +204,31 @@ Game.World.prototype = {
         this.player.velocity_x *= this.friction;
         this.player.velocity_y *= this.friction;
 
-        /*_______FROM VERSION_3.1 NPC______*/
-
-        //NPC moves
-        //this.npc.velocity_y += this.gravity;
         this.npc.update();
 
         this.npc.velocity_x *= this.friction;
         this.npc.velocity_y *= this.friction;
-        /*ENDE _______FROM VERSION_3.1 NPC______*/
 
+
+        //Collision
         this.collideObject(this.player);
         this.goCollision();
         this.toCollision();
 
+        //preparing Köftespieß counter
+
+        /*
+        if (koftspiess.collideObject(this.player)) {
+
+            this.koftspiess.splice(this.koftspiess.indexOf(koftspiess), 1);
+            this.koftspiess_count++;
+
+        }
+        */
+        
         
        
 
-        /*_______FROM MAIN.js______*****NEW NEW NEW********/
         //if player moves - enenmy start to move//
         if (this.player.x != 0) {
            
@@ -254,9 +335,9 @@ Game.World.Player.prototype = {
 
 };
 
-//*****NEW NEW NEW*******//
 
-//Import NPC
+
+
 //Definition NPC
 Game.World.Npc = function (x, y) {
 
@@ -275,7 +356,7 @@ Game.World.Npc = function (x, y) {
     this.moving = false;
 
 };
-
+//NPC - constructor + function//
 Game.World.Npc.prototype = {
 
     constructor: Game.World.Npc,
@@ -317,8 +398,57 @@ Game.World.Npc.prototype = {
     }
 };
 
-//*****NEW NEW NEW*******//
+//******NEW NEW NEW*******//
+//Definition Item "Köftespieß" own class
+Game.World.Koftespiess = function (x, y) {
 
+    /*
+        Game.Object.call(this, x, y, 7, 14);
+        Game.Animator.call(this, Game.Carrot.prototype.frame_sets["twirl"], 15);
+
+        this.frame_index = Math.floor(Math.random() * 2);
+    */
+
+
+    //TEST
+    this.color1 = "#FFD700";
+    this.color2 = "#A0522D";
+    this.height = 32;
+    this.width = 32;
+    this.x = 300;
+    this.y = 150;
+
+
+
+    /* base_x and base_y are the point around which the carrot revolves. position_x
+     and y are used to track the vector facing away from the base point to give the carrot
+     the floating effect. */
+    this.base_x = x;
+    this.base_y = y;
+    this.position_x = Math.random() * Math.PI * 2;
+    this.position_y = this.position_x * 2;
+};
+
+    //Item - constructor + function//
+Game.World.Koftespiess.prototype = {
+
+    // frame_sets: { "twirl": [12, 13] },
+
+    updatePosition: function () {
+
+        this.position_x += 0.1;
+        this.position_y += 0.2;
+
+        this.x = this.base_x + Math.cos(this.position_x) * 2;
+        this.y = this.base_y + Math.sin(this.position_y);
+
+    }
+
+
+
+
+
+};
 
 
 
