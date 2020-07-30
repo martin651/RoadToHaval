@@ -15,16 +15,17 @@ const Game = function () {
 Game.prototype = { constructor: Game };
 
 
-/* !!!muss noch in wordld02.js ergänzt werden!!! */
+// HINZUGEFÜGT //
 // Made the default animation type "loop":
 Game.Animator = function (frame_set, delay, mode = "loop") {
 
+    //ANimator Klasse --> Es "loopt" das Frame 
     this.count = 0;
     this.delay = (delay >= 1) ? delay : 1;
-    this.frame_set = frame_set;
-    this.frame_index = 0;
+    this.frame_set = frame_set;         //Sheet/Bildarray - unterschiedliche Frame Sets von Player; 
+    this.frame_index = 0;               //Array index - unterschiedliche Frame Sets von Player; 
     this.frame_value = frame_set[0];
-    this.mode = mode;
+    this.mode = mode;                   //es gibt pause/loop 
 
 };
 Game.Animator.prototype = {
@@ -35,14 +36,14 @@ Game.Animator.prototype = {
 
         switch (this.mode) {
 
-            case "loop": this.loop(); break;
-            case "pause": break;
+            case "loop": this.loop(); break;    //Aufruf der Frames
+            case "pause": break;        //keine Animation
 
         }
 
     },
 
-    changeFrameSet(frame_set, mode, delay = 10, frame_index = 0) {
+    changeFrameSet(frame_set, mode, delay = 10, frame_index = 0) { //ändert das Frame-Set wenn man z.B. links/rechts geht
 
         if (this.frame_set === frame_set) { return; }
 
@@ -63,7 +64,7 @@ Game.Animator.prototype = {
 
             this.count -= this.delay;
 
-            this.frame_index = (this.frame_index < this.frame_set.length - 1) ? this.frame_index + 1 : 0;
+            this.frame_index = (this.frame_index < this.frame_set.length - 1) ? this.frame_index + 1 : 0; //fragt die Regionen der Images ab z.B. Idle-Left, wenn es Ende angelangen ist setzt es auf "0"
 
             this.frame_value = this.frame_set[this.frame_index];
 
@@ -73,8 +74,7 @@ Game.Animator.prototype = {
 
 };
 
-
-/* !!!muss noch in wordld02.js ergänzt werden!!! */
+// HINZUGEFÜGT //
 Game.Collider = function () {
 
     /* I changed this so all the checks happen in y first order. */
@@ -175,10 +175,10 @@ Game.Collider.prototype = {
 
 };
 
-/* !!!muss noch in wordld02.js ergänzt werden!!! */
+// HINZUGEFÜGT //
  //Added default values of 0 for offset_x and offset_y
 Game.Frame = function (x, y, width, height, offset_x = 0, offset_y = 0) {
-
+    //zuständig für das Schneiden der Tilesets "Frames" --> Bewegung der Charaktere/Welt
     this.x = x;
     this.y = y;
     this.width = width;
@@ -345,6 +345,7 @@ Game.Player = function (x, y) {
 };
 Game.Player.prototype = {
 
+    //muss mit Game.TileSet = function () abgestimmt/angepasst werden
     frame_sets: {
 
         "idle-left": [0],
@@ -384,8 +385,10 @@ Game.Player.prototype = {
 
     updateAnimation: function () {
 
+        //wenn der Spieler springt
         if (this.velocity_y < 0) {
 
+            //Richtungsabhängiges Frameset -1 = links, 1 = rechts
             if (this.direction_x < 0) this.changeFrameSet(this.frame_sets["jump-left"], "pause");
             else this.changeFrameSet(this.frame_sets["jump-right"], "pause");
 
@@ -430,13 +433,15 @@ Object.assign(Game.Player.prototype, Game.MovingObject.prototype);
 Object.assign(Game.Player.prototype, Game.Animator.prototype);
 Game.Player.prototype.constructor = Game.Player;
 
-/* !!!muss noch in wordld02.js ergänzt werden!!! */
+/* !!!muss noch in wordld02.js ergänzt werden!!! --> ABBILDUNG DER CHARAKTERE */
 Game.TileSet = function (columns, tile_size) {
 
     this.columns = columns;
     this.tile_size = tile_size;
 
     let f = Game.Frame;
+
+    //individuelle Anpassung der Arrays nötig, da hier definiert wird, welche Regionen/Bereiche des Tilsets ausgeschnitten werden sollen//
 
     this.frames = [new f(115, 96, 13, 16, 0, -4), // idle-left
     new f(50, 96, 13, 16, 0, -4), // jump-left
@@ -451,7 +456,7 @@ Game.TileSet = function (columns, tile_size) {
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
 
-/* !!!muss noch in wordld02.js ergänzt werden!!! */
+// HINZUGEFÜGT //
 Game.World = function (friction = 0.85, gravity = 2) {
 
     this.collider = new Game.Collider();

@@ -7,12 +7,37 @@ const Display = function (canvas) {
     this.context.canvas.width = window.screen.width
     this.context.canvas.height = 360       // x, y, width, height
 
-    //New Tilesheet Object
-    this.tile_sheet = new Display.TileSheet(32, 50);
+    //New Tilesheet Object ==> worldplayer03
+    // this.tile_sheet = new Display.TileSheet(32, 50);
 
+    this.drawMap = function (image, image_columns, map, map_columns, tile_size) {
+
+        for (let index = map.length() ; index > 0; --index) {
+
+            let value = map[index];
+            let source_x = (value % image_columns) * tile_size;
+            let source_y = Math.floor(value / image_columns) * tile_size;
+            let destination_x = (index % map_columns) * tile_size;
+            let destination_y = Math.floor(index / map_columns) * tile_size;
+
+            this.buffer.drawImage(image, source_x, source_y, tile_size, tile_size, destination_x, destination_y, tile_size, tile_size);
+
+        }
+
+    };
+
+    this.drawObject = function (image, source_x, source_y, destination_x, destination_y, width, height) {
+
+        this.buffer.drawImage(image, source_x, source_y, width, height, Math.round(destination_x), Math.round(destination_y), width, height);
+
+    };
+
+    /***** OLD OLD OLD*****/
     /* This function draws the map to the buffer. */ 
+    /*
     this.drawMap = function (map, columns) {
 
+        OLD OLD OLD
         for (let index = map.length ; index >= 0; -- index) {
 
             let value = map[index];
@@ -24,8 +49,14 @@ const Display = function (canvas) {
             this.buffer.drawImage(this.tile_sheet.image, source_x, source_y, this.tile_sheet.tile_size, this.tile_sheet.tile_size, destination_x, destination_y, this.tile_sheet.tile_size, this.tile_sheet.tile_size);
 
         }
+        
+
+
+
+
 
     };
+    
 
     //substitution of DrawRectangle
     this.drawPlayer = function (rectangle, color1, color2) {
@@ -36,6 +67,9 @@ const Display = function (canvas) {
         this.buffer.fillRect(Math.floor(rectangle.x + 2), Math.floor(rectangle.y + 2), rectangle.width - 4, rectangle.height - 4);
 
     };
+    */
+
+
 
     //resize
 
@@ -68,13 +102,13 @@ Display.prototype = {
 
 };
 
-Display.TileSheet = function (tile_size, columns) {
-    //Anlegen neues Image
-    this.image = new Image();
-    this.tile_size = tile_size;
-    this.columns = columns;
+//Display.TileSheet = function (tile_size, columns) {  ==> worldplayer03
+//    //Anlegen neues Image
+//    this.image = new Image();
+//    this.tile_size = tile_size;
+//    this.columns = columns;
 
-};
+//};
 
-//Anzeigen TileSheet
-Display.TileSheet.prototype = {};
+////Anzeigen TileSheet
+//Display.TileSheet.prototype = {};

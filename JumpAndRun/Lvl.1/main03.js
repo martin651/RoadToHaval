@@ -20,7 +20,7 @@ window.addEventListener("load", function (event) {
 
     const AssetsManager = function () {
 
-        this.tile_set_image = undefined;
+        this.tile_set_image = undefined; //deklaration als Image
 
     };
 
@@ -45,7 +45,7 @@ window.addEventListener("load", function (event) {
 
         requestImage: function (url, callback) {
 
-            let image = new Image();
+            let image = new Image(); //ladet das Tilesheet
 
             image.addEventListener("load", function (event) {
 
@@ -84,7 +84,7 @@ window.addEventListener("load", function (event) {
 
     var render = function () {
 
-        var frame = undefined;
+        //var frame = undefined;
 
         display.drawMap(assets_manager.tile_set_image,
             game.world.tile_set.columns, game.world.graphical_map, game.world.columns, game.world.tile_set.tile_size);
@@ -93,7 +93,7 @@ window.addEventListener("load", function (event) {
 
         //    let carrot = game.world.carrots[index];
 
-        //    frame = game.world.tile_set.frames[carrot.frame_value];
+            //frame = game.world.tile_set.frames[carrot.frame_value];
 
         //    display.drawObject(assets_manager.tile_set_image,
         //        frame.x, frame.y,
@@ -102,11 +102,12 @@ window.addEventListener("load", function (event) {
 
         //}
 
-        frame = game.world.tile_set.frames[game.world.player.frame_value];
+        frame = game.world.tile_set.frames[game.world.player.frame_value]; //abholen des Frame-Wertes aus den Klassen (worldplayer.js)
 
+        //drawObject ruft relevanten Informationen ab um eine Animation zu ermöglichen
         display.drawObject(assets_manager.tile_set_image,
             frame.x, frame.y,
-            game.world.player.x + Math.floor(game.world.player.width * 0.5 - frame.width * 0.5) + frame.offset_x,
+            game.world.player.x + Math.floor(game.world.player.width * 0.5 - frame.width * 0.5) + frame.offset_x, //--> "Inperfektion" überlappen der Pixel und Verzögerung der Animation mit Zentrum-Ermittlung des Frames
             game.world.player.y + frame.offset_y, frame.width, frame.height);
 
         //for (let index = game.world.grass.length - 1; index > -1; --index) {
@@ -192,6 +193,13 @@ window.addEventListener("load", function (event) {
         });
 
     });
+
+    /*
+    assets_manager.requestImage("pictures/Prison Pixel Art.png", () => {
+
+           resize();
+           engine.start();
+       }); */
 
     window.addEventListener("keydown", keyDownUp);
     window.addEventListener("keyup", keyDownUp);

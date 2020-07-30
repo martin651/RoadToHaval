@@ -2,6 +2,53 @@
 
     "use strict";
 
+
+    /////////////////
+    //// CLASSES ////
+    /////////////////
+
+    const AssetsManager = function () {
+
+        this.tile_set_image = undefined; //deklaration als Image
+
+    };
+
+    AssetsManager.prototype = {
+
+        constructor: Game.AssetsManager,
+
+        requestJSON: function (url, callback) {
+
+            let request = new XMLHttpRequest();
+
+            request.addEventListener("load", function (event) {
+
+                callback(JSON.parse(this.responseText));
+
+            }, { once: true });
+
+            request.open("GET", url);
+            request.send();
+
+        },
+
+        requestImage: function (url, callback) {
+
+            let image = new Image(); //ladet das Tilesheet
+
+            image.addEventListener("load", function (event) {
+
+                callback(image);
+
+            }, { once: true });
+
+            image.src = url;
+
+        },
+
+    };
+
+
     var keyDownUp = function (event) {
 
         controller.keyDownUp(event.type, event.keyCode);
@@ -17,14 +64,27 @@
 
     var render = function () {
 
-        display.drawMap(game.world.map, game.world.columns);
-        display.drawPlayer(game.world.player, game.world.player.color1, game.world.player.color2);
-        display.drawPlayer(game.world.npc, game.world.npc.color1, game.world.npc.color2);
+        display.drawMap(assets_manager.tile_set_image,
+            game.world.tile_set.columns, game.world.graphical_map, game.world.columns, game.world.tile_set.tile_size);
 
-        //****NEW NEW NEW****//
-        display.drawPlayer(game.world.koftespiess, game.world.koftespiess.color1, game.world.koftespiess.color2);
-        p.innerHTML = "Köftespieß: " + game.world.carrot_count;
-        //****NEW NEW NEW****//
+        frame = game.world.tile_set.frames[game.world.player.frame_value]; //abholen des Frame-Wertes aus den Klassen (worldplayer.js)
+
+        //drawObject ruft relevanten Informationen ab um eine Animation zu ermöglichen
+        display.drawObject(assets_manager.tile_set_image,
+            frame.x, frame.y,
+            game.world.player.x + Math.floor(game.world.player.width * 0.5 - frame.width * 0.5) + frame.offset_x, //--> "Inperfektion" überlappen der Pixel und Verzögerung der Animation mit Zentrum-Ermittlung des Frames
+            game.world.player.y + frame.offset_y, frame.width, frame.height);
+
+
+        /*****OLD OLD OLD****/
+        //display.drawMap(game.world.map, game.world.columns);
+        //display.drawPlayer(game.world.player, game.world.player.color1, game.world.player.color2);
+        //display.drawPlayer(game.world.npc, game.world.npc.color1, game.world.npc.color2);
+        
+        ////****NEW NEW NEW****//
+        //display.drawPlayer(game.world.koftespiess, game.world.koftespiess.color1, game.world.koftespiess.color2);
+        //p.innerHTML = "Köftespieß: " + game.world.carrot_count;
+        ////****NEW NEW NEW****//
 
 
 
@@ -61,37 +121,59 @@
     };
 
   
-   // 
-   // var assets_manager = new AssetsManager();
+     /////////////////
+    //// OBJECTS ////
+    /////////////////
+    var assets_manager = new AssetsManager();
     var controller = new Controller();
     var display = new Display(document.getElementById("myCanvas"));
     var game = new Game();
     var engine = new Engine(1000 / 30, render, update);
 
-    //*****NEW NEW NEW*****//
-    //Creating p-Element (HTML) for "Köftespieß" Counter 
-    var p = document.createElement("p");
-    p.setAttribute("style", "color:#c07000; font-size:2.0em; position:fixed;");
-    p.innerHTML = "Carrots: 0";
-    document.body.appendChild(p);
-    //*****NEW NEW NEW*****//
 
+    /***KÖFTESPIEß-ZÄHLER***/
 
+    ////*****NEW NEW NEW*****//
+    ////Creating p-Element (HTML) for "Köftespieß" Counter 
+    //var p = document.createElement("p");
+    //p.setAttribute("style", "color:#c07000; font-size:2.0em; position:fixed;");
+    //p.innerHTML = "Carrots: 0";
+    //document.body.appendChild(p);
+    ////*****NEW NEW NEW*****//
+
+     ////////////////////
+    //// INITIALIZE ////
+    ////////////////////
 
     display.buffer.canvas.height = game.world.height;
     display.buffer.canvas.width = game.world.width;
+    display.buffer.imageSmoothingEnabled = false;
 
-    //Map laden
-    display.tile_sheet.image.addEventListener("load", function (event) {
+    assets_manager.requestImage("pictures/Prison Pixel Art.png", (image) => {
+
+            assets_manager.tile_set_image = image;
+
+            resize();
+            engine.start();
+
+    });
+
+
+
+    /***OLD OLD OLD***/
+    ////Map laden
+    //display.tile_sheet.image.addEventListener("load", function (event) {
     
-        resize();
+    //    resize();
 
-        engine.start();
+    //    engine.start();
 
-    }, { once: true });
+    //}, { once: true });
 
-    //Map aus PNG Datei ziehen und darstellen
-    display.tile_sheet.image.src = "pictures/Prison Pixel Art.png";
+    ////Map aus PNG Datei ziehen und darstellen
+    //display.tile_sheet.image.src = "pictures/Prison Pixel Art.png";
+
+
 
     window.addEventListener("keydown", keyDownUp);
     window.addEventListener("keyup", keyDownUp);
