@@ -341,27 +341,27 @@ Game.World.prototype = {
         /* I got rid of the world boundary collision. Now it's up to the tiles to keep
         the player from falling out of the world. */
 
-        var bottom, left, right, top, value;
+        //var bottom, left, right, top, value;
 
-        top = Math.floor(object.getTop() / this.tile_set.tile_size);
-        left = Math.floor(object.getLeft() / this.tile_set.tile_size);
-        value = this.collision_map[top * this.columns + left];
-        this.collider.collide(value, object, left * this.tile_set.tile_size, top * this.tile_set.tile_size, this.tile_set.tile_size);
+        //top = Math.floor(object.getTop() / this.tile_set.tile_size);
+        //left = Math.floor(object.getLeft() / this.tile_set.tile_size);
+        //value = this.collision_map[top * this.columns + left];
+        //this.collider.collide(value, object, left * this.tile_set.tile_size, top * this.tile_set.tile_size, this.tile_set.tile_size);
 
-        top = Math.floor(object.getTop() / this.tile_set.tile_size);
-        right = Math.floor(object.getRight() / this.tile_set.tile_size);
-        value = this.collision_map[top * this.columns + right];
-        this.collider.collide(value, object, right * this.tile_set.tile_size, top * this.tile_set.tile_size, this.tile_set.tile_size);
+        //top = Math.floor(object.getTop() / this.tile_set.tile_size);
+        //right = Math.floor(object.getRight() / this.tile_set.tile_size);
+        //value = this.collision_map[top * this.columns + right];
+        //this.collider.collide(value, object, right * this.tile_set.tile_size, top * this.tile_set.tile_size, this.tile_set.tile_size);
 
-        bottom = Math.floor(object.getBottom() / this.tile_set.tile_size);
-        left = Math.floor(object.getLeft() / this.tile_set.tile_size);
-        value = this.collision_map[bottom * this.columns + left];
-        this.collider.collide(value, object, left * this.tile_set.tile_size, bottom * this.tile_set.tile_size, this.tile_set.tile_size);
+        //bottom = Math.floor(object.getBottom() / this.tile_set.tile_size);
+        //left = Math.floor(object.getLeft() / this.tile_set.tile_size);
+        //value = this.collision_map[bottom * this.columns + left];
+        //this.collider.collide(value, object, left * this.tile_set.tile_size, bottom * this.tile_set.tile_size, this.tile_set.tile_size);
 
-        bottom = Math.floor(object.getBottom() / this.tile_set.tile_size);
-        right = Math.floor(object.getRight() / this.tile_set.tile_size);
-        value = this.collision_map[bottom * this.columns + right];
-        this.collider.collide(value, object, right * this.tile_set.tile_size, bottom * this.tile_set.tile_size, this.tile_set.tile_size);
+        //bottom = Math.floor(object.getBottom() / this.tile_set.tile_size);
+        //right = Math.floor(object.getRight() / this.tile_set.tile_size);
+        //value = this.collision_map[bottom * this.columns + right];
+        //this.collider.collide(value, object, right * this.tile_set.tile_size, bottom * this.tile_set.tile_size, this.tile_set.tile_size);
 
     },
 
@@ -371,14 +371,15 @@ Game.World.prototype = {
         //this.doors = new Array();
         //this.grass = new Array();
         //this.collision_map = zone.collision_map;
-        //this.graphical_map = zone.graphical_map;
+        //this.graphical_map = graphical_map;
 
         /*ANGAPASST*/
         //Codierung der einzelnen Tiles (Beispiel)
        //Codierung der Map
        //--> Prison Pixel Art.png
        // --> Tiles müssen evtl. noch erweitert werden, da Map noch zu klein ist
-        this.map = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+        
+        this.graphical_map = this.map = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
             50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
             100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149,
             150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199,
@@ -390,7 +391,6 @@ Game.World.prototype = {
             450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499,
             450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499
         ];
-        this.graphical_map = this.map;
         this.columns = 50;
         this.rows = 11;
         //this.zone_id = zone.id;
@@ -510,12 +510,12 @@ Game.Player.prototype = {
     
     frame_sets: {
 
-        "idle-left": [],
-        "jump-left": [],
-        "move-left": [, , , ],
-        "idle-right": [],
-        "jump-right": [],
-        "move-right": [, , , ]
+        "idle-left": [0],
+        "jump-left": [1],
+        "move-left": [1, 2, 3, 4],
+        "idle-right": [5],
+        "jump-right": [6],
+        "move-right": [7, 8, 9, 10]
 
     },
     

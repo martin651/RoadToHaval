@@ -72,7 +72,7 @@
     <Content Include="Impressum.html" />
     <Content Include="Lvl.1\controller.js" />
     <Content Include="Lvl.1\display.js" />
-    <Content Include="Lvl.1\display03.js" />
+    <Content Include="Lvl.1\display03=rabtr05.js" />
     <Content Include="Lvl.1\engine.js" />
     <Content Include="Lvl.1\engine03.js" />
     <Content Include="Lvl.1\level1_02.html" />
@@ -80,7 +80,7 @@
     <Content Include="Lvl.1\main03.js" />
     <Content Include="Lvl.1\pictures\Prison Pixel Art.png" />
     <Content Include="Lvl.1\pictures\RoadToHaval.PNG" />
-    <Content Include="Lvl.1\wordlplayer03.js" />
+    <Content Include="Lvl.1\wordlplayer03=rabtr07.js" />
     <Content Include="Lvl.1\worldplayer02.js" />
     <Content Include="MainMenu.html" />
     <Content Include="NewGame.html" />

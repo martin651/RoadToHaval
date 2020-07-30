@@ -13,10 +13,13 @@
 
     };
 
+    
+
     AssetsManager.prototype = {
 
         constructor: Game.AssetsManager,
 
+        /*
         requestJSON: function (url, callback) {
 
             let request = new XMLHttpRequest();
@@ -31,6 +34,7 @@
             request.send();
 
         },
+        */
 
         requestImage: function (url, callback) {
 
@@ -62,12 +66,14 @@
 
     };
 
+
+
     var render = function () {
 
         display.drawMap(assets_manager.tile_set_image,
             game.world.tile_set.columns, game.world.graphical_map, game.world.columns, game.world.tile_set.tile_size);
 
-        frame = game.world.tile_set.frames[game.world.player.frame_value]; //abholen des Frame-Wertes aus den Klassen (worldplayer.js)
+        let frame = game.world.tile_set.frames[game.world.player.frame_value]; //abholen des Frame-Wertes aus den Klassen (worldplayer.js)
 
         //drawObject ruft relevanten Informationen ab um eine Animation zu ermöglichen
         display.drawObject(assets_manager.tile_set_image,
@@ -158,7 +164,7 @@
 
     });
 
-
+    
 
     /***OLD OLD OLD***/
     ////Map laden
@@ -179,4 +185,6 @@
     window.addEventListener("keyup", keyDownUp);
     window.addEventListener("resize", resize);
 
+
+    
     });
