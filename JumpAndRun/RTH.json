@@ -1,0 +1,14 @@
+{ "columns":14,
+ "image":"RoadToHavalComplete.PNG",
+ "imageheight":403,
+ "imagewidth":894,
+ "margin":0,
+ "name":"RTH",
+ "spacing":0,
+ "tilecount":112,
+ "tiledversion":"1.4.1",
+ "tileheight":50,
+ "tilewidth":60,
+ "type":"tileset",
+ "version":1.4
+}
