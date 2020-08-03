@@ -84,7 +84,7 @@
         //display.drawPlayer(game.world.npc, game.world.npc.color1, game.world.npc.color2);
         
         ////****NEW NEW NEW****//
-        p.innerHTML = "Köftespieß: " /*+ game.world.carrot_count*/;
+        //p.innerHTML = "Köftespieß: " /*+ game.world.carrot_count*/;
         ////****NEW NEW NEW****//
 
 
@@ -137,10 +137,10 @@
 
     ////*****NEW NEW NEW*****//
     ////Creating p-Element (HTML) for "Köftespieß" Counter 
-    //var p = document.createElement("p");
-    //p.setAttribute("style", "color:#c07000; font-size:2.0em; position:fixed;");
-    //p.innerHTML = "Carrots: 0";
-    //document.body.appendChild(p);
+    var p = document.createElement("p");
+    p.setAttribute("style", "color:#c07000; font-size:2.0em; position:fixed;");
+    p.innerHTML = "Köftespieße: 0";
+    document.body.appendChild(p);
     ////*****NEW NEW NEW*****//
 
      ////////////////////
