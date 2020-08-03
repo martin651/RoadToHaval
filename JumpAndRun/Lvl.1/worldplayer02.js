@@ -98,7 +98,7 @@ Game.TileSet = function (columns, tile_size) {
 
     //individuelle Anpassung der Arrays nötig, da hier definiert wird, welche Regionen/Bereiche des Tilsets ausgeschnitten werden sollen//
 
-    this.frames = [new f(115, 96, 32, 32, 0, -4), // idle-left
+    this.frames = [new f(0, 0, 32, 32, 0, -4), // idle-left
     new f(50, 96, 32, 32, 0, -4), // jump-left
     new f(102, 96, 32, 32, 0, -4), new f(89, 96, 13, 16, 0, -4), new f(76, 96, 13, 16, 0, -4), new f(63, 96, 13, 16, 0, -4), // walk-left
     new f(0, 112, 32, 32, -4), // idle-right
@@ -110,6 +110,29 @@ Game.TileSet = function (columns, tile_size) {
 
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
+
+//TEST TEST TEST
+//Game.PlayerTileSet = function (columns, tile_size) {
+
+//    this.columns = columns;
+//    this.tile_size = tile_size;
+
+//    let pf = Game.Frame;
+
+//    //individuelle Anpassung der Arrays nötig, da hier definiert wird, welche Regionen/Bereiche des Tilsets ausgeschnitten werden sollen//
+
+//    this.frames = [new pf(0, 0, 32, 32, 0, -4), // idle-left
+//    new pf(50, 96, 32, 32, 0, -4), // jump-left
+//    new pf(102, 96, 32, 32, 0, -4), new pf(89, 96, 13, 16, 0, -4), new pf(76, 96, 13, 16, 0, -4), new pf(63, 96, 13, 16, 0, -4), // walk-left
+//    new pf(0, 112, 32, 32, -4), // idle-right
+//    new pf(65, 112, 32, 32, 0, -4), // jump-right
+//    new pf(13, 112, 32, 32, 0, -4), new pf(26, 112, 13, 16, 0, -4), new pf(39, 112, 13, 16, 0, -4), new pf(52, 112, 13, 16, 0, -4), // walk-right
+//        //new f(81, 112, 14, 16), new f(96, 112, 16, 16), // carrot
+//        //new f(112, 115, 16, 4), new f(112, 124, 16, 4), new f(112, 119, 16, 4) // grass
+//    ];
+
+//};
+//Game.PlayerTileSet.prototype = { constructor: Game.PlayerTileSet };
 
 //COLIDER Definition
 Game.Collider = function () {
@@ -327,7 +350,8 @@ Game.World = function (friction = 0.85, gravity = 2) {
         350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399,
         400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449,
         450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499,
-        450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499
+        450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499,
+       
     ];
 
     this.tile_set = new Game.TileSet(50, 32);
@@ -496,10 +520,12 @@ Game.World.prototype = {
 //PLAYER = MOVING OBJECT Definition
 Game.Player = function (x, y) {
 
-    Game.MovingObject.call(this, x, y, 64, 60);
+    Game.MovingObject.call(this, x, y, 64, 64);
 
     Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-left"], 10);
 
+    /*** TEST TEST TEST**** */
+    //this.tile_setHav = new Game.PlayerTileSet(8, 85);
     this.jumping = true;
     this.direction_x = -1;
     this.velocity_x = 0;
@@ -511,7 +537,7 @@ Game.Player.prototype = {
     
     frame_sets: {
 
-        "idle-left": [0, 1, 2, 3, 4, 5, 6],
+        "idle-left": [0],
         "jump-left": [1],
         "move-left": [1, 2, 3, 4],
         "idle-right": [5],

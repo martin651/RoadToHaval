@@ -11,6 +11,7 @@
 
         this.tile_set_image = undefined; //deklaration als Image
 
+        this.tile_set_imageChar = undefined; 
     };
 
     
@@ -74,6 +75,10 @@
             game.world.tile_set.columns, game.world.graphical_map, game.world.columns, game.world.tile_set.tile_size);
 
         let frame = game.world.tile_set.frames[game.world.player.frame_value]; //abholen des Frame-Wertes aus den Klassen (worldplayer.js)
+
+
+         /*** TEST TEST TEST**** */
+        //let frame = game.player.tile_setHav.frames[game.world.player.frame_value]; //abholen des Frame-Wertes aus den Klassen (worldplayer.js)
 
         //drawObject ruft relevanten Informationen ab um eine Animation zu ermöglichen
         display.drawObject(assets_manager.tile_set_image,
@@ -156,15 +161,23 @@
     display.buffer.canvas.width = game.world.width;
     display.buffer.imageSmoothingEnabled = false;
 
-    assets_manager.requestImage("pictures/Prison Pixel Art.png", (image) => {
+    assets_manager.requestImage("pictures/RoadToHavalComplete.png", (image) => {
 
-            assets_manager.tile_set_image = image;
+        assets_manager.tile_set_image = image;
 
-            resize();
-            engine.start();
+        resize();
+        engine.start();
 
     });
 
+    //assets_manager.requestImage("pictures/RoadToHaval.png", (image) => {
+
+    //    assets_manager.tile_set_imageChar = image;
+
+    //    resize();
+    //    engine.start();
+
+    //});
 
     
 
