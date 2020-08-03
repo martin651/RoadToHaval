@@ -75,12 +75,14 @@
 
         let frame = game.world.tile_set.frames[game.world.player.frame_value]; //abholen des Frame-Wertes aus den Klassen (worldplayer.js)
 
+        
+
         //drawObject ruft relevanten Informationen ab um eine Animation zu ermöglichen
         display.drawObject(assets_manager.tile_set_image,
             frame.x, frame.y,
             game.world.player.x + Math.floor(game.world.player.width * 0.5 - frame.width * 0.5) + frame.offset_x, //--> "Inperfektion" überlappen der Pixel und Verzögerung der Animation mit Zentrum-Ermittlung des Frames
             game.world.player.y + frame.offset_y, frame.width, frame.height);
-
+            
 
         /*****OLD OLD OLD****/
         //display.drawMap(game.world.map, game.world.columns);
@@ -155,7 +157,7 @@
     display.buffer.canvas.width = game.world.width;
     display.buffer.imageSmoothingEnabled = false;
 
-    assets_manager.requestImage("pictures/Prison Pixel Art.png", (image) => {
+    assets_manager.requestImage("pictures/RoadToHaval.png", (image) => {
 
             assets_manager.tile_set_image = image;
 
@@ -163,6 +165,7 @@
             engine.start();
 
     });
+    assets_manager.src = "pictures/RoadToHaval.png";
 
     
 
