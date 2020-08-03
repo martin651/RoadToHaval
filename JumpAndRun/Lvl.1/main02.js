@@ -131,6 +131,7 @@
     //// OBJECTS ////
     /////////////////
     var assets_manager = new AssetsManager();
+
     var controller = new Controller();
     var display = new Display(document.getElementById("myCanvas"));
     var game = new Game();
@@ -163,6 +164,7 @@
             engine.start();
 
     });
+
 
     
 

@@ -12,7 +12,7 @@ const Display = function (canvas) {
 
     this.drawMap = function (image, image_columns, map, map_columns, tile_size) {
 
-        for (let index = map; index > 0; --index) {
+        for (let index = map.length ; index >= 0; --index) {
 
             let value = map[index];
             let source_x = (value % image_columns) * tile_size;
