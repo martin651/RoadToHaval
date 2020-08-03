@@ -98,14 +98,19 @@ Game.TileSet = function (columns, tile_size) {
 
     //individuelle Anpassung der Arrays nötig, da hier definiert wird, welche Regionen/Bereiche des Tilsets ausgeschnitten werden sollen//
 
-    this.frames = [new f(0, 128, 64, 60, 0, 0), // idle-left
-        //new f(0, 65, 64, 64, 0, 0), // jump-left
-        //new f(0, 130, 64, 20, 0, -4), new f(89, 96, 64, 64, 0, -4), new f(76, 96, 64, 64, 0, -4), new f(63, 96, 64, 64, 0, -4), // walk-left
-        //new f(0, 112, 64, 64, -4), // idle-right
-        //new f(65, 112, 64, 64, 0, -4), // jump-right
-        //new f(13, 112, 64, 64, 0, -4), new f(26, 112, 64, 64, 0, -4), new f(39, 112, 64, 64, 0, -4), new f(52, 112, 64, 64, 0, -4), // walk-right
-        //new f(81, 112, 64, 64, 0, -4), new f(96, 112, 16, 16), // carrot
-        //new f(112, 115, 64, 64), new f(112, 124, 16, 4), new f(112, 119, 16, 4) // grass
+    this.frames = [
+        /**PLAYER FRAMES***/
+        new f(0, 128, 64, 60, 0, 0), // Player idle-right
+        //new f(0, 65, 64, 64, 0, 0), // Player jump-left
+        //new f(0, 130, 64, 20, 0, -4), new f(89, 96, 64, 64, 0, -4), new f(76, 96, 64, 64, 0, -4), new f(63, 96, 64, 64, 0, -4), // Player walk-left
+        //new f(0, 112, 64, 64, -4), // Player idle-left
+        //new f(65, 112, 64, 64, 0, -4), // Player jump-right
+        //new f(13, 112, 64, 64, 0, -4), new f(26, 112, 64, 64, 0, -4), new f(39, 112, 64, 64, 0, -4), new f(52, 112, 64, 64, 0, -4), // Player walk-right
+        /**NPC FRAMES***/
+        //new f(112, 115, 64, 64), new f(112, 124, 16, 4), new f(112, 119, 16, 4) // NPC walk left
+        /**ITEMS FRAMES***/
+        //new f(81, 112, 64, 64, 0, -4), new f(96, 112, 16, 16), // Köftespieß
+        
     ];
 
 };
@@ -336,7 +341,6 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
     this.player = new Game.Player(0, 0);
-
     //this.zone_id = "00";
 
     //this.carrots = [];// the array of carrots in this zone;
@@ -389,12 +393,7 @@ Game.World.prototype = {
         //this.collision_map = zone.collision_map;
         //this.graphical_map = graphical_map;
 
-        /*ANGAPASST*/
-        //Codierung der einzelnen Tiles (Beispiel)
-       //Codierung der Map
-       //--> Prison Pixel Art.png
-       // --> Tiles müssen evtl. noch erweitert werden, da Map noch zu klein ist
-        
+          
         //this.graphical_map;
         //this.columns = 50;
         //this.rows = 11;
