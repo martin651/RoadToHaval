@@ -13,4 +13,9 @@
 ***
 Dieses Projekt wurde von den Studenten der FHDW Pavo Simic und Martin Naumann im Rahmen
 einer Projektarbeit im Modul "Projekte der Wirtschaftsinformatik" angefertigt.
-Das Projekt / Spiel trägt den Namen "RoadToHaval".
+Das Projekt / Spiel trägt den Namen "RoadToHaval". Bei dem auf dem Jump and Run basierendem Spiel steuert
+der Anwender die Figur "Haval". 
+
+
+##### Beschreibung des Programms
+***
