@@ -81,6 +81,7 @@
     <Content Include="Lvl.1\pictures\Level 2.png" />
     <Content Include="Lvl.1\pictures\Prison Pixel Art.png" />
     <Content Include="Lvl.1\pictures\RoadToHaval.PNG" />
+    <Content Include="Lvl.1\pictures\RoadToHavalChars.png" />
     <Content Include="Lvl.1\pictures\RoadToHavalComplete.PNG" />
     <Content Include="Lvl.1\wordlplayer03=rabtr07.js" />
     <Content Include="Lvl.1\worldplayer02.js" />
