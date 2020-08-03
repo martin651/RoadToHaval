@@ -84,8 +84,7 @@
         //display.drawPlayer(game.world.npc, game.world.npc.color1, game.world.npc.color2);
         
         ////****NEW NEW NEW****//
-        //display.drawPlayer(game.world.koftespiess, game.world.koftespiess.color1, game.world.koftespiess.color2);
-        //p.innerHTML = "Köftespieß: " + game.world.carrot_count;
+        p.innerHTML = "Köftespieß: " /*+ game.world.carrot_count*/;
         ////****NEW NEW NEW****//
 
 
