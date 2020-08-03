@@ -72,18 +72,14 @@
     <Content Include="Impressum.html" />
     <Content Include="Lvl.1\controller.js" />
     <Content Include="Lvl.1\display.js" />
-    <Content Include="Lvl.1\display03=rabtr05.js" />
     <Content Include="Lvl.1\engine.js" />
-    <Content Include="Lvl.1\engine03.js" />
     <Content Include="Lvl.1\level1_02.html" />
     <Content Include="Lvl.1\main02.js" />
-    <Content Include="Lvl.1\main03.js" />
     <Content Include="Lvl.1\pictures\Level 2.png" />
     <Content Include="Lvl.1\pictures\Prison Pixel Art.png" />
     <Content Include="Lvl.1\pictures\RoadToHaval.PNG" />
     <Content Include="Lvl.1\pictures\RoadToHavalChars.png" />
     <Content Include="Lvl.1\pictures\RoadToHavalComplete.PNG" />
-    <Content Include="Lvl.1\wordlplayer03=rabtr07.js" />
     <Content Include="Lvl.1\worldplayer02.js" />
     <Content Include="MainMenu.html" />
     <Content Include="NewGame.html" />
@@ -96,7 +92,6 @@
   <ItemGroup>
     <Content Include="Haval.json" />
     <Content Include="Haval Charakter.json" />
-    <Content Include="Lvl.1\zone00.json" />
     <Content Include="Level 2.json" />
     <None Include="packages.config" />
     <Content Include="readme.md" />
