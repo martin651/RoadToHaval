@@ -13,9 +13,6 @@
 
         this.tile_set_imageChar = undefined; 
     };
-
-    
-
     AssetsManager.prototype = {
 
         constructor: Game.AssetsManager,
@@ -67,18 +64,12 @@
 
     };
 
-
-
     var render = function () {
 
         display.drawMap(assets_manager.tile_set_image,
-            game.world.tile_set.columns, game.world.graphical_map, game.world.columns, game.world.tile_set.tile_size);
+            game.world.tile_setWorld.columns, game.world.graphical_map, game.world.columns, game.world.tile_setWorld.tile_size);
 
-        let frame = game.world.tile_set.frames[game.world.player.frame_value]; //abholen des Frame-Wertes aus den Klassen (worldplayer.js)
-
-
-         /*** TEST TEST TEST**** */
-        //let frame = game.player.tile_setHav.frames[game.world.player.frame_value]; //abholen des Frame-Wertes aus den Klassen (worldplayer.js)
+        let frame = game.world.tile_setPlayer.frames[game.world.player.frame_value]; //abholen des Frame-Wertes aus den Klassen (worldplayer.js)
 
         //drawObject ruft relevanten Informationen ab um eine Animation zu ermöglichen
         display.drawObject(assets_manager.tile_set_imageChar,
@@ -169,6 +160,8 @@
         engine.start();
 
     });
+
+
 
     assets_manager.requestImage("pictures/RoadToHavalChars.png", (image) => {
 

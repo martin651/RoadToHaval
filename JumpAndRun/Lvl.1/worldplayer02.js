@@ -98,41 +98,19 @@ Game.TileSet = function (columns, tile_size) {
 
     //individuelle Anpassung der Arrays nötig, da hier definiert wird, welche Regionen/Bereiche des Tilsets ausgeschnitten werden sollen//
 
-    this.frames = [new f(0, 0, 32, 32, 0, -4), // idle-left
-    new f(50, 96, 32, 32, 0, -4), // jump-left
-    new f(102, 96, 32, 32, 0, -4), new f(89, 96, 13, 16, 0, -4), new f(76, 96, 13, 16, 0, -4), new f(63, 96, 13, 16, 0, -4), // walk-left
-    new f(0, 112, 32, 32, -4), // idle-right
-    new f(65, 112, 32, 32, 0, -4), // jump-right
-    new f(13, 112, 32, 32, 0, -4), new f(26, 112, 13, 16, 0, -4), new f(39, 112, 13, 16, 0, -4), new f(52, 112, 13, 16, 0, -4), // walk-right
-    //new f(81, 112, 14, 16), new f(96, 112, 16, 16), // carrot
-    //new f(112, 115, 16, 4), new f(112, 124, 16, 4), new f(112, 119, 16, 4) // grass
+    this.frames = [new f(0, 128, 64, 60, 0, 0), // idle-left
+        //new f(0, 65, 64, 64, 0, 0), // jump-left
+        //new f(0, 130, 64, 20, 0, -4), new f(89, 96, 64, 64, 0, -4), new f(76, 96, 64, 64, 0, -4), new f(63, 96, 64, 64, 0, -4), // walk-left
+        //new f(0, 112, 64, 64, -4), // idle-right
+        //new f(65, 112, 64, 64, 0, -4), // jump-right
+        //new f(13, 112, 64, 64, 0, -4), new f(26, 112, 64, 64, 0, -4), new f(39, 112, 64, 64, 0, -4), new f(52, 112, 64, 64, 0, -4), // walk-right
+        //new f(81, 112, 64, 64, 0, -4), new f(96, 112, 16, 16), // carrot
+        //new f(112, 115, 64, 64), new f(112, 124, 16, 4), new f(112, 119, 16, 4) // grass
     ];
 
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
 
-//TEST TEST TEST
-//Game.PlayerTileSet = function (columns, tile_size) {
-
-//    this.columns = columns;
-//    this.tile_size = tile_size;
-
-//    let pf = Game.Frame;
-
-//    //individuelle Anpassung der Arrays nötig, da hier definiert wird, welche Regionen/Bereiche des Tilsets ausgeschnitten werden sollen//
-
-//    this.frames = [new pf(0, 0, 32, 32, 0, -4), // idle-left
-//    new pf(50, 96, 32, 32, 0, -4), // jump-left
-//    new pf(102, 96, 32, 32, 0, -4), new pf(89, 96, 13, 16, 0, -4), new pf(76, 96, 13, 16, 0, -4), new pf(63, 96, 13, 16, 0, -4), // walk-left
-//    new pf(0, 112, 32, 32, -4), // idle-right
-//    new pf(65, 112, 32, 32, 0, -4), // jump-right
-//    new pf(13, 112, 32, 32, 0, -4), new pf(26, 112, 13, 16, 0, -4), new pf(39, 112, 13, 16, 0, -4), new pf(52, 112, 13, 16, 0, -4), // walk-right
-//        //new f(81, 112, 14, 16), new f(96, 112, 16, 16), // carrot
-//        //new f(112, 115, 16, 4), new f(112, 124, 16, 4), new f(112, 119, 16, 4) // grass
-//    ];
-
-//};
-//Game.PlayerTileSet.prototype = { constructor: Game.PlayerTileSet };
 
 //COLIDER Definition
 Game.Collider = function () {
@@ -237,8 +215,6 @@ Game.Collider.prototype = {
 
 
 
-
-
 //OBJECT Definition
 Game.Object = function (x, y, width, height) {
 
@@ -339,7 +315,7 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.gravity = gravity;
 
     this.columns = 50; //ALTERNATIV zone.
-    this.rows = 12; //ALTERNATIV zone.
+    this.rows = 11; //ALTERNATIV zone.
     this.graphical_map = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
         50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
         100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149,
@@ -355,8 +331,10 @@ Game.World = function (friction = 0.85, gravity = 2) {
 
        
     ];
+    this.collision_map = [4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 0, 2, 0, 0, 0, 0, 10, 0, 0, 14, 0, 0, 8, 2, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 8, 0, 3, 0, 0, 13, 4, 7, 0, 0, 0, 13, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 2, 0, 0, 1, 0, 0, 0, 0, 11, 0, 0, 8, 2, 0, 0, 0, 0, 0, 11, 0, 10, 0, 13, 0, 0, 3, 0, 0, 11, 0, 10, 0, 10, 0, 0, 8, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0];
 
-    this.tile_set = new Game.TileSet(50, 32);
+    this.tile_setWorld = new Game.TileSet(50, 32);
+    this.tile_setPlayer = new Game.TileSet(8, 64);
     this.player = new Game.Player(0, 0);
 
     //this.zone_id = "00";
@@ -366,8 +344,8 @@ Game.World = function (friction = 0.85, gravity = 2) {
     //this.doors = [];
     //this.door = undefined;
     this.tile_size = 32;
-    this.height = this.tile_set.tile_size * this.rows;
-    this.width = this.tile_set.tile_size * this.columns;
+    this.height = this.tile_setWorld.tile_size * this.rows;
+    this.width = this.tile_setWorld.tile_size * this.columns;
 
 };
 Game.World.prototype = {
@@ -379,27 +357,27 @@ Game.World.prototype = {
         /* I got rid of the world boundary collision. Now it's up to the tiles to keep
         the player from falling out of the world. */
 
-        //var bottom, left, right, top, value;
+        var bottom, left, right, top, value;
 
-        //top = Math.floor(object.getTop() / this.tile_set.tile_size);
-        //left = Math.floor(object.getLeft() / this.tile_set.tile_size);
-        //value = this.collision_map[top * this.columns + left];
-        //this.collider.collide(value, object, left * this.tile_set.tile_size, top * this.tile_set.tile_size, this.tile_set.tile_size);
+        top = Math.floor(object.getTop() / this.tile_setPlayer.tile_size);
+        left = Math.floor(object.getLeft() / this.tile_setPlayer.tile_size);
+        value = this.collision_map[top * this.columns + left];
+        this.collider.collide(value, object, left * this.tile_setPlayer.tile_size, top * this.tile_setPlayer.tile_size, this.tile_setPlayer.tile_size);
 
-        //top = Math.floor(object.getTop() / this.tile_set.tile_size);
-        //right = Math.floor(object.getRight() / this.tile_set.tile_size);
-        //value = this.collision_map[top * this.columns + right];
-        //this.collider.collide(value, object, right * this.tile_set.tile_size, top * this.tile_set.tile_size, this.tile_set.tile_size);
+        top = Math.floor(object.getTop() / this.tile_setPlayer.tile_size);
+        right = Math.floor(object.getRight() / this.tile_setPlayer.tile_size);
+        value = this.collision_map[top * this.columns + right];
+        this.collider.collide(value, object, right * this.tile_setPlayer.tile_size, top * this.tile_setPlayer.tile_size, this.tile_setPlayer.tile_size);
 
-        //bottom = Math.floor(object.getBottom() / this.tile_set.tile_size);
-        //left = Math.floor(object.getLeft() / this.tile_set.tile_size);
-        //value = this.collision_map[bottom * this.columns + left];
-        //this.collider.collide(value, object, left * this.tile_set.tile_size, bottom * this.tile_set.tile_size, this.tile_set.tile_size);
+        bottom = Math.floor(object.getBottom() / this.tile_setPlayer.tile_size);
+        left = Math.floor(object.getLeft() / this.tile_setPlayer.tile_size);
+        value = this.collision_map[bottom * this.columns + left];
+        this.collider.collide(value, object, left * this.tile_setPlayer.tile_size, bottom * this.tile_setPlayer.tile_size, this.tile_setPlayer.tile_size);
 
-        //bottom = Math.floor(object.getBottom() / this.tile_set.tile_size);
-        //right = Math.floor(object.getRight() / this.tile_set.tile_size);
-        //value = this.collision_map[bottom * this.columns + right];
-        //this.collider.collide(value, object, right * this.tile_set.tile_size, bottom * this.tile_set.tile_size, this.tile_set.tile_size);
+        bottom = Math.floor(object.getBottom() / this.tile_setPlayer.tile_size);
+        right = Math.floor(object.getRight() / this.tile_setPlayer.tile_size);
+        value = this.collision_map[bottom * this.columns + right];
+        this.collider.collide(value, object, right * this.tile_setPlayer.tile_size, bottom * this.tile_setPlayer.tile_size, this.tile_setPlayer.tile_size);
 
     },
 
@@ -524,12 +502,10 @@ Game.Player = function (x, y) {
 
     Game.MovingObject.call(this, x, y, 64, 64);
 
-    Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-left"], 10);
+    Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-right"], 10);
 
-    /*** TEST TEST TEST**** */
-    //this.tile_setHav = new Game.PlayerTileSet(8, 85);
     this.jumping = true;
-    this.direction_x = -1;
+    this.direction_x = 0.1;
     this.velocity_x = 0;
     this.velocity_y = 0;
 
@@ -539,10 +515,10 @@ Game.Player.prototype = {
     
     frame_sets: {
 
-        "idle-left": [0,1,2,3,4,5,6],
-        "jump-left": [1],
-        "move-left": [1, 2, 3, 4],
-        "idle-right": [5],
+        "idle-left": [1],
+        "jump-left": [0],
+        "move-left": [0, 0, 0, 0],
+        "idle-right": [0],
         "jump-right": [6],
         "move-right": [7, 8, 9, 10]
 
