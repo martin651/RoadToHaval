@@ -71,12 +71,13 @@
 
         let playerframe = game.world.tile_setPlayer.frames[game.world.player.frame_value]; //abholen des Frame-Wertes aus den Klassen (worldplayer.js)
 
-        //drawObject ruft relevanten Informationen ab um eine Animation zu ermöglichen
+        //drawPlayer ruft relevanten Informationen ab um eine Animation zu ermöglichen
         display.drawObject(assets_manager.tile_set_imageChar,
             playerframe.x, playerframe.y,
             game.world.player.x + Math.floor(game.world.player.width * 0.5 - playerframe.width * 0.5) + playerframe.offset_x, //--> "Inperfektion" überlappen der Pixel und Verzögerung der Animation mit Zentrum-Ermittlung des Frames
             game.world.player.y + playerframe.offset_y, playerframe.width, playerframe.height);
 
+        //drawNPC
         let npcframe = game.world.tile_setPlayer.frames[game.world.npc.frame_value];
         display.drawObject(assets_manager.tile_set_imageChar,
             npcframe.x, npcframe.y,
