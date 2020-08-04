@@ -346,10 +346,12 @@ Game.World = function (friction = 0.85, gravity = 2) {
     /**NEW NEW NEW **/
     this.npc = new Game.Npc(100, 0);
     this.koeftespiess = new Game.Koeftespiess(1150, 150);
+    this.koeftespiess_count = 0;// the number of Köftespieß you have.
+
 
     //this.zone_id = "00";
     //this.carrots = [];// the array of carrots in this zone;
-    //this.carrot_count = 0;// the number of carrots you have.
+   
     //this.doors = [];
     //this.door = undefined;
     this.tile_size = 32;
@@ -464,6 +466,7 @@ Game.World.prototype = {
         this.player.updatePosition(this.gravity, this.friction);
         this.collideObject(this.player);
 
+        /*** NEW NEW NEW ***/
         //NPC
         this.npc.updatePosition(this.gravity, this.friction);
         this.collideObject(this.npc);
@@ -471,48 +474,47 @@ Game.World.prototype = {
         this.simulation(this.player);
 
         
-       /*Anpassen 
-        * 
-        * 
-        for (let index = this.carrots.length - 1; index > -1; --index) {
+    
+        //for (let index = this.carrots.length - 1; index > -1; --index) {
 
-            let carrot = this.carrots[index];
+        //    let carrot = this.carrots[index];
 
-            carrot.updatePosition();
-            carrot.animate();
+        //    carrot.updatePosition();
+        //    carrot.animate();
 
-            if (carrot.collideObject(this.player)) {
+            if (this.koeftespiess.collideObject(this.player)) {
 
-                this.carrots.splice(this.carrots.indexOf(carrot), 1);
-                this.carrot_count++;
+                this.koeftespiess.splice(this.koeftespiess.indexOf(this.koeftespiess), 1);
+                this.koeftespiess_count++;
 
             }
 
-        }
+        //}
 
-        for (let index = this.doors.length - 1; index > -1; --index) {
+        //for (let index = this.doors.length - 1; index > -1; --index) {
 
-            let door = this.doors[index];
+        //    let door = this.doors[index];
 
-            if (door.collideObjectCenter(this.player)) {
+        //    if (door.collideObjectCenter(this.player)) {
 
-                this.door = door;
+        //        this.door = door;
 
-            };
+        //    };
 
-        }
+        //}
 
-        for (let index = this.grass.length - 1; index > -1; --index) {
+        //for (let index = this.grass.length - 1; index > -1; --index) {
 
-            let grass = this.grass[index];
+        //    let grass = this.grass[index];
 
-            grass.animate();
+        //    grass.animate();
 
-        }
-        */
+        //}
+        
 
         this.player.updateAnimation();
         this.npc.updateAnimation();
+        //this.koeftespiess.updateAnimation();
 
     }
 

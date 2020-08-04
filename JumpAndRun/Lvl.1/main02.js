@@ -94,7 +94,7 @@
 
 
         ////****NEW NEW NEW****//
-        //p.innerHTML = "Köftespieß: " /*+ game.world.carrot_count*/;
+        p.innerHTML = "Köftespieß: " + game.world.koeftespiess_count;
         ////****NEW NEW NEW****//
 
 
@@ -144,10 +144,10 @@
      //// KÖFTESPIEß-ZÄHLER ////
     ///////////////////////////
 
-    ////Creating p-Element (HTML) for "Köftespieß" Counter 
+    //Creating p-Element (HTML) for "Köftespieß" Counter 
     var p = document.createElement("p");
     p.setAttribute("style", "color:#c07000; font-size:2.0em; position:fixed;");
-    p.innerHTML = "Köftespieße: 0"/*Köfte-Zähler-Funktion*/;
+    p.innerHTML = "Köftespieße: 0"; /*Köfte-Zähler-Funktion*/
     document.body.appendChild(p);
     
 
