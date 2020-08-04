@@ -337,14 +337,14 @@ Game.World = function (friction = 0.85, gravity = 2) {
        
     ];
     /**NEW NEW NEW **/
-    this.collision_map = [4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 0, 2, 0, 0, 0, 0, 10, 0, 0, 14, 0, 0, 8, 2, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 8, 0, 3, 0, 0, 13, 4, 7, 0, 0, 0, 13, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 2, 0, 0, 1, 0, 0, 0, 0, 11, 0, 0, 8, 2, 0, 0, 0, 0, 0, 11, 0, 10, 0, 13, 0, 0, 3, 0, 0, 11, 0, 10, 0, 10, 0, 0, 8, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0];
+    this.collision_map = [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 14, 0, 0, 8, 2, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 8, 0, 3, 0, 0, 13, 4, 7, 0, 0, 0, 13, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 2, 0, 0, 1, 0, 0, 0, 0, 11, 0, 0, 8, 2, 0, 0, 0, 0, 0, 11, 0, 10, 0, 13, 0, 0, 3, 0, 0, 11, 0, 10, 0, 10, 0, 0, 8, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0];
 
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
-    this.player = new Game.Player(0, 0);
+    this.player = new Game.Player(10, 0);
 
     /**NEW NEW NEW **/
-    this.npc = new Game.Npc(800, 318);
+    this.npc = new Game.Npc(0, 0);
 
 
     //this.zone_id = "00";
@@ -390,6 +390,17 @@ Game.World.prototype = {
 
     },
 
+    
+    simulation: function (object) {
+
+        if (this.player.velocity_x == 0) {
+
+            this.npc.moving = false;
+            this.npc.moveLeft();
+        };
+
+    },
+    
     //setup: function (zone) {
 
         //this.carrots = new Array();
@@ -449,9 +460,16 @@ Game.World.prototype = {
 
     update: function () {
 
+        //Player
         this.player.updatePosition(this.gravity, this.friction);
-
         this.collideObject(this.player);
+
+        //NPC
+        this.npc.updatePosition(this.gravity, this.friction);
+        this.collideObject(this.npc);
+
+        this.simulation(this.player);
+
         
        /*Anpassen 
         * 
@@ -494,6 +512,7 @@ Game.World.prototype = {
         */
 
         this.player.updateAnimation();
+        this.npc.updateAnimation();
 
     }
 
@@ -519,12 +538,12 @@ Game.Player.prototype = {
     
     frame_sets: {
 
-        "idle-left": [1],
-        "jump-left": [0],
-        "move-left": [0, 0, 0, 0],
+        //"idle-left": [1],
+        //"jump-left": [0],
+        //"move-left": [0, 0, 0, 0],
         "idle-right": [0],
-        "jump-right": [6],
-        "move-right": [7, 8, 9, 10]
+        //"jump-right": [6],
+        //"move-right": [7, 8, 9, 10]
 
     },
     
@@ -611,9 +630,9 @@ Game.Npc = function (x, y) {
 
     Game.MovingObject.call(this, x, y, 64, 64);
 
-    Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-left"], 10);
+    Game.Animator.call(this, Game.Npc.prototype.frame_sets["idle-left"], 10);
 
-    this.moving = false; //analog ==> Game.World.Npc.moving
+    this.moving = true; //analog ==> Game.World.Npc.moving
     this.direction_x = -1;
     this.velocity_x = 0;
     this.velocity_y = 0;
