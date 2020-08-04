@@ -390,10 +390,10 @@ Game.World.prototype = {
 
     },
 
-    
+    //Moving NPC's 
     simulation: function (object) {
 
-        if (this.player.velocity_x == 0) {
+        if (this.player.velocity_x > 0) {
 
             this.npc.moving = false;
             this.npc.moveLeft();
