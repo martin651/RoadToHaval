@@ -484,10 +484,14 @@ Game.World.prototype = {
 
             if (this.koeftespiess.collideObject(this.player)) {
 
-                this.koeftespiess.splice(this.koeftespiess.indexOf(this.koeftespiess), 1);
+                //splice-function --> method adds/removes items to/from an array, and returns the removed item(s).
+                //array.splice(index, howmany, item1, ....., itemX) --> index = int specifies pos; 
+                //                                                  --> howmany = optional - The number of items to be removed.If set to 0, no items will be removed
+                //                                                  --> item1/x = optional - The new item(s) to be added to the array
+                this.koeftespiess.splice(this.koeftespiess.indexOf(this.koeftespiess), 1); 
                 this.koeftespiess_count++;
 
-            }
+             };
 
         //}
 
