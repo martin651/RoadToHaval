@@ -344,8 +344,8 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.player = new Game.Player(10, 0);
 
     /**NEW NEW NEW **/
-    this.npc = new Game.Npc(100, 0);
-    this.koeftespiess = new Game.Koeftespiess(1150, 150);
+    this.npc = new Game.Npc(1000, 0);
+    this.koeftespiess = new Game.Koeftespiess(105, 60);
     this.koeftespiess_count = 0;// the number of Köftespieß you have.
 
 
@@ -479,8 +479,8 @@ Game.World.prototype = {
 
         //    let carrot = this.carrots[index];
 
-        //    carrot.updatePosition();
-        //    carrot.animate();
+        this.koeftespiess.updatePosition();
+        this.koeftespiess.animate();
 
             if (this.koeftespiess.collideObject(this.player)) {
 
@@ -761,7 +761,7 @@ Game.Koeftespiess = function (x, y) {
 };
 Game.Koeftespiess.prototype = {
 
-    frame_sets: { "twirl": [4] },
+    frame_sets: { "twirl": [19] },
 
     updatePosition: function () {
 
