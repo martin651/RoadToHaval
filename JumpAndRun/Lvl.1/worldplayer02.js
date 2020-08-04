@@ -101,11 +101,11 @@ Game.TileSet = function (columns, tile_size) {
     this.frames = [
         /**PLAYER FRAMES***/
         new f(0, 128, 64, 60, 0, 0), // Player idle-right
-        //new f(0, 65, 64, 64, 0, 0), // Player jump-left
-        //new f(0, 130, 64, 20, 0, -4), new f(89, 96, 64, 64, 0, -4), new f(76, 96, 64, 64, 0, -4), new f(63, 96, 64, 64, 0, -4), // Player walk-left
-        //new f(0, 112, 64, 64, -4), // Player idle-left
-        //new f(65, 112, 64, 64, 0, -4), // Player jump-right
-        //new f(13, 112, 64, 64, 0, -4), new f(26, 112, 64, 64, 0, -4), new f(39, 112, 64, 64, 0, -4), new f(52, 112, 64, 64, 0, -4), // Player walk-right
+        new f(192, 192, 64, 60, 0, 0), new f(256, 192, 64, 60, 0, 0), new f(320, 192, 64, 60, 0, 0),  // Player jump-left
+        new f(0, 64, 64, 60, 0, 0), new f(64, 64, 64, 60, 0, 0), new f(128, 64, 64, 60, 0, 0), new f(192, 64, 64, 60, 0, 0), // Player walk-left
+        new f(0, 64, 64, 60,0,0), // Player idle-left
+        new f(0, 192, 64, 60, 0, 0), new f(64, 192, 64, 60, 0, 0), new f(128, 192, 64, 60, 0, 0), // Player jump-right
+        new f(0, 128, 64, 60, 0, 0), new f(64, 128, 64, 60, 0, 0), new f(128, 128, 64, 60, 0, 0), new f(192, 128, 64, 60, 0, 0), // Player walk-right
         /**NPC FRAMES***/
         new f(0, 0, 64, 64, 0, 0), new f(65, 0, 64, 64, 0, 0), new f(129, 0, 64, 64, 0, 0), // NPC walk left
         /**ITEMS FRAMES***/
@@ -544,12 +544,12 @@ Game.Player.prototype = {
     
     frame_sets: {
 
-        //"idle-left": [1],
-        //"jump-left": [0],
-        //"move-left": [0, 0, 0, 0],
+        "idle-left": [8],
+        "jump-left": [1,2,3],
+        "move-left": [4,5,6,7],
         "idle-right": [0],
-        //"jump-right": [6],
-        //"move-right": [7, 8, 9, 10]
+        "jump-right": [9,10,11],
+        "move-right": [12,13,14,15]
 
     },
     
@@ -649,8 +649,8 @@ Game.Npc.prototype = {
     
     frame_sets: {
 
-        "idle-left": [1],
-        "move-left": [1, 2, 3],
+        "idle-left": [16],
+        "move-left": [16, 17, 18],
 
     },
     
