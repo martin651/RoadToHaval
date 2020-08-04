@@ -107,7 +107,7 @@ Game.TileSet = function (columns, tile_size) {
         //new f(65, 112, 64, 64, 0, -4), // Player jump-right
         //new f(13, 112, 64, 64, 0, -4), new f(26, 112, 64, 64, 0, -4), new f(39, 112, 64, 64, 0, -4), new f(52, 112, 64, 64, 0, -4), // Player walk-right
         /**NPC FRAMES***/
-        //new f(112, 115, 64, 64), new f(112, 124, 16, 4), new f(112, 119, 16, 4) // NPC walk left
+        new f(0, 0, 64, 64, 0, 0), new f(65, 0, 64, 64, 0, 0), new f(129, 0, 64, 64, 0, 0) // NPC walk left
         /**ITEMS FRAMES***/
         //new f(81, 112, 64, 64, 0, -4), new f(96, 112, 16, 16), // Köftespieß
         
@@ -336,13 +336,18 @@ Game.World = function (friction = 0.85, gravity = 2) {
 
        
     ];
+    /**NEW NEW NEW **/
     this.collision_map = [4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 0, 2, 0, 0, 0, 0, 10, 0, 0, 14, 0, 0, 8, 2, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 8, 0, 3, 0, 0, 13, 4, 7, 0, 0, 0, 13, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 2, 0, 0, 1, 0, 0, 0, 0, 11, 0, 0, 8, 2, 0, 0, 0, 0, 0, 11, 0, 10, 0, 13, 0, 0, 3, 0, 0, 11, 0, 10, 0, 10, 0, 0, 8, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0];
 
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
     this.player = new Game.Player(0, 0);
-    //this.zone_id = "00";
 
+    /**NEW NEW NEW **/
+    this.npc = new Game.Npc(800, 318);
+
+
+    //this.zone_id = "00";
     //this.carrots = [];// the array of carrots in this zone;
     //this.carrot_count = 0;// the number of carrots you have.
     //this.doors = [];
@@ -602,128 +607,120 @@ Game.Player.prototype.constructor = Game.Player;
 
 ///NPC DEFINITION
 //NPC = MOVING OBJECT Definition
-//*
-//* 
-//* 
-//Game.Npc = function (x, y) {
+Game.Npc = function (x, y) {
 
-//    Game.MovingObject.call(this, x, y, 58, 58);
+    Game.MovingObject.call(this, x, y, 64, 64);
 
-//    //Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-left"], 10);
+    Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-left"], 10);
 
-//    this.moving = false; //analog ==> Game.World.Npc.moving
-//    this.direction_x = -1;
-//    this.velocity_x = 0;
-//    this.velocity_y = 0;
+    this.moving = false; //analog ==> Game.World.Npc.moving
+    this.direction_x = -1;
+    this.velocity_x = 0;
+    this.velocity_y = 0;
 
-//};
-//Game.Npc.prototype = {
+};
+Game.Npc.prototype = {
 
-//    /*
-//    frame_sets: {
-
-//        "idle-left": [0],
-//        "jump-left": [1],
-//        "move-left": [2, 3, 4, 5],
-//        "idle-right": [6],
-//        "jump-right": [7],
-//        "move-right": [8, 9, 10, 11]
-
-//    },
-//    */
-//    /*
-//    jump: function () {
-
-//        // Made it so you can only jump if you aren't falling faster than 10px per frame. 
-//        if (!this.jumping && this.velocity_y < 10) {
-
-//            this.jumping = true;
-//            this.velocity_y -= 13;
-
-//        }
-
-//    },
     
-//    moveLeft: function () { //analog ==> Game.World.Npc.move()
+    frame_sets: {
 
-//        this.direction_x = -1;
+        "idle-left": [1],
+        "move-left": [1, 2, 3],
 
-//        if (this.moving == false) {
+    },
+    
+    //jump: function () {
 
-//            this.velocity_x -= 0.7
-//        };
+    //    // Made it so you can only jump if you aren't falling faster than 10px per frame. 
+    //    if (!this.jumping && this.velocity_y < 10) {
 
-//    },
+    //        this.jumping = true;
+    //        this.velocity_y -= 13;
 
-//    /*
-//    moveRight: function (/*frame_set) {
+    //    }
 
-//        this.direction_x = 1;
-//        this.velocity_x += 0.55;
+    //},
+    
+    moveLeft: function () { //analog ==> Game.World.Npc.move()
 
-//    },
+        this.direction_x = -1;
+
+        if (this.moving == false) {
+
+            this.velocity_x -= 0.7
+        };
+
+    },
+
+    
+    //moveRight: function (frame_set) {
+
+    //    this.direction_x = 1;
+    //    this.velocity_x += 0.55;
+
+    //},
     
     
-//    updateAnimation: function () {
+    updateAnimation: function () {
 
-//        // MUSS ANGEPASST werden DIRECTION ist immer links also -1
+        // MUSS ANGEPASST werden DIRECTION ist immer links also -1
 
-//        //Prüfen ob benötigt wird
-//        if (this.velocity_y < 0) {
+        //Prüfen ob benötigt wird
+        //if (this.velocity_y < 0) {
 
-//            if (this.direction_x < 0) this.changeFrameSet(this.frame_sets["jump-left"], "pause");
-//            else this.changeFrameSet(this.frame_sets["jump-right"], "pause");
+        //    if (this.direction_x < 0) this.changeFrameSet(this.frame_sets["jump-left"], "pause");
+        //    else this.changeFrameSet(this.frame_sets["jump-right"], "pause");
 
-//        } 
+        //} 
 
-//        //==> WIRD BENÖTIGT
-//        else if (this.direction_x < 0) {
+        
+        if (this.direction_x < 0) {
 
-//            if (this.velocity_x < -0.1) this.changeFrameSet(this.frame_sets["move-left"], "loop", 5);
-//            else this.changeFrameSet(this.frame_sets["idle-left"], "pause");
+            if (this.velocity_x < -0.1) this.changeFrameSet(this.frame_sets["move-left"], "loop", 5);
+            else this.changeFrameSet(this.frame_sets["idle-left"], "pause");
 
-//        } 
+        } 
 
-//        //Prüfen ob benötigt wird
+        //Prüfen ob benötigt wird
 
-//        else if (this.direction_x > 0) {
+        //else if (this.direction_x > 0) {
 
-//            if (this.velocity_x > 0.1) this.changeFrameSet(this.frame_sets["move-right"], "loop", 5);
-//            else this.changeFrameSet(this.frame_sets["idle-right"], "pause");
+        //    if (this.velocity_x > 0.1) this.changeFrameSet(this.frame_sets["move-right"], "loop", 5);
+        //    else this.changeFrameSet(this.frame_sets["idle-right"], "pause");
 
-//        }
+        //}
 
-//        //==> WIRD BENÖTIGT
-//        this.animate();
+        
+        this.animate();
 
-//    },
+    },
     
-//    updatePosition: function (gravity, friction) {
+    updatePosition: function (gravity, friction) {
 
-//        this.x_old = this.x;
-//        this.y_old = this.y;
+        this.x_old = this.x;
+        this.y_old = this.y;
 
-//        this.velocity_y += gravity;
-//        this.velocity_x *= friction;
+        this.velocity_y += gravity;
+        this.velocity_x *= friction;
 
-//         Made it so that velocity cannot exceed velocity_max 
-//        if (Math.abs(this.velocity_x) > this.velocity_max)
-//            this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
+         //Made it so that velocity cannot exceed velocity_max 
+        if (Math.abs(this.velocity_x) > this.velocity_max)
+            this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
 
-//        if (Math.abs(this.velocity_y) > this.velocity_max)
-//            this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
+        if (Math.abs(this.velocity_y) > this.velocity_max)
+            this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
 
-//        this.x += this.velocity_x;
-//        this.y += this.velocity_y;
+        this.x += this.velocity_x;
+        this.y += this.velocity_y;
 
-//    }
+    }
 
-//};
-//Object.assign(Game.Npc.prototype, Game.MovingObject.prototype);
-////Object.assign(Game.Npc.prototype, Game.Animator.prototype);
-//Game.Npc.prototype.constructor = Game.Npc;
-//*/
-////NPC Definition
+};
+Object.assign(Game.Npc.prototype, Game.MovingObject.prototype);
+Object.assign(Game.Npc.prototype, Game.Animator.prototype);
+Game.Npc.prototype.constructor = Game.Npc;
+
+//NPC Definition
 
 ///* The carrot class extends Game.Object and Game.Animation. */
 //Game.Koeftespiess = function (x, y) {
