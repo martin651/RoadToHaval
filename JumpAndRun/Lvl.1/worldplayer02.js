@@ -107,9 +107,9 @@ Game.TileSet = function (columns, tile_size) {
         new f(0, 192, 64, 60, 0, 0), new f(64, 192, 64, 60, 0, 0), new f(128, 192, 64, 60, 0, 0), // Player jump-right
         new f(0, 128, 64, 60, 0, 0), new f(64, 128, 64, 60, 0, 0), new f(128, 128, 64, 60, 0, 0), new f(192, 128, 64, 60, 0, 0), // Player walk-right
         /**NPC FRAMES***/
-        new f(0, 0, 64, 64, 0, 0), new f(65, 0, 64, 64, 0, 0), new f(129, 0, 64, 64, 0, 0) // NPC walk left
+        new f(0, 0, 64, 64, 0, 0), new f(65, 0, 64, 64, 0, 0), new f(129, 0, 64, 64, 0, 0), // NPC walk left
         /**ITEMS FRAMES***/
-        //new f(81, 112, 64, 64, 0, -4), new f(96, 112, 16, 16), // Köftespieß
+        new f(7*64, 3*64, 64, 64, 0, -4), // Köftespieß
         
     ];
 
@@ -344,12 +344,14 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.player = new Game.Player(10, 0);
 
     /**NEW NEW NEW **/
-    this.npc = new Game.Npc(0, 0);
+    this.npc = new Game.Npc(100, 0);
+    this.koeftespiess = new Game.Koeftespiess(1150, 150);
+    this.koeftespiess_count = 0;// the number of Köftespieß you have.
 
 
     //this.zone_id = "00";
     //this.carrots = [];// the array of carrots in this zone;
-    //this.carrot_count = 0;// the number of carrots you have.
+   
     //this.doors = [];
     //this.door = undefined;
     this.tile_size = 32;
@@ -390,10 +392,10 @@ Game.World.prototype = {
 
     },
 
-    
+    //Moving NPC's 
     simulation: function (object) {
 
-        if (this.player.velocity_x == 0) {
+        if (this.player.velocity_x > 0) {
 
             this.npc.moving = false;
             this.npc.moveLeft();
@@ -464,6 +466,7 @@ Game.World.prototype = {
         this.player.updatePosition(this.gravity, this.friction);
         this.collideObject(this.player);
 
+        /*** NEW NEW NEW ***/
         //NPC
         this.npc.updatePosition(this.gravity, this.friction);
         this.collideObject(this.npc);
@@ -471,48 +474,47 @@ Game.World.prototype = {
         this.simulation(this.player);
 
         
-       /*Anpassen 
-        * 
-        * 
-        for (let index = this.carrots.length - 1; index > -1; --index) {
+    
+        //for (let index = this.carrots.length - 1; index > -1; --index) {
 
-            let carrot = this.carrots[index];
+        //    let carrot = this.carrots[index];
 
-            carrot.updatePosition();
-            carrot.animate();
+        //    carrot.updatePosition();
+        //    carrot.animate();
 
-            if (carrot.collideObject(this.player)) {
+            if (this.koeftespiess.collideObject(this.player)) {
 
-                this.carrots.splice(this.carrots.indexOf(carrot), 1);
-                this.carrot_count++;
+                this.koeftespiess.splice(this.koeftespiess.indexOf(this.koeftespiess), 1);
+                this.koeftespiess_count++;
 
             }
 
-        }
+        //}
 
-        for (let index = this.doors.length - 1; index > -1; --index) {
+        //for (let index = this.doors.length - 1; index > -1; --index) {
 
-            let door = this.doors[index];
+        //    let door = this.doors[index];
 
-            if (door.collideObjectCenter(this.player)) {
+        //    if (door.collideObjectCenter(this.player)) {
 
-                this.door = door;
+        //        this.door = door;
 
-            };
+        //    };
 
-        }
+        //}
 
-        for (let index = this.grass.length - 1; index > -1; --index) {
+        //for (let index = this.grass.length - 1; index > -1; --index) {
 
-            let grass = this.grass[index];
+        //    let grass = this.grass[index];
 
-            grass.animate();
+        //    grass.animate();
 
-        }
-        */
+        //}
+        
 
         this.player.updateAnimation();
         this.npc.updateAnimation();
+        //this.koeftespiess.updateAnimation();
 
     }
 
@@ -740,42 +742,41 @@ Object.assign(Game.Npc.prototype, Game.Animator.prototype);
 Game.Npc.prototype.constructor = Game.Npc;
 
 //NPC Definition
+///* The Köftespieß class extends Game.Object and Game.Animation. */
+Game.Koeftespiess = function (x, y) {
 
-///* The carrot class extends Game.Object and Game.Animation. */
-//Game.Koeftespiess = function (x, y) {
+    Game.Object.call(this, x, y, 64, 64);
+    Game.Animator.call(this, Game.Koeftespiess.prototype.frame_sets["twirl"], 15);
 
-//    Game.Object.call(this, x, y, 7, 14);
-//    //Game.Animator.call(this, Game.Carrot.prototype.frame_sets["twirl"], 15);
+    this.frame_index = Math.floor(Math.random() * 2);
 
-//    //this.frame_index = Math.floor(Math.random() * 2);
+    /* base_x and base_y are the point around which the carrot revolves. position_x
+    and y are used to track the vector facing away from the base point to give the carrot
+    the floating effect. */
+    this.base_x = x;
+    this.base_y = y;
+    this.position_x = Math.random() * Math.PI * 2;
+    this.position_y = this.position_x * 2;
 
-//    /* base_x and base_y are the point around which the carrot revolves. position_x
-//    and y are used to track the vector facing away from the base point to give the carrot
-//    the floating effect. */
-//    this.base_x = x;
-//    this.base_y = y;
-//    this.position_x = Math.random() * Math.PI * 2;
-//    this.position_y = this.position_x * 2;
+};
+Game.Koeftespiess.prototype = {
 
-//};
-//Game.Koeftespiess.prototype = {
+    frame_sets: { "twirl": [4] },
 
-//    //frame_sets: { "twirl": [12, 13] },
+    updatePosition: function () {
 
-//    updatePosition: function () {
+        this.position_x += 0.1;
+        this.position_y += 0.2;
 
-//        this.position_x += 0.1;
-//        this.position_y += 0.2;
+        this.x = this.base_x + Math.cos(this.position_x) * 2;
+        this.y = this.base_y + Math.sin(this.position_y);
 
-//        this.x = this.base_x + Math.cos(this.position_x) * 2;
-//        this.y = this.base_y + Math.sin(this.position_y);
+    }
 
-//    }
-
-//};
-//Object.assign(Game.Koeftespiess.prototype, Game.Object.prototype);
-////Object.assign(Game.Koeftespiess.prototype, Game.Animator.prototype);
-//Game.Koeftespiess.prototype.constructor = Game.Koeftespiess;
+};
+Object.assign(Game.Koeftespiess.prototype, Game.Object.prototype);
+Object.assign(Game.Koeftespiess.prototype, Game.Animator.prototype);
+Game.Koeftespiess.prototype.constructor = Game.Koeftespiess;
 
 /*END ----------------------------------------------------NEW NEW NEW ----------------------------------------------------*/
 
