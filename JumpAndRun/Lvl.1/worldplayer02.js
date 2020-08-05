@@ -352,8 +352,8 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.player = new Game.Player(10, 0);
 
     /**NEW NEW NEW **/
-    this.npc = new Game.Npc(1000, 0);
-    this.koeftespiess = new Game.Koeftespiess(105, 60);
+    this.npc = new Game.Npc(1100, 0);
+    this.koeftespiess = new Game.Koeftespiess(50, 360 - 32 - 64);
     this.koeftespiess_count = 0;// the number of Köftespieß you have.
 
     this.koeftespiessE = []; //Position of Koeftespiess
@@ -379,12 +379,19 @@ Game.World.prototype = {
         the player from falling out of the world. */
 
         /*TEST TEST TEST*/
-        if (this.player.y > 360 - 32 - 64) {
+        if (object.y > 360 - 32 - 64) {
 
           
-            this.player.jumping = false; //jump once
-            this.player.y = 360 - 32 - 64; //defines position of ground
+            object.jumping = false; //jump once
+            object.y = 360 - 32 - 64; //defines position of ground
         };
+
+        //boundry of the world (left rim)
+        if (object.x < 0) { object.x = 0; object.velocity_x = 0; }
+        else if (object.x + object.width > this.width) { object.x = this.width - object.width; object.velocity_x = 0; }
+        //boundry of the world  (upper rim)
+        if (object.y < 0) { object.y = 0; object.velocity_y = 0; }
+        else if (object.y + object.height > this.height) { object.jumping = false; object.y = this.height - object.height; object.velocity_y = 0; }
 
 
         //var bottom, left, right, top, value;
@@ -410,6 +417,39 @@ Game.World.prototype = {
         //this.collider.collide(object, right * this.tile_setPlayer.tile_size, bottom * this.tile_setPlayer.tile_size, this.tile_setPlayer.tile_size);
 
     },
+
+    goCollision: function (/*player,npc*/) {
+
+
+
+
+        // GAME OVER Collision
+        
+        if (this.player.getRight()>= this.npc.getLeft() && this.player.getLeft() < this.npc.getRight() && this.player.y == this.npc.y) {
+            let distance = this.player.getRight() - this.npc.getLeft();
+        //    if (distance == 9 && this.player.y == this.npc.y) {
+
+            
+            this.npc.moving = true;
+            this.npc.velocity_x = 0;
+            this.player.velocity_x = 0;
+                console.log("G O COLLISION");
+            console.log(distance);
+            if (window.confirm("Game Over! Do You Wanna Retry?")) {
+                location.reload();
+            };
+
+
+
+
+            return true;
+        };
+
+        return false;
+
+    },
+
+    
 
     //Moving NPC's 
     simulation: function (object) {
@@ -484,13 +524,18 @@ Game.World.prototype = {
         //Player
         this.player.updatePosition(this.gravity, this.friction);
         this.collideObject(this.player);
-
+        
         /*** NEW NEW NEW ***/
         //NPC
         this.npc.updatePosition(this.gravity, this.friction);
         this.collideObject(this.npc);
 
         this.simulation(this.player);
+        this.goCollision();
+
+        //console.log(this.player.getRight() - this.npc.getLeft());
+
+        //console.log(this.player.getRight());
 
         
     
@@ -510,12 +555,14 @@ Game.World.prototype = {
                 //this.koeftespiess.splice(this.koeftespiess.indexOf(this.koeftespiess), 1); 
 
             /**TEST TEST TEST***/
-                this.koeftespiess_count ++;
+                this.koeftespiess_count++;
 
                 
                 
 
-             };
+        };
+
+
 
         //}
 
@@ -553,11 +600,11 @@ Game.World.prototype = {
 //PLAYER = MOVING OBJECT Definition
 Game.Player = function (x, y) {
 
-    Game.MovingObject.call(this, x, y, 64, 64);
+    Game.MovingObject.call(this, x, y, 24, 24);
 
     Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-right"], 10);
 
-    this.jumping = true;
+    this.jumping = false;
     this.direction_x = 0.1;
     this.velocity_x = 0;
     this.velocity_y = 0;
@@ -580,10 +627,10 @@ Game.Player.prototype = {
     jump: function () {
 
         /* Made it so you can only jump if you aren't falling faster than 10px per frame. */
-        if (!this.jumping && this.velocity_y < 10) {
+        if (!this.jumping /*&&*/ /*this.velocity_y < 10*/) {
 
             this.jumping = true;
-            this.velocity_y -= 13;
+            this.velocity_y -= 80;
 
         }
 
@@ -658,14 +705,15 @@ Game.Player.prototype.constructor = Game.Player;
 //NPC = MOVING OBJECT Definition
 Game.Npc = function (x, y) {
 
-    Game.MovingObject.call(this, x, y, 64, 64);
+    Game.MovingObject.call(this, x, y, 24, 24);
 
     Game.Animator.call(this, Game.Npc.prototype.frame_sets["idle-left"], 10);
 
-    this.moving = true; //analog ==> Game.World.Npc.moving
+    this.moving = false; //analog ==> Game.World.Npc.moving
     this.direction_x = -1;
     this.velocity_x = 0;
     this.velocity_y = 0;
+   
 
 };
 Game.Npc.prototype = {
