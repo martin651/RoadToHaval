@@ -435,9 +435,9 @@ Game.World.prototype = {
             this.player.velocity_x = 0;
                 console.log("G O COLLISION");
             console.log(distance);
-            if (window.confirm("Game Over! Do You Wanna Retry?")) {
-                location.reload();
-            };
+            if (confirm('Game Over! Retry?')) {
+                window.location.reload();
+            }
 
 
 
