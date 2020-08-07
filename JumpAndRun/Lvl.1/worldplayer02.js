@@ -325,6 +325,13 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.friction = friction;
     this.gravity = gravity;
 
+/***NEW NEW NEW***/
+    //For Loop function
+    distance= 0;
+    max_distance= 0;
+    speed = 3;
+    offset = 0;
+
     this.columns = 50; //ALTERNATIV zone.
     this.rows = 12; //ALTERNATIV zone.
     this.graphical_map = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
@@ -338,13 +345,12 @@ Game.World = function (friction = 0.85, gravity = 2) {
         400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449,
         450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499,
         450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499,
-        450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499,
         500, 501, 502,503, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541, 542, 543, 544, 545, 546, 547, 548, 549
 
        
     ];
     /**NEW NEW NEW **/
-    this.collision_map = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 13, 4, 7, 0, 0, 0, 13, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 2, 0, 0, 1, 0, 0, 0, 0, 11, 0, 0, 8, 2, 0, 0, 0, 0, 0, 11, 0, 10, 0, 13, 0, 0, 3, 0, 0, 11, 0, 10, 0, 10, 0, 0, 8, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0];
+    //this.collision_map = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 13, 4, 7, 0, 0, 0, 13, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 2, 0, 0, 1, 0, 0, 0, 0, 11, 0, 0, 8, 2, 0, 0, 0, 0, 0, 11, 0, 10, 0, 13, 0, 0, 3, 0, 0, 11, 0, 10, 0, 10, 0, 0, 8, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0];
 
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
@@ -460,66 +466,74 @@ Game.World.prototype = {
         };
 
     },
+
+/**NEW NEW NEW**/
+    scroll: function () {
+
+        if (this.player.getRight() >= 100) {
+            distance += speed;
+
+            console.log(this.graphical_map.length);
+
+            if (distance > max_distance) max_distance = distance;
+
+            offset += speed;
+            if (offset >= this.tile_size) {
+
+                offset -= this.tile_size;
+
+                /* This loop removes the first column and inserts a randomly generated
+                last column for the top 7 rows. This handles random sky generation. */
+                for (let index = this.graphical_map.length-this.columns*12; index >= 0; index -=this.columns) {
+
+                    this.graphical_map.splice(index,1);
+                    this.graphical_map.splice(index + this.columns + 1, 0, Math.floor(/*Math.random() */ 1));   
+
+                }
+
+
+                //for (let index = this.graphical_map.length; index > -1 ; index -= this.columns) {
+
+                //    this.graphical_map.splice(index, 0);
+                //    this.graphical_map.splice(index + this.columns, 0, Math.floor(/*Math.random() **/ 2));
+
+                //}
+            };
+            /* This next part replaces the grass with an appropriate grass tile. I
+            made it a bit more complex than it needed to be, but the tiles actually
+            reconcile their edges with the tile directly to the left. */
+            //this.graphical_map.splice(this.columns * 7, 1);
+
+            //let right_index = this.columns * 8 - 1;
+            //let value = this.graphical_map[right_index - 1];
+
+            //switch (value) {
+
+            //    case 2: case 3: value = [2, 3, 2, 3, 2, 3, 2, 3, 4, 5][Math.floor(Math.random() * 10)]; break;
+            //    case 4: case 5: value = [6, 7][Math.floor(Math.random() * 2)]; break;
+            //    case 6: case 7: value = [6, 7, 8, 9][Math.floor(Math.random() * 4)]; break;
+            //    case 8: case 9: value = [2, 3][Math.floor(Math.random() * 2)]; break;
+
+            //}
+
+            //this.graphical_map.splice(right_index, 0, value);
+
+            // The last row stays the same. It's just dirt.
+
+        };
+    },
+
     
-    //setup: function (zone) {
 
-        //this.carrots = new Array();
-        //this.doors = new Array();
-        //this.grass = new Array();
-        //this.collision_map = zone.collision_map;
-        //this.graphical_map = graphical_map;
 
-          
-        //this.graphical_map;
-        //this.columns = 50;
-        //this.rows = 11;
-        //this.zone_id = zone.id;
-
-        //for (let index = zone.carrots.length - 1; index > -1; --index) {
-
-        //    let carrot = zone.carrots[index];
-        //    this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
-
-        //}
-
-        //for (let index = zone.doors.length - 1; index > -1; --index) {
-
-        //    let door = zone.doors[index];
-        //    this.doors[index] = new Game.Door(door);
-
-        //}
-
-        //for (let index = zone.grass.length - 1; index > -1; --index) {
-
-        //    let grass = zone.grass[index];
-        //    this.grass[index] = new Game.Grass(grass[0] * this.tile_set.tile_size, grass[1] * this.tile_set.tile_size + 12);
-
-        //}
-
-        //if (this.door) {
-
-        //    if (this.door.destination_x != -1) {
-
-        //        this.player.setCenterX(this.door.destination_x);
-        //        this.player.setOldCenterX(this.door.destination_x);// It's important to reset the old position as well.
-
-        //    }
-
-        //    if (this.door.destination_y != -1) {
-
-        //        this.player.setCenterY(this.door.destination_y);
-        //        this.player.setOldCenterY(this.door.destination_y);
-
-        //    }
-
-        //    this.door = undefined;// Make sure to reset this.door so we don't trigger a zone load.
-
-        //}
-
-    //},
-
+    
     update: function () {
 
+        /**NEW NEW NEW**/
+        //Loop World
+        this.scroll();
+
+        /**NEW NEW NEW**/
         //Player
         this.player.updatePosition(this.gravity, this.friction);
         this.collideObject(this.player);
