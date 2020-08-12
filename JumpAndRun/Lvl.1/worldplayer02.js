@@ -349,9 +349,6 @@ Game.World = function (friction = 0.85, gravity = 2) {
 
        
     ];
-    /**NEW NEW NEW **/
-    //this.collision_map = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 13, 4, 7, 0, 0, 0, 13, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 2, 0, 0, 1, 0, 0, 0, 0, 11, 0, 0, 8, 2, 0, 0, 0, 0, 0, 11, 0, 10, 0, 13, 0, 0, 3, 0, 0, 11, 0, 10, 0, 10, 0, 0, 8, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0];
-
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
     this.player = new Game.Player(10, 0);
@@ -470,27 +467,59 @@ Game.World.prototype = {
 /**NEW NEW NEW**/
     scroll: function () {
 
-        if (this.player.getRight() >= 100) {
-            distance += speed;
+    /*ALTERNATIVE*/
 
-            console.log(this.graphical_map.length);
 
-            if (distance > max_distance) max_distance = distance;
+        if (this.player.getRight() >= 100)
+            {
+            //distance += speed;
 
-            offset += speed;
-            if (offset >= this.tile_size) {
+           
+            //if (distance > max_distance) max_distance = distance;
 
-                offset -= this.tile_size;
+            //offset += speed;
+            //if (offset >= this.tile_size) {
 
-                /* This loop removes the first column and inserts a randomly generated
-                last column for the top 7 rows. This handles random sky generation. */
-                for (let index = this.graphical_map.length-this.columns*12; index >= 0; index -=this.columns) {
+            //    offset -= this.tile_size;
 
-                    this.graphical_map.splice(index,1);
-                    this.graphical_map.splice(index + this.columns + 1, 0, Math.floor(/*Math.random() */ 1));   
+            //PSI//
 
-                }
+            for (let index = this.graphical_map.length-this.columns*4; index > -1; index -= this.columns) {
 
+                //Remove Tile
+                this.graphical_map.splice(index, 1);
+                //ADD Tile
+                this.graphical_map.splice(index + this.columns-1, 0, 500);
+                
+               
+                
+                
+              
+
+            };
+
+
+          
+                //Vorlage//
+                //for (let index = this.graphical_map.length-this.columns*12; index >= 0; index -=this.columns) {
+
+                //    this.graphical_map.splice(index,1);
+                //    this.graphical_map.splice(index, 1, 12 /*Math.floor(/*Math.random() */ /*1)*/);   
+
+                //};
+            
+
+
+                //if (this.player.getRight() >= 100) {
+                //    distance += speed;
+
+
+                //    if (distance > max_distance) max_distance = distance;
+
+                //    offset += speed;
+                //    if (offset >= this.tile_size) {
+
+                //        offset -= this.tile_size;
 
                 //for (let index = this.graphical_map.length; index > -1 ; index -= this.columns) {
 
@@ -498,27 +527,8 @@ Game.World.prototype = {
                 //    this.graphical_map.splice(index + this.columns, 0, Math.floor(/*Math.random() **/ 2));
 
                 //}
-            };
-            /* This next part replaces the grass with an appropriate grass tile. I
-            made it a bit more complex than it needed to be, but the tiles actually
-            reconcile their edges with the tile directly to the left. */
-            //this.graphical_map.splice(this.columns * 7, 1);
+            
 
-            //let right_index = this.columns * 8 - 1;
-            //let value = this.graphical_map[right_index - 1];
-
-            //switch (value) {
-
-            //    case 2: case 3: value = [2, 3, 2, 3, 2, 3, 2, 3, 4, 5][Math.floor(Math.random() * 10)]; break;
-            //    case 4: case 5: value = [6, 7][Math.floor(Math.random() * 2)]; break;
-            //    case 6: case 7: value = [6, 7, 8, 9][Math.floor(Math.random() * 4)]; break;
-            //    case 8: case 9: value = [2, 3][Math.floor(Math.random() * 2)]; break;
-
-            //}
-
-            //this.graphical_map.splice(right_index, 0, value);
-
-            // The last row stays the same. It's just dirt.
 
         };
     },
