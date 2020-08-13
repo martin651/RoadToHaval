@@ -180,3 +180,28 @@ body {
 a {
     text-decoration: none;
 }
+
+#imp {
+    color: white;
+    text-align: left;
+    font-size: 15px;
+    font-family: Arial;
+}
+
+#head {
+    color: red;
+    text-align: left;
+    font-size: 30px;
+    font-family: shadows into light;
+}
+
+#line {
+    color: white;
+}
+
+#data {
+    color: white;
+    text-align: left;
+    font-size: 15px;
+    font-family: Arial;
+}
