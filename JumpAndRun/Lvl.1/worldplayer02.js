@@ -395,29 +395,6 @@ Game.World.prototype = {
         if (object.y < 0) { object.y = 0; object.velocity_y = 0; }
         else if (object.y + object.height > this.height) { object.jumping = false; object.y = this.height - object.height; object.velocity_y = 0; }
 
-
-        //var bottom, left, right, top, value;
-
-        //top = Math.floor(object.getTop() / this.tile_setWorld.tile_size);
-        //left = Math.floor(object.getLeft() / this.tile_setWorld.tile_size);
-        //value = this.collision_map[top * this.columns + left];
-        //this.collider.collide( object, left * this.tile_setPlayer.tile_size, top * this.tile_setPlayer.tile_size, this.tile_setPlayer.tile_size);
-
-        //top = Math.floor(object.getTop() / this.tile_setPlayer.tile_size);
-        //right = Math.floor(object.getRight() / this.tile_setPlayer.tile_size);
-        //value = this.collision_map[top * this.columns + right];
-        //this.collider.collide( object, right * this.tile_setPlayer.tile_size, top * this.tile_setPlayer.tile_size, this.tile_setPlayer.tile_size);
-
-        //bottom = Math.floor(object.getBottom() / this.tile_setPlayer.tile_size);
-        //left = Math.floor(object.getLeft() / this.tile_setPlayer.tile_size);
-        //value = this.collision_map[bottom * this.columns + left];
-        //this.collider.collide(object, left * this.tile_setPlayer.tile_size, bottom * this.tile_setPlayer.tile_size, this.tile_setPlayer.tile_size);
-
-        //bottom = Math.floor(object.getBottom() / this.tile_setPlayer.tile_size);
-        //right = Math.floor(object.getRight() / this.tile_setPlayer.tile_size);
-        //value = this.collision_map[bottom * this.columns + right];
-        //this.collider.collide(object, right * this.tile_setPlayer.tile_size, bottom * this.tile_setPlayer.tile_size, this.tile_setPlayer.tile_size);
-
     },
 
     goCollision: function (/*player,npc*/) {
@@ -470,7 +447,7 @@ Game.World.prototype = {
         /*ALTERNATIVE*/
 
 
-        if (this.player.getRight() >= 100) {
+        if (this.player.getRight() >= 100 && this.player.getRight() <=950) {
             distance += speed;
 
 
@@ -483,68 +460,52 @@ Game.World.prototype = {
 
                 //PSI//
 
-                //for (let index = this.graphical_map.length - this.columns * 4; index > -1; index -= this.columns) {
+             
+                let in_Spalte = 0;
+                let endeSpalte = 0;
+                let in_Zeile = 0; 
 
+                
+                
+                while (endeSpalte <= 8 || endeSpalte==0) {
 
-                //    //Remove Tile
-                //    this.graphical_map.splice(index, 0);
-                //    //ADD Tile
-                //    this.graphical_map.splice(index + this.columns - 1, 1, index - 2*this.columns+1);
+                    for (in_Spalte; endeSpalte <= 8; in_Spalte += this.columns) {
 
-                //};
+                        
+                        this.graphical_map.splice(in_Spalte, 1);
+                        this.graphical_map.splice(in_Spalte + this.columns - 1, 0, in_Spalte);
+                        endeSpalte++;
+      
+                        
+                    };
 
-                for (let index = 0; index < 500; index += this.columns) {
+                    
+                    //if (endeSpalte == 9) {
 
+                    //    in_Zeile += 1;
+                    //    in_Spalte += in_Zeile;
+                    //    endeSpalte = 0;
+                       
 
-                    //Remove Tile
-                    this.graphical_map.splice(index, 1);
-                    //ADD Tile
-                    this.graphical_map.splice(index + this.columns - 1, 0, index - this.columns + 1);
+                    //};
                     
 
                 };
 
 
-
-
-
-
+            };
 
                 
 
 
 
-                //Vorlage//
-                //for (let index = this.graphical_map.length-this.columns*12; index >= 0; index -=this.columns) {
-
-                //    this.graphical_map.splice(index,1);
-                //    this.graphical_map.splice(index, 1, 12 /*Math.floor(/*Math.random() */ /*1)*/);   
-
-                //};
 
 
 
-                //if (this.player.getRight() >= 100) {
-                //    distance += speed;
 
+               
 
-                //    if (distance > max_distance) max_distance = distance;
-
-                //    offset += speed;
-                //    if (offset >= this.tile_size) {
-
-                //        offset -= this.tile_size;
-
-                //for (let index = this.graphical_map.length; index > -1 ; index -= this.columns) {
-
-                //    this.graphical_map.splice(index, 0);
-                //    this.graphical_map.splice(index + this.columns, 0, Math.floor(/*Math.random() **/ 2));
-
-                //}
-
-
-
-            };
+            
         };
     },
 
