@@ -329,7 +329,7 @@ Game.World = function (friction = 0.85, gravity = 2) {
     //For Loop function
     distance= 0;
     max_distance= 0;
-    speed = 3;
+    speed = 28;
     offset = 0;
 
     this.columns = 50; //ALTERNATIV zone.
@@ -467,39 +467,53 @@ Game.World.prototype = {
 /**NEW NEW NEW**/
     scroll: function () {
 
-    /*ALTERNATIVE*/
+        /*ALTERNATIVE*/
 
 
-        if (this.player.getRight() >= 100)
-            {
-            //distance += speed;
+        if (this.player.getRight() >= 100) {
+            distance += speed;
 
-           
-            //if (distance > max_distance) max_distance = distance;
 
-            //offset += speed;
-            //if (offset >= this.tile_size) {
+            if (distance > max_distance) max_distance = distance;
 
-            //    offset -= this.tile_size;
+            offset += speed;
+            if (offset >= this.tile_size) {
 
-            //PSI//
+                offset -= this.tile_size;
 
-            for (let index = this.graphical_map.length-this.columns*4; index > -1; index -= this.columns) {
+                //PSI//
 
-                //Remove Tile
-                this.graphical_map.splice(index, 1);
-                //ADD Tile
-                this.graphical_map.splice(index + this.columns-1, 0, 500);
+                //for (let index = this.graphical_map.length - this.columns * 4; index > -1; index -= this.columns) {
+
+
+                //    //Remove Tile
+                //    this.graphical_map.splice(index, 0);
+                //    //ADD Tile
+                //    this.graphical_map.splice(index + this.columns - 1, 1, index - 2*this.columns+1);
+
+                //};
+
+                for (let index = 0; index < 500; index += this.columns) {
+
+
+                    //Remove Tile
+                    this.graphical_map.splice(index, 1);
+                    //ADD Tile
+                    this.graphical_map.splice(index + this.columns - 1, 0, index - this.columns + 1);
+                    
+
+                };
+
+
+
+
+
+
+
                 
-               
-                
-                
-              
-
-            };
 
 
-          
+
                 //Vorlage//
                 //for (let index = this.graphical_map.length-this.columns*12; index >= 0; index -=this.columns) {
 
@@ -507,7 +521,7 @@ Game.World.prototype = {
                 //    this.graphical_map.splice(index, 1, 12 /*Math.floor(/*Math.random() */ /*1)*/);   
 
                 //};
-            
+
 
 
                 //if (this.player.getRight() >= 100) {
@@ -527,9 +541,10 @@ Game.World.prototype = {
                 //    this.graphical_map.splice(index + this.columns, 0, Math.floor(/*Math.random() **/ 2));
 
                 //}
-            
 
 
+
+            };
         };
     },
 
@@ -879,4 +894,3 @@ Object.assign(Game.Koeftespiess.prototype, Game.Object.prototype);
 Object.assign(Game.Koeftespiess.prototype, Game.Animator.prototype);
 Game.Koeftespiess.prototype.constructor = Game.Koeftespiess;
 
-/*END ----------------------------------------------------NEW NEW NEW ----------------------------------------------------*/
