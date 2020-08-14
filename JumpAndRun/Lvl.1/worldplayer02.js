@@ -325,11 +325,11 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.friction = friction;
     this.gravity = gravity;
 
-/***NEW NEW NEW***/
+    /***NEW NEW NEW***/
     //For Loop function
     distance= 0;
-    max_distance= 0;
-    speed = 28;
+    max_distance= 15;
+    speed = 5;
     offset = 0;
 
     this.columns = 50; //ALTERNATIV zone.
@@ -444,74 +444,40 @@ Game.World.prototype = {
 /**NEW NEW NEW**/
     scroll: function () {
 
-        /*ALTERNATIVE*/
+        
+        index = 0;
+        i=0;
+  
+        distance += speed;
 
 
-        if (this.player.getRight() >= 100 && this.player.getRight() <=950) {
-            distance += speed;
+        if (distance > max_distance) max_distance = distance;
 
+        offset += speed;
 
-            if (distance > max_distance) max_distance = distance;
+        if /*(offset >= this.tile_size)*/ (this.player.getRight()>100 && this.player.getRight()>200){
 
-            offset += speed;
-            if (offset >= this.tile_size) {
-
-                offset -= this.tile_size;
-
-                //PSI//
-
-             
-                let in_Spalte = 0;
-                let endeSpalte = 0;
-                let in_Zeile = 0; 
+            offset -= this.tile_size;
 
                 
-                
-                while (endeSpalte <= 8 || endeSpalte==0) {
 
-                    for (in_Spalte; endeSpalte <= 8; in_Spalte += this.columns) {
+            for (index = 0; index < this.columns * 8 + 1; index += this.columns) {
 
                         
-                        this.graphical_map.splice(in_Spalte, 1);
-                        this.graphical_map.splice(in_Spalte + this.columns - 1, 0, in_Spalte);
-                        endeSpalte++;
-      
+
+                this.graphical_map.splice(index, 1);
+                this.graphical_map.splice(index + this.columns - 1, 0, index+ i);
                         
-                    };
 
-                    
-                    //if (endeSpalte == 9) {
-
-                    //    in_Zeile += 1;
-                    //    in_Spalte += in_Zeile;
-                    //    endeSpalte = 0;
-                       
-
-                    //};
-                    
-
-                };
-
-
+                        
             };
 
-                
-
-
-
-
-
-
-
                
-
-            
+         
         };
+            
+        
     },
-
-    
-
-
     
     update: function () {
 
@@ -561,30 +527,6 @@ Game.World.prototype = {
 
         };
 
-
-
-        //}
-
-        //for (let index = this.doors.length - 1; index > -1; --index) {
-
-        //    let door = this.doors[index];
-
-        //    if (door.collideObjectCenter(this.player)) {
-
-        //        this.door = door;
-
-        //    };
-
-        //}
-
-        //for (let index = this.grass.length - 1; index > -1; --index) {
-
-        //    let grass = this.grass[index];
-
-        //    grass.animate();
-
-        //}
-        
 
         this.player.updateAnimation();
         this.npc.updateAnimation();
