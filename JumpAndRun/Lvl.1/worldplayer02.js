@@ -13,10 +13,6 @@
 
 Game.prototype = { constructor: Game };
 
-/*BEGIN ----------------------------------------------------NEW NEW NEW ----------------------------------------------------*/
-
-//_____________________________________________________________________________________//
-
 //ANIMATOR Definition
 Game.Animator = function (frame_set, delay, mode = "loop") {
 
@@ -293,6 +289,8 @@ Game.MovingObject = function (x, y, width, height, velocity_max = 15) {
     this.velocity_y = 0;
     this.x_old = x;
     this.y_old = y;
+    /***NEW NEW NEW***/
+    this.alive = true;
 
 };
 Game.MovingObject.prototype = {
@@ -303,6 +301,7 @@ Game.MovingObject.prototype = {
     getOldLeft: function () { return this.x_old; },
     getOldRight: function () { return this.x_old + this.width; },
     getOldTop: function () { return this.y_old; },
+    getAlive: function () {return this.alive},
     setOldBottom: function (y) { this.y_old = y - this.height; },
     setOldCenterX: function (x) { this.x_old = x - this.width * 0.5; },
     setOldCenterY: function (y) { this.y_old = y - this.height * 0.5; },
@@ -353,10 +352,10 @@ Game.World = function (friction = 0.85, gravity = 2) {
     ];
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
-    this.player = new Game.Player(10, 0);
+    this.player = new Game.Player(10, 360 - 32 - 64);
 
     /**NEW NEW NEW **/
-    this.npc = new Game.Npc(1100, 0);
+    this.npc = new Game.Npc(1100, 360 - 32 - 64);
     this.koeftespiess = new Game.Koeftespiess(50, 360 - 32 - 64);
     this.koeftespiess_count = 0;// the number of Köftespieß you have.
 
@@ -399,41 +398,52 @@ Game.World.prototype = {
 
     },
 
-    goCollision: function (/*player,npc*/) {
-
-
-
+    woCollision: function () {
 
         // GAME OVER Collision
         
-        if (this.player.getRight()>= this.npc.getLeft() && this.player.getLeft() < this.npc.getRight() && this.player.y == this.npc.y) {
-            let distance = this.player.getRight() - this.npc.getLeft();
-        //    if (distance == 9 && this.player.y == this.npc.y) {
-
+        if (this.player.getRight() >= this.npc.getLeft() &&
+            this.player.getLeft() < this.npc.getLeft() &&
+            this.player.getLeft() < this.npc.getRight() &&
+            this.player.getBottom() == this.npc.getBottom() &&
+            this.player.getTop() == this.npc.getTop()) {
             
-            this.npc.moving = true;
-            this.npc.velocity_x = 0;
-            this.player.velocity_x = 0;
+            this.player.alive = false;
 
             if (confirm('Game Over! Retry?')) {
                 window.location.reload();
             }
 
-            
-            
-            
-
-
-
-
             return true;
+        };
+
+        // NPC Death Collision
+        if (this.player.getTop() < this.npc.getTop() &&
+            this.player.getRight() >= this.npc.getLeft() &&
+            this.player.getLeft() < this.npc.getRight() &&
+            this.player.getBottom() >= this.npc.getTop()) {
+
+            this.npc.alive = false;
+
+        };
+
+        if (this.koeftespiess.getRight() <= this.player.getRight()) {
+
+            //splice-function --> method adds/removes items to/from an array, and returns the removed item(s).
+            //array.splice(index, howmany, item1, ....., itemX) --> index = int specifies pos; 
+            //                                                  --> howmany = optional - The number of items to be removed.If set to 0, no items will be removed
+            //                                                  --> item1/x = optional - The new item(s) to be added to the array
+
+            this.koeftespiess_count+=1;
+            this.koeftespiess.constructor();
+
         };
 
         return false;
 
     },
 
-    
+
 
     //Moving NPC's 
     simulation: function (object) {
@@ -446,7 +456,7 @@ Game.World.prototype = {
 
     },
 
-/**NEW NEW NEW**/
+    //Scrolling Background function 
     scroll: function () {
 
         distance += speed;
@@ -489,30 +499,29 @@ Game.World.prototype = {
     
     update: function () {
 
-        /**NEW NEW NEW**/
-        //Loop World
-        if (this.player.getRight() > 150 && this.player.getRight()< 900) {
+        //Trigger Scroll Background
+        if (this.player.getRight() > 150) {
             this.scroll();
+            //console.log("player Bottom: " + this.player.getBottom());
+            //console.log("NPC TOP: " + this.npc.getTop());
         };
 
-        /**NEW NEW NEW**/
+        
         //Player
         this.player.updatePosition(this.gravity, this.friction);
+        /**NEW NEW NEW**/
+        this.player.updateAlive(this.player);
         this.collideObject(this.player);
         
-        /*** NEW NEW NEW ***/
+       
         //NPC
         this.npc.updatePosition(this.gravity, this.friction);
+        /**NEW NEW NEW**/
+        this.npc.updateAlive(this.npc);
         this.collideObject(this.npc);
 
         this.simulation(this.player);
-        this.goCollision();
-
-        //console.log(this.player.getRight() - this.npc.getLeft());
-
-        //console.log(this.player.getRight());
-
-        
+        this.woCollision();        
     
         //for (let index = this.carrots.length - 1; index > -1; --index) {
 
@@ -520,34 +529,15 @@ Game.World.prototype = {
 
         this.koeftespiess.updatePosition();
         this.koeftespiess.animate();
-
-            if (this.koeftespiess.collideObjectCenter(this.player)) {
-
-                //splice-function --> method adds/removes items to/from an array, and returns the removed item(s).
-                //array.splice(index, howmany, item1, ....., itemX) --> index = int specifies pos; 
-                //                                                  --> howmany = optional - The number of items to be removed.If set to 0, no items will be removed
-                //                                                  --> item1/x = optional - The new item(s) to be added to the array
-                //this.koeftespiess.splice(this.koeftespiess.indexOf(this.koeftespiess), 1); 
-
-            /**TEST TEST TEST***/
-                this.koeftespiess_count++;
-
-                
-                
-
-        };
-
-
         this.player.updateAnimation();
         this.npc.updateAnimation();
-        //this.koeftespiess.updateAnimation();
 
     }
 
 };
 
 
-
+//PLAYER Definition//
 //PLAYER = MOVING OBJECT Definition
 Game.Player = function (x, y) {
 
@@ -594,14 +584,12 @@ Game.Player.prototype = {
 
     },
 
-    moveRight: function (/*frame_set*/) {
+    moveRight: function () {
 
         this.direction_x = 1;
         this.velocity_x += 0.55;
 
     },
-
-    //nachstehende Funktionen unverändert
 
     updateAnimation: function () {
 
@@ -644,13 +632,27 @@ Game.Player.prototype = {
         this.x += this.velocity_x;
         this.y += this.velocity_y;
 
+    },
+
+    updateAlive: function () {
+
+        this.getAlive();
+
+        if (this.alive != true) {
+
+            this.npc.moving = true;
+            this.npc.velocity_x = 0;
+            this.player.velocity_x = 0;         
+
+
+        };
     }
 
 };
 Object.assign(Game.Player.prototype, Game.MovingObject.prototype);
 Object.assign(Game.Player.prototype, Game.Animator.prototype);
 Game.Player.prototype.constructor = Game.Player;
-/*PLAYER Definition*/
+
 
 ///NPC DEFINITION
 //NPC = MOVING OBJECT Definition
@@ -676,19 +678,7 @@ Game.Npc.prototype = {
         "move-left": [16, 17, 18],
 
     },
-    
-    //jump: function () {
-
-    //    // Made it so you can only jump if you aren't falling faster than 10px per frame. 
-    //    if (!this.jumping && this.velocity_y < 10) {
-
-    //        this.jumping = true;
-    //        this.velocity_y -= 13;
-
-    //    }
-
-    //},
-    
+        
     moveLeft: function () { //analog ==> Game.World.Npc.move()
 
         this.direction_x = -1;
@@ -697,6 +687,18 @@ Game.Npc.prototype = {
 
             this.velocity_x -= 0.7
         };
+
+    },
+
+    stopMoving: function () {
+
+        if (this.getLeft() == 0) {
+
+
+            this.velocity_x = 0;
+            
+        };
+
 
     },
 
@@ -761,6 +763,19 @@ Game.Npc.prototype = {
         this.x += this.velocity_x;
         this.y += this.velocity_y;
 
+    },
+
+    updateAlive: function () {
+
+        this.getAlive();
+
+        if (this.alive != true) {
+
+          
+          this.constructor();
+            
+
+        };
     }
 
 };
@@ -769,7 +784,7 @@ Object.assign(Game.Npc.prototype, Game.Animator.prototype);
 Game.Npc.prototype.constructor = Game.Npc;
 
 //NPC Definition
-///* The Köftespieß class extends Game.Object and Game.Animation. */
+// The Köftespieß class extends Game.Object and Game.Animation. //
 Game.Koeftespiess = function (x, y) {
 
     Game.Object.call(this, x, y, 64, 64);
@@ -798,7 +813,6 @@ Game.Koeftespiess.prototype = {
         this.x = this.base_x + Math.cos(this.position_x) * 2;
         this.y = this.base_y + Math.sin(this.position_y);
 
-        this.position[0] = this.x, this.y;
 
     }
 
