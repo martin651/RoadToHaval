@@ -326,11 +326,13 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.gravity = gravity;
 
     /***NEW NEW NEW***/
-    //For Loop function
+    //For Scroll function
     distance= 0;
     max_distance= 15;
     speed = 5;
     offset = 0;
+    i = 0;
+    //For Scroll function
 
     this.columns = 50; //ALTERNATIV zone.
     this.rows = 12; //ALTERNATIV zone.
@@ -445,9 +447,7 @@ Game.World.prototype = {
     scroll: function () {
 
         
-        index = 0;
-        i=0;
-  
+          
         distance += speed;
 
 
@@ -455,25 +455,32 @@ Game.World.prototype = {
 
         offset += speed;
 
-        if /*(offset >= this.tile_size)*/ (this.player.getRight()>100 && this.player.getRight()>200){
+        
+
+        while (offset >= this.tile_size && i<50) {
 
             offset -= this.tile_size;
 
-                
+            
 
-            for (index = 0; index < this.columns * 8 + 1; index += this.columns) {
-
-                        
+            for (let index = 0; index < this.columns * 8 + 1 + i; index +=this.columns) {
 
                 this.graphical_map.splice(index, 1);
-                this.graphical_map.splice(index + this.columns - 1, 0, index+ i);
-                        
+                this.graphical_map.splice(index + this.columns - 1, 0, index+i);
 
-                        
+
             };
 
-               
-         
+            i += 1;
+
+            if (i == 49) {
+
+                i = 0;
+
+            }
+
+                
+            
         };
             
         
@@ -483,7 +490,9 @@ Game.World.prototype = {
 
         /**NEW NEW NEW**/
         //Loop World
-        this.scroll();
+        if (this.player.getRight() > 150 && this.player.getRight()< 900) {
+            this.scroll();
+        };
 
         /**NEW NEW NEW**/
         //Player
