@@ -1,11 +1,207 @@
-﻿body {}
-.Menu{
+﻿@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
+
+h1 {
+    bottom: 500px;
+    color: red;
     text-align: center;
+    font-size: 100px;
+    font-family: shadows into light;
+    padding-top: 175px;
+}
+body {
+    background-image: url("Lvl.1/pictures/Gitter.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-div.picture {
-    margin-left: auto;
-    margin-right: auto;
-    width: 8em;
+#all {
+    width: 0px;
+    height: 0px;
+    border-left: 300px solid transparent;
+    border-right: 300px solid transparent;
+    border-top: 300px solid transparent;
+    border-radius: px;
+    position: relative;
+    margin: auto;
+    top: 5px;
+    left: 2px;
 }
 
+#single {
+    position: relative;
+    bottom: 330px;
+    right: 300px;
+    height: 50px;
+    width: 600px;
+    background: black;
+    text-align: center;
+    font-size: 30px;
+    background-size: 1px 300%;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    color: red;
+    font-family: shadows into light;
+    cursor: pointer;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+    #single:hover {
+        background: black;
+        color: white;
+        -webkit-transform: rotate(-1deg);
+        transform: rotate(-2deg);
+    }
+
+#about:hover {
+    background: black;
+    color: white;
+    -webkit-transform: rotate(-2deg);
+    transform: rotate(-2deg);
+}
+
+#about {
+    height: 50px;
+    width: 500px;
+    background: black;
+    position: relative;
+    bottom: 345px;
+    right: 240px;
+    text-align: center;
+    font-size: 30px;
+    font-family: shadows into light;
+    color: red;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    cursor: pointer;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#start {
+    height: 100px;
+    width: 500px;
+    background: black;
+    position: relative;
+    right: 950px;
+    top: 200px;
+    text-align: center;
+    font-size: 50px;
+    font-family: shadows into light;
+    color: red;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#start:hover {
+    /*background: black;*/
+    color: white;
+    -webkit-transform: rotate(-1deg);
+    transform: rotate(-2deg);
+}
+
+#impressum {
+    height: 100px;
+    width: 500px;
+    background: black;
+    position: absolute;
+    right:450px;
+    bottom: 90px;
+    text-align: left;
+    font-size: 50px;
+    font-family: shadows into light;
+    color: red;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    cursor: pointer;
+    /*padding-top: 0px;
+    padding-bottom: 100px;*/
+}
+
+    #impressum:hover {
+        background: black;
+        color: white;
+        -webkit-transform: rotate(-1deg);
+        transform: rotate(-2deg);
+    }
+
+
+#datenschutz {
+    height: 100px;
+    width: 500px;
+    background: black;
+    position: absolute;
+    right: 450px;
+    bottom: 200px;
+    text-align: left;
+    font-size: 50px;
+    font-family: shadows into light;
+    color: red;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    cursor: pointer;
+    /*padding-top: 0px;
+    padding-bottom: 100px;*/
+}
+
+    #datenschutz:hover {
+        background: black;
+        color: white;
+        -webkit-transform: rotate(-1deg);
+        transform: rotate(-2deg);
+    }
+
+#story {
+    height: 100px;
+    width: 500px;
+    background: black;
+    position: absolute;
+    right: 450px;
+    bottom: 150px;
+    text-align: center;
+    font-size: 50px;
+    font-family: shadows into light;
+    color: red;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    cursor: pointer;
+    padding-top: 0px;
+    padding-bottom: 75px;
+}
+
+    #story:hover {
+        background: black;
+        color: white;
+        -webkit-transform: rotate(-1deg);
+        transform: rotate(-2deg);
+    }
+
+a {
+    text-decoration: none;
+}
+
+#imp {
+    color: white;
+    text-align: left;
+    font-size: 15px;
+    font-family: Arial;
+}
+
+#head {
+    color: red;
+    text-align: left;
+    font-size: 30px;
+    font-family: shadows into light;
+}
+
+#line {
+    color: white;
+}
+
+#data {
+    color: white;
+    text-align: left;
+    font-size: 15px;
+    font-family: Arial;
+}

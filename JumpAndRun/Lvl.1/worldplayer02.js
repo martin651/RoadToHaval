@@ -414,11 +414,14 @@ Game.World.prototype = {
             this.npc.moving = true;
             this.npc.velocity_x = 0;
             this.player.velocity_x = 0;
-                console.log("G O COLLISION");
-            console.log(distance);
+
             if (confirm('Game Over! Retry?')) {
                 window.location.reload();
             }
+
+            
+            
+            
 
 
 
