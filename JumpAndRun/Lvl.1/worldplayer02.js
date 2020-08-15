@@ -446,8 +446,6 @@ Game.World.prototype = {
 /**NEW NEW NEW**/
     scroll: function () {
 
-        
-          
         distance += speed;
 
 
