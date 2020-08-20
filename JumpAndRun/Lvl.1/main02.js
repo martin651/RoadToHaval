@@ -3,6 +3,14 @@
     "use strict";
 
 
+    ////////////////////
+    //// CONSTANTS ////
+    //////////////////
+
+
+    const ZONE_PREFIX = "Lvl.1/zone";
+    const ZONE_SUFFIX = ".json";
+
     /////////////////
     //// CLASSES ////
     /////////////////
@@ -17,7 +25,7 @@
 
         constructor: Game.AssetsManager,
 
-        /*
+        
         requestJSON: function (url, callback) {
 
             let request = new XMLHttpRequest();
@@ -32,7 +40,7 @@
             request.send();
 
         },
-        */
+        
 
         requestImage: function (url, callback) {
 
@@ -59,13 +67,22 @@
 
     var resize = function (event) {
 
-        display.resize(document.documentElement.clientWidth - 32, document.documentElement.clientHeight - 32, game.world.height / game.world.width);
+        display.resize(document.documentElement.clientWidth /*- 32*/, document.documentElement.clientHeight /*- 32*/, game.world.height / game.world.width);
         display.render();
+    /***NEW NEW NEW***/
+        //var rectangle = display.context.canvas.getBoundingClientRect();
 
+        //p.style.left = rectangle.left + "px";
+        //p.style.top = rectangle.top + "px";
+        //p.style.fontSize = game.world.tile_set.tile_size * rectangle.height / game.world.height + "px";
     };
 
     var render = function () {
 
+        var frame = undefined;
+
+
+        //drawMap
         display.drawMap(assets_manager.tile_set_image,
             game.world.tile_setWorld.columns, game.world.graphical_map, game.world.columns, game.world.tile_setWorld.tile_size);
 
@@ -76,8 +93,6 @@
             playerframe.x, playerframe.y,
             game.world.player.x + Math.floor(game.world.player.width * 0.5 - playerframe.width * 0.5) + playerframe.offset_x, //--> "Inperfektion" überlappen der Pixel und Verzögerung der Animation mit Zentrum-Ermittlung des Frames
             game.world.player.y + playerframe.offset_y, playerframe.width, playerframe.height);
-
-        //****NEW NEW NEW****//
 
         
         //drawNPC
@@ -93,6 +108,20 @@
             itemframe.x, itemframe.y,
             game.world.koeftespiess.x + Math.floor(game.world.npc.width * 0.5 - itemframe.width * 0.5) + itemframe.offset_x, //--> "Inperfektion" überlappen der Pixel und Verzögerung der Animation mit Zentrum-Ermittlung des Frames
             game.world.koeftespiess.y + itemframe.offset_y, itemframe.width, itemframe.height);
+
+        //*** NEW VErSION OF drawKoeftespiess ***//
+        for (let index = game.world.carrots.length - 1; index > -1; --index) {
+
+            let carrot = game.world.carrots[index];
+
+            frame = game.world.tile_set.frames[carrot.frame_value];
+
+            display.drawObject(assets_manager.tile_set_image,
+                frame.x, frame.y,
+                carrot.x + Math.floor(carrot.width * 0.5 - frame.width * 0.5) + frame.offset_x,
+                carrot.y + frame.offset_y, frame.width, frame.height);
+
+        }
         
 
         ////****NEW NEW NEW****//
@@ -161,23 +190,31 @@
     display.buffer.canvas.width = game.world.width;
     display.buffer.imageSmoothingEnabled = false;
 
-    //Map-Image//
-    assets_manager.requestImage("pictures/RoadToHavalComplete.png", (image) => {
+    //Koefteposition
 
-        assets_manager.tile_set_image = image;
+    assets_manager.requestJSON(ZONE_PREFIX + game.world.zone_id + ZONE_SUFFIX, (zone) => {
 
-        resize();
-        engine.start();
+        game.world.setup(zone);
 
-    });
-    //Char-Image//
-    assets_manager.requestImage("pictures/RoadToHavalChars.png", (image) => {
 
-        assets_manager.tile_set_imageChar = image;
+        //Map-Image//
+        assets_manager.requestImage("pictures/RoadToHavalComplete.png", (image) => {
 
-        resize();
-        engine.start();
+            assets_manager.tile_set_image = image;
 
+            resize();
+            engine.start();
+
+        });
+        //Char-Image//
+        assets_manager.requestImage("pictures/RoadToHavalChars.png", (image) => {
+
+            assets_manager.tile_set_imageChar = image;
+
+            resize();
+            engine.start();
+
+        });
     });
 
     window.addEventListener("keydown", keyDownUp);

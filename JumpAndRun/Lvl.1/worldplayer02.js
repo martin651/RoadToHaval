@@ -356,10 +356,17 @@ Game.World = function (friction = 0.85, gravity = 2) {
 
     /**NEW NEW NEW **/
     this.npc = new Game.Npc(1100, 360 - 32 - 64);
-    this.koeftespiess = new Game.Koeftespiess(50, 360 - 32 - 64);
+    //this.koeftespiess = new Game.Koeftespiess(50, 360 - 32 - 64);
+
+
+
+    /**NEW for creating Koeftespiess **/
+    this.zone_id = "00";
+
+    this.koeftespiesse = []; //Position of Koeftespiess
     this.koeftespiess_count = 0;// the number of Köftespieß you have.
 
-    this.koeftespiessE = []; //Position of Koeftespiess
+    
 
 
     //this.zone_id = "00";
@@ -427,17 +434,17 @@ Game.World.prototype = {
 
         };
 
-        if (this.koeftespiess.getRight() <= this.player.getRight()) {
+        //if (this.koeftespiess.getRight() <= this.player.getRight()) {
 
             //splice-function --> method adds/removes items to/from an array, and returns the removed item(s).
             //array.splice(index, howmany, item1, ....., itemX) --> index = int specifies pos; 
             //                                                  --> howmany = optional - The number of items to be removed.If set to 0, no items will be removed
             //                                                  --> item1/x = optional - The new item(s) to be added to the array
 
-            this.koeftespiess_count+=1;
-            this.koeftespiess.constructor();
+        //    this.koeftespiess_count+=1;
+        //    this.koeftespiess.constructor();
 
-        };
+        //};
 
         return false;
 
@@ -496,8 +503,69 @@ Game.World.prototype = {
             
         
     },
+
+    //NEW for creating Koeftespiess
+    setup: function () {
+
+        this.koeftespiess = new Array();
+        //this.doors = new Array();
+        //this.grass = new Array();
+        //this.collision_map = zone.collision_map;
+        //this.graphical_map = zone.graphical_map;
+        //this.columns = zone.columns;
+        //this.rows = zone.rows;
+        this.zone_id = Koeftespiesse.id;
+
+        for (let index = zone.koeftespiess.length - 1; index > -1; --index) {
+
+            let koeftespiess = zone.koeftespiesse[index];
+            this.koeftespiesse[index] = new Game.Koeftespiess(carrot[0] * this.tile_set.tile_size, koeftespiess[1] * this.tile_set.tile_size - 2);
+
+        }
+
+        //for (let index = zone.doors.length - 1; index > -1; --index) {
+
+        //    let door = zone.doors[index];
+        //    this.doors[index] = new Game.Door(door);
+
+        //}
+
+        //for (let index = zone.grass.length - 1; index > -1; --index) {
+
+        //    let grass = zone.grass[index];
+        //    this.grass[index] = new Game.Grass(grass[0] * this.tile_set.tile_size, grass[1] * this.tile_set.tile_size + 12);
+
+        //}
+
+        //if (this.door) {
+
+        //    if (this.door.destination_x != -1) {
+
+        //        this.player.setCenterX(this.door.destination_x);
+        //        this.player.setOldCenterX(this.door.destination_x);// It's important to reset the old position as well.
+
+        //    }
+
+        //    if (this.door.destination_y != -1) {
+
+        //        this.player.setCenterY(this.door.destination_y);
+        //        this.player.setOldCenterY(this.door.destination_y);
+
+        //    }
+
+        //    this.door = undefined;// Make sure to reset this.door so we don't trigger a zone load.
+
+        //}
+
+
+
+
+
+
+
+    },
     
-    update: function () {
+    update: function (zone) {
 
         //Trigger Scroll Background
         if (this.player.getRight() > 150) {
@@ -509,6 +577,7 @@ Game.World.prototype = {
         
         //Player
         this.player.updatePosition(this.gravity, this.friction);
+        
         /**NEW NEW NEW**/
         this.player.updateAlive(this.player);
         this.collideObject(this.player);
@@ -516,6 +585,7 @@ Game.World.prototype = {
        
         //NPC
         this.npc.updatePosition(this.gravity, this.friction);
+        
         /**NEW NEW NEW**/
         this.npc.updateAlive(this.npc);
         this.collideObject(this.npc);
@@ -526,11 +596,25 @@ Game.World.prototype = {
         //for (let index = this.carrots.length - 1; index > -1; --index) {
 
         //    let carrot = this.carrots[index];
+        for (let index = this.koeftespiesse.length - 1; index > -1; --index) {
 
-        this.koeftespiess.updatePosition();
-        this.koeftespiess.animate();
+            let koeftespiessB = this.koeftespiesse[index];
+            this.koeftespiess.updatePosition();
+            this.koeftespiess.animate();
+
+            if (koeftespiess.collideObject(this.player)) {
+
+                this.koeftespiesse.splice(this.koeftespiesse.indexOf(carrot), 1);
+                this.koeftespiess_count++;
+
+            };
+        }
+
         this.player.updateAnimation();
         this.npc.updateAnimation();
+
+        
+        
 
     }
 
