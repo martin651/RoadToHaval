@@ -8,7 +8,7 @@
     //////////////////
 
 
-    const ZONE_PREFIX = "Lvl.1/zone";
+    const ZONE_PREFIX = "zone";
     const ZONE_SUFFIX = ".json";
 
     /////////////////

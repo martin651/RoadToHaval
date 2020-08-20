@@ -514,7 +514,7 @@ Game.World.prototype = {
         //this.graphical_map = zone.graphical_map;
         //this.columns = zone.columns;
         //this.rows = zone.rows;
-        this.zone_id = Koeftespiesse.id;
+        this.zone_id = zone00,json
 
         for (let index = zone.koeftespiess.length - 1; index > -1; --index) {
 
