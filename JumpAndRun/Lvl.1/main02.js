@@ -77,7 +77,9 @@
             game.world.player.x + Math.floor(game.world.player.width * 0.5 - playerframe.width * 0.5) + playerframe.offset_x, //--> "Inperfektion" überlappen der Pixel und Verzögerung der Animation mit Zentrum-Ermittlung des Frames
             game.world.player.y + playerframe.offset_y, playerframe.width, playerframe.height);
 
-        ////****NEW NEW NEW****//
+        //****NEW NEW NEW****//
+
+        
         //drawNPC
         let npcframe = game.world.tile_setPlayer.frames[game.world.npc.frame_value];
         display.drawObject(assets_manager.tile_set_imageChar,
@@ -91,7 +93,7 @@
             itemframe.x, itemframe.y,
             game.world.koeftespiess.x + Math.floor(game.world.npc.width * 0.5 - itemframe.width * 0.5) + itemframe.offset_x, //--> "Inperfektion" überlappen der Pixel und Verzögerung der Animation mit Zentrum-Ermittlung des Frames
             game.world.koeftespiess.y + itemframe.offset_y, itemframe.width, itemframe.height);
-
+        
 
         ////****NEW NEW NEW****//
         p.innerHTML = "Köftespieß: " + game.world.koeftespiess_count;
