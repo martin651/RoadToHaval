@@ -13,10 +13,6 @@
 
 Game.prototype = { constructor: Game };
 
-/*BEGIN ----------------------------------------------------NEW NEW NEW ----------------------------------------------------*/
-
-//_____________________________________________________________________________________//
-
 //ANIMATOR Definition
 Game.Animator = function (frame_set, delay, mode = "loop") {
 
@@ -344,8 +340,6 @@ Game.World = function (friction = 0.85, gravity = 2) {
 
        
     ];
-    /**NEW NEW NEW **/
-    this.collision_map = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 13, 4, 7, 0, 0, 0, 13, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 2, 0, 0, 1, 0, 0, 0, 0, 11, 0, 0, 8, 2, 0, 0, 0, 0, 0, 11, 0, 10, 0, 13, 0, 0, 3, 0, 0, 11, 0, 10, 0, 10, 0, 0, 8, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0];
 
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
@@ -353,7 +347,8 @@ Game.World = function (friction = 0.85, gravity = 2) {
 
     /**NEW NEW NEW **/
     this.npc = new Game.Npc(1100, 0);
-    this.koeftespiess = new Game.Koeftespiess(50, 360 - 32 - 64);
+    //this.koeftespiess = new Game.Koeftespiess(50, 360 - 32 - 64);
+    this.koeftespiess = new Game.Koeftespiess(8000, 360 - 32 - 64);
     this.koeftespiess_count = 0;// the number of Köftespieß you have.
 
     this.koeftespiessE = []; //Position of Koeftespiess
