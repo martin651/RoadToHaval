@@ -92,8 +92,6 @@ Game.TileSet = function (columns, tile_size) {
 
     let f = Game.Frame;
 
-    //individuelle Anpassung der Arrays nötig, da hier definiert wird, welche Regionen/Bereiche des Tilsets ausgeschnitten werden sollen//
-
     this.frames = [
         /**PLAYER FRAMES***/
         new f(0, 128, 64, 60, 0, 0), // Player idle-right
@@ -104,7 +102,7 @@ Game.TileSet = function (columns, tile_size) {
         new f(0, 128, 64, 60, 0, 0), new f(64, 128, 64, 60, 0, 0), new f(128, 128, 64, 60, 0, 0), new f(192, 128, 64, 60, 0, 0), // Player walk-right
         /**NPC FRAMES***/
         new f(0, 0, 64, 64, 0, 0), new f(65, 0, 64, 64, 0, 0), new f(129, 0, 64, 64, 0, 0), // NPC walk left
-        /**ITEMS FRAMES***/
+        /**KÖFTE FRAMES***/
         new f(7*64, 3*64, 64, 64, 0, -4), // Köftespieß
         
     ];
@@ -227,8 +225,6 @@ Game.Object = function (x, y, width, height) {
     this.width = width;
     this.x = x;
     this.y = y;
-    /**NEW NEW NEW **/
-    this.position = [[this.x, this.y]];
 
 };
 Game.Object.prototype = {
@@ -363,18 +359,13 @@ Game.World = function (friction = 0.85, gravity = 2) {
     /**NEW for creating Koeftespiess **/
     this.zone_id = "00";
 
-    this.koeftespiesse = []; //Position of Koeftespiess
+    this.koeftespiesseArray = []; //Position of Koeftespiess
     this.koeftespiess_count = 0;// the number of Köftespieß you have.
 
-    
-
-
-    //this.zone_id = "00";
-    //this.carrots = [];// the array of carrots in this zone;
    
     //this.doors = [];
     //this.door = undefined;
-    this.tile_size = 32;
+    //this.tile_size = 32;
     this.height = this.tile_setWorld.tile_size * this.rows;
     this.width = this.tile_setWorld.tile_size * this.columns;
 
@@ -388,7 +379,7 @@ Game.World.prototype = {
         /* I got rid of the world boundary collision. Now it's up to the tiles to keep
         the player from falling out of the world. */
 
-        /*TEST TEST TEST*/
+       
         if (object.y > 360 - 32 - 64) {
 
           
@@ -450,8 +441,6 @@ Game.World.prototype = {
 
     },
 
-
-
     //Moving NPC's 
     simulation: function (object) {
 
@@ -505,23 +494,26 @@ Game.World.prototype = {
     },
 
     //NEW for creating Koeftespiess
-    setup: function () {
+    setup: function (zone) {
 
-        this.koeftespiess = new Array();
+        this.koeftespiesseArray = new Array();
         //this.doors = new Array();
         //this.grass = new Array();
         //this.collision_map = zone.collision_map;
         //this.graphical_map = zone.graphical_map;
         //this.columns = zone.columns;
         //this.rows = zone.rows;
-        this.zone_id = zone00,json
+        this.zone_id = zone.id;
 
-        for (let index = zone.koeftespiess.length - 1; index > -1; --index) {
+        for (let index = 0; index <zone.koeftespiesseArray.length; index++) {
 
-            let koeftespiess = zone.koeftespiesse[index];
-            this.koeftespiesse[index] = new Game.Koeftespiess(carrot[0] * this.tile_set.tile_size, koeftespiess[1] * this.tile_set.tile_size - 2);
+            let koeftespiess = zone.koeftespiesseArray[index];
+            koeftespiess[index] = new Game.Koeftespiess(koeftespiess[0] * this.tile_setPlayer.tile_size, koeftespiess[1] * this.tile_setPlayer.tile_size - 2);
 
-        }
+            console.log(koeftespiess[index]);
+            
+        };
+       
 
         //for (let index = zone.doors.length - 1; index > -1; --index) {
 
@@ -577,38 +569,33 @@ Game.World.prototype = {
         
         //Player
         this.player.updatePosition(this.gravity, this.friction);
-        
-        /**NEW NEW NEW**/
         this.player.updateAlive(this.player);
         this.collideObject(this.player);
         
        
         //NPC
         this.npc.updatePosition(this.gravity, this.friction);
-        
-        /**NEW NEW NEW**/
         this.npc.updateAlive(this.npc);
         this.collideObject(this.npc);
 
         this.simulation(this.player);
         this.woCollision();        
     
-        //for (let index = this.carrots.length - 1; index > -1; --index) {
 
         //    let carrot = this.carrots[index];
-        for (let index = this.koeftespiesse.length - 1; index > -1; --index) {
+        for (let index = 0; index < this.koeftespiesseArray.length; index++) {
 
-            let koeftespiessB = this.koeftespiesse[index];
-            this.koeftespiess.updatePosition();
-            this.koeftespiess.animate();
+            let koeftespiessvar = this.koeftespiesseArray[index];
+            koeftespiessvar.updatePosition();
+            koeftespiessvar.animate();
 
-            if (koeftespiess.collideObject(this.player)) {
+            //if (koeftespiessvar.collideObjectCenter(this.player)) {
 
-                this.koeftespiesse.splice(this.koeftespiesse.indexOf(carrot), 1);
-                this.koeftespiess_count++;
+            //    this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);
+            //    this.koeftespiess_count++;
 
-            };
-        }
+            //};
+        };
 
         this.player.updateAnimation();
         this.npc.updateAnimation();

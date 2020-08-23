@@ -103,25 +103,26 @@
             game.world.npc.y + npcframe.offset_y, npcframe.width, npcframe.height);
 
         //drawKoeftespiess
-        let itemframe = game.world.tile_setPlayer.frames[game.world.koeftespiess.frame_value];
-        display.drawObject(assets_manager.tile_set_imageChar,
-            itemframe.x, itemframe.y,
-            game.world.koeftespiess.x + Math.floor(game.world.npc.width * 0.5 - itemframe.width * 0.5) + itemframe.offset_x, //--> "Inperfektion" überlappen der Pixel und Verzögerung der Animation mit Zentrum-Ermittlung des Frames
-            game.world.koeftespiess.y + itemframe.offset_y, itemframe.width, itemframe.height);
+        //let itemframe = game.world.tile_setPlayer.frames[game.world.koeftespiess.frame_value];
+        //display.drawObject(assets_manager.tile_set_imageChar,
+        //    itemframe.x, itemframe.y,
+        //    game.world.koeftespiess.x + Math.floor(game.world.npc.width * 0.5 - itemframe.width * 0.5) + itemframe.offset_x, //--> "Inperfektion" überlappen der Pixel und Verzögerung der Animation mit Zentrum-Ermittlung des Frames
+        //    game.world.koeftespiess.y + itemframe.offset_y, itemframe.width, itemframe.height);
 
         //*** NEW VErSION OF drawKoeftespiess ***//
-        for (let index = game.world.carrots.length - 1; index > -1; --index) {
+        for (let index = 0; index < game.world.koeftespiesseArray.length; index++) {
 
-            let carrot = game.world.carrots[index];
+            let koefte = game.world.koeftespiesseArray[index];
 
-            frame = game.world.tile_set.frames[carrot.frame_value];
+            frame = game.world.tile_setPlayer.frames[koefte.frame_value];
 
-            display.drawObject(assets_manager.tile_set_image,
+            display.drawObject(assets_manager.tile_set_imageChar,
                 frame.x, frame.y,
-                carrot.x + Math.floor(carrot.width * 0.5 - frame.width * 0.5) + frame.offset_x,
-                carrot.y + frame.offset_y, frame.width, frame.height);
+                koefte.x + Math.floor(game.world.npc.width.width * 0.5 - frame.width * 0.5) + frame.offset_x,
+                koefte.y + frame.offset_y, frame.width, frame.height);
 
-        }
+
+        };
         
 
         ////****NEW NEW NEW****//
