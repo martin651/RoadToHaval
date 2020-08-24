@@ -410,9 +410,48 @@ Game.World.prototype = {
             
             this.player.alive = false;
 
-            if (confirm('Game Over! Retry?')) {
-                window.location.reload();
-            }
+            //if (window.confirm('Game Over! Retry?', '#ff0000')) {
+            //    window.location.reload();
+            //}
+
+            ConfirmDialog('Are you sure');
+
+            function ConfirmDialog(message) {
+                $('<div></div>').appendTo('body')
+                    .html('<div><h6>' + "Do You Wanna Retry?" + '?</h6></div>')
+                    .dialog({
+                        modal: true,
+                        title: 'Game Over!',
+                        zIndex: 10000,
+                        autoOpen: true,
+                        width: '400px',
+                        resizable: false,
+                        buttons: {
+                            Yes: function () {
+                                // $(obj).removeAttr('onclick');                                
+                                // $(obj).parents('.Parent').remove();
+
+                                $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
+
+                                //$(this).dialog("close");
+                                window.location.reload();
+                                
+                            },
+                            No: function () {l
+                                $('body').append('<h1>Confirm Dialog Result: <i>No</i></h1>');
+
+                                //$(this).dialog("close");
+
+                                //window.location.href = "www.google.de";
+                            }
+                        },
+                        close: function (event, ui) {
+                            $(this).remove();
+                        }
+                    });
+            };
+
+       
 
             return true;
         };
@@ -783,6 +822,7 @@ Object.assign(Game.Npc.prototype, Game.MovingObject.prototype);
 Object.assign(Game.Npc.prototype, Game.Animator.prototype);
 Game.Npc.prototype.constructor = Game.Npc;
 
+
 //NPC Definition
 // The Köftespieß class extends Game.Object and Game.Animation. //
 Game.Koeftespiess = function (x, y) {
@@ -820,4 +860,7 @@ Game.Koeftespiess.prototype = {
 Object.assign(Game.Koeftespiess.prototype, Game.Object.prototype);
 Object.assign(Game.Koeftespiess.prototype, Game.Animator.prototype);
 Game.Koeftespiess.prototype.constructor = Game.Koeftespiess;
+
+
+    
 
