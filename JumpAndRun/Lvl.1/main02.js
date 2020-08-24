@@ -79,7 +79,7 @@
 
     var render = function () {
 
-        var frame = undefined;
+       
 
 
         //drawMap
@@ -97,12 +97,14 @@
         
         //drawNPC
         let npcframe = game.world.tile_setPlayer.frames[game.world.npc.frame_value];
+       
         display.drawObject(assets_manager.tile_set_imageChar,
             npcframe.x, npcframe.y,
             game.world.npc.x + Math.floor(game.world.npc.width * 0.5 - npcframe.width * 0.5) + npcframe.offset_x, //--> "Inperfektion" überlappen der Pixel und Verzögerung der Animation mit Zentrum-Ermittlung des Frames
             game.world.npc.y + npcframe.offset_y, npcframe.width, npcframe.height);
 
-        //drawKoeftespiess
+        
+        //Old Version drawKoeftespiess
         //let itemframe = game.world.tile_setPlayer.frames[game.world.koeftespiess.frame_value];
         //display.drawObject(assets_manager.tile_set_imageChar,
         //    itemframe.x, itemframe.y,
@@ -113,16 +115,14 @@
         for (let index = 0; index < game.world.koeftespiesseArray.length; index++) {
 
             let koefte = game.world.koeftespiesseArray[index];
-
-            frame = game.world.tile_setPlayer.frames[koefte.frame_value];
-
+            let koefteframe = game.world.tile_setPlayer.frames[koefte.frame_value];
             display.drawObject(assets_manager.tile_set_imageChar,
-                frame.x, frame.y,
-                koefte.x + Math.floor(game.world.npc.width.width * 0.5 - frame.width * 0.5) + frame.offset_x,
-                koefte.y + frame.offset_y, frame.width, frame.height);
-
-
+                koefteframe.x, koefteframe.y,
+                koefte.x + Math.floor(koefte.width * 0.5 - koefteframe.width * 0.5) + koefteframe.offset_x,
+                koefte.y + koefteframe.offset_y, koefteframe.width, koefteframe.height);
+                   
         };
+
         
 
         ////****NEW NEW NEW****//

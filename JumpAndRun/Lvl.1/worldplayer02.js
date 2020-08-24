@@ -425,6 +425,9 @@ Game.World.prototype = {
 
         };
 
+        // Old Version - function is now in update()
+
+
         //if (this.koeftespiess.getRight() <= this.player.getRight()) {
 
             //splice-function --> method adds/removes items to/from an array, and returns the removed item(s).
@@ -508,9 +511,7 @@ Game.World.prototype = {
         for (let index = 0; index <zone.koeftespiesseArray.length; index++) {
 
             let koeftespiess = zone.koeftespiesseArray[index];
-            koeftespiess[index] = new Game.Koeftespiess(koeftespiess[0] * this.tile_setPlayer.tile_size, koeftespiess[1] * this.tile_setPlayer.tile_size - 2);
-
-            console.log(koeftespiess[index]);
+            this.koeftespiesseArray[index] = new Game.Koeftespiess(koeftespiess[0] * this.tile_setPlayer.tile_size, koeftespiess[1] * this.tile_setPlayer.tile_size - 2);
             
         };
        
@@ -549,12 +550,6 @@ Game.World.prototype = {
 
         //}
 
-
-
-
-
-
-
     },
     
     update: function (zone) {
@@ -589,12 +584,12 @@ Game.World.prototype = {
             koeftespiessvar.updatePosition();
             koeftespiessvar.animate();
 
-            //if (koeftespiessvar.collideObjectCenter(this.player)) {
+            if (koeftespiessvar.collideObjectCenter(this.player)) {
 
-            //    this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);
-            //    this.koeftespiess_count++;
+                this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);
+                this.koeftespiess_count++;
 
-            //};
+            };
         };
 
         this.player.updateAnimation();
