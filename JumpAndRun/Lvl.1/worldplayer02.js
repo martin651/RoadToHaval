@@ -487,7 +487,7 @@ Game.World.prototype = {
 
                 i = 0;
 
-            }
+            };
 
                 
             
@@ -557,8 +557,6 @@ Game.World.prototype = {
         //Trigger Scroll Background
         if (this.player.getRight() > 150) {
             this.scroll();
-            //console.log("player Bottom: " + this.player.getBottom());
-            //console.log("NPC TOP: " + this.npc.getTop());
         };
 
         
