@@ -365,7 +365,7 @@ Game.World = function (friction = 0.85, gravity = 2) {
    
     //this.doors = [];
     //this.door = undefined;
-    //this.tile_size = 32;
+    this.tile_size = 32;
     this.height = this.tile_setWorld.tile_size * this.rows;
     this.width = this.tile_setWorld.tile_size * this.columns;
 
@@ -552,7 +552,7 @@ Game.World.prototype = {
 
     },
     
-    update: function (zone) {
+    update: function (/*zone*/) {
 
         //Trigger Scroll Background
         if (this.player.getRight() > 150) {
