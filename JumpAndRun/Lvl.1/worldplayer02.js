@@ -350,17 +350,16 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.tile_setPlayer = new Game.TileSet(8, 64);
     this.player = new Game.Player(10, 360 - 32 - 64);
 
-    /**NEW NEW NEW **/
-    this.npc = new Game.Npc(1100, 360 - 32 - 64);
+    //this.npc = new Game.Npc(1100, 360 - 32 - 64);
     //this.koeftespiess = new Game.Koeftespiess(50, 360 - 32 - 64);
 
+    /**NEW for creating NPC' s **/
+    this.npcArray = [];
 
-
-    /**NEW for creating Koeftespiess **/
     this.zone_id = "00";
 
     this.koeftespiesseArray = []; //Position of Koeftespiess
-    this.koeftespiess_count = 0;// the number of Köftespieß you have.
+    this.koeftespiess_count = 0; // the number of Köftespieß you have.
 
    
     //this.doors = [];
@@ -453,6 +452,8 @@ Game.World.prototype = {
             this.npc.moveLeft();
         };
 
+        this.npc.stopMoving();
+
     },
 
     //Scrolling Background function 
@@ -500,22 +501,32 @@ Game.World.prototype = {
     setup: function (zone) {
 
         this.koeftespiesseArray = new Array();
+        this.npcArray = new Array();
         //this.doors = new Array();
-        //this.grass = new Array();
         //this.collision_map = zone.collision_map;
         //this.graphical_map = zone.graphical_map;
         //this.columns = zone.columns;
         //this.rows = zone.rows;
         this.zone_id = zone.id;
 
+        //Reading Koeftespieße position from JSON-File
         for (let index = 0; index <zone.koeftespiesseArray.length; index++) {
 
             let koeftespiess = zone.koeftespiesseArray[index];
             this.koeftespiesseArray[index] = new Game.Koeftespiess(koeftespiess[0] * this.tile_setPlayer.tile_size, koeftespiess[1] * this.tile_setPlayer.tile_size - 2);
             
         };
-       
 
+        //Reading NPC's position from JSON-File
+        for (let index = 0; index < zone.policeman.length; index++) {
+
+            let npc = zone.policeman[index];
+            this.npcArray[index] = new Game.Npc(npc[0], npc[1]);
+            //console.log(npc);
+
+        };
+       
+        
         //for (let index = zone.doors.length - 1; index > -1; --index) {
 
         //    let door = zone.doors[index];
@@ -523,12 +534,7 @@ Game.World.prototype = {
 
         //}
 
-        //for (let index = zone.grass.length - 1; index > -1; --index) {
-
-        //    let grass = zone.grass[index];
-        //    this.grass[index] = new Game.Grass(grass[0] * this.tile_set.tile_size, grass[1] * this.tile_set.tile_size + 12);
-
-        //}
+ 
 
         //if (this.door) {
 
@@ -552,7 +558,7 @@ Game.World.prototype = {
 
     },
     
-    update: function (/*zone*/) {
+    update: function () {
 
         //Trigger Scroll Background
         if (this.player.getRight() > 150) {
@@ -567,12 +573,26 @@ Game.World.prototype = {
         
        
         //NPC
-        this.npc.updatePosition(this.gravity, this.friction);
-        this.npc.updateAlive(this.npc);
-        this.collideObject(this.npc);
+        for (let index = 0; index < this.npcArray.length; index++) {
 
+            let npcvar = this.npcArray[index];
+            npcvar.updatePosition(this.gravity, this.friction);
+            npcvar.updateAnimation();
+            npcvar.updateAlive();
+            this.collideObject(npcvar);
+
+
+
+
+        }
+        
+        //this.npc.updatePosition(this.gravity, this.friction);
+        //this.npc.updateAlive(this.npc);
+        //this.collideObject(this.npc);
+
+        /*** FRÜ DEN TEST AUSKOMMENTIERT***/
         this.simulation(this.player);
-        this.woCollision();        
+        //this.woCollision();        
     
 
         //    let carrot = this.carrots[index];
@@ -591,7 +611,7 @@ Game.World.prototype = {
         };
 
         this.player.updateAnimation();
-        this.npc.updateAnimation();
+        //this.npc.updateAnimation();
 
         
         
@@ -752,57 +772,33 @@ Game.Npc.prototype = {
             this.velocity_x -= 0.7
         };
 
+        
+
     },
 
+    //update moving 
     stopMoving: function () {
 
-        if (this.getLeft() == 0) {
+        if (this.getLeft() < 1) {
 
 
-            this.velocity_x = 0;
+            this.alive = false;
             
         };
 
 
     },
 
-    
-    //moveRight: function (frame_set) {
-
-    //    this.direction_x = 1;
-    //    this.velocity_x += 0.55;
-
-    //},
-    
+   
     
     updateAnimation: function () {
 
-        // MUSS ANGEPASST werden DIRECTION ist immer links also -1
-
-        //Prüfen ob benötigt wird
-        //if (this.velocity_y < 0) {
-
-        //    if (this.direction_x < 0) this.changeFrameSet(this.frame_sets["jump-left"], "pause");
-        //    else this.changeFrameSet(this.frame_sets["jump-right"], "pause");
-
-        //} 
-
-        
         if (this.direction_x < 0) {
 
             if (this.velocity_x < -0.1) this.changeFrameSet(this.frame_sets["move-left"], "loop", 5);
             else this.changeFrameSet(this.frame_sets["idle-left"], "pause");
 
         } 
-
-        //Prüfen ob benötigt wird
-
-        //else if (this.direction_x > 0) {
-
-        //    if (this.velocity_x > 0.1) this.changeFrameSet(this.frame_sets["move-right"], "loop", 5);
-        //    else this.changeFrameSet(this.frame_sets["idle-right"], "pause");
-
-        //}
 
         
         this.animate();
