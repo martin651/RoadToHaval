@@ -388,7 +388,7 @@ Game.World.prototype = {
 
         //boundry of the world (left rim)
         if (object.x < 0) { object.x = 0; object.velocity_x = 0; }
-        else if (object.x + object.width > this.width) { object.x = this.width - object.width; object.velocity_x = 0; }
+        else if (object.x + object.width > this.width) { object.x = this.width - object.width; /*object.velocity_x = 0;*/ }
         //boundry of the world  (upper rim)
         if (object.y < 0) { object.y = 0; object.velocity_y = 0; }
         else if (object.y + object.height > this.height) { object.jumping = false; object.y = this.height - object.height; object.velocity_y = 0; }
@@ -446,7 +446,7 @@ Game.World.prototype = {
         
     },
 
-    //NEW for creating Koeftespiess
+    //NEW for creating Koeftespiess & NPC's
     setup: function (zone) {
 
         this.koeftespiesseArray = new Array();
@@ -557,7 +557,11 @@ Game.World.prototype = {
             };
 
             //TEST Statusmeldung über NPC-Array
-            if (this.npcArray == 0) console.log("ALL Death");
+            if (this.npcArray == 0) {
+
+                
+                console.log("ALL Death")
+            };
         };
 
         //    let carrot = this.carrots[index];
