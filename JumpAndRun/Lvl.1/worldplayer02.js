@@ -375,8 +375,6 @@ Game.World.prototype = {
 
     collideObject: function (object) {
 
-        /* I got rid of the world boundary collision. Now it's up to the tiles to keep
-        the player from falling out of the world. */
 
        
         if (object.y > 360 - 32 - 64) {
@@ -395,10 +393,11 @@ Game.World.prototype = {
 
     },
 
+    /**ANPASSEN**/
     woCollision: function () {
 
         // GAME OVER Collision
-        
+
         if (this.player.getRight() >= this.npc.getLeft() &&
             this.player.getLeft() < this.npc.getLeft() &&
             this.player.getLeft() < this.npc.getRight() &&
@@ -443,18 +442,19 @@ Game.World.prototype = {
 
     },
 
-    //Moving NPC's 
-    simulation: function (object) {
+    //Moving NPC's => now in Game.NPC
+    //simulation: function (object) {
 
-        if (this.player.velocity_x > 0) {
+    //    if (this.player.velocity_x > 0) {
 
-            this.npc.moving = false;
-            this.npc.moveLeft();
-        };
+            
+    //        this.npc.moving = false;
+    //        this.npc.moveLeft();
+    //    };
 
-        this.npc.stopMoving();
+    //    npc.stopMoving();
 
-    },
+    //},
 
     //Scrolling Background function 
     scroll: function () {
@@ -508,6 +508,7 @@ Game.World.prototype = {
         //this.columns = zone.columns;
         //this.rows = zone.rows;
         this.zone_id = zone.id;
+        
 
         //Reading Koeftespieße position from JSON-File
         for (let index = 0; index <zone.koeftespiesseArray.length; index++) {
@@ -561,14 +562,14 @@ Game.World.prototype = {
     update: function () {
 
         //Trigger Scroll Background
-        if (this.player.getRight() > 150) {
+        if (this.player.velocity_x > 0) {
             this.scroll();
         };
 
         
         //Player
         this.player.updatePosition(this.gravity, this.friction);
-        this.player.updateAlive(this.player);
+        this.player.updateAlive();
         this.collideObject(this.player);
         
        
@@ -579,19 +580,21 @@ Game.World.prototype = {
             npcvar.updatePosition(this.gravity, this.friction);
             npcvar.updateAnimation();
             npcvar.updateAlive();
+
+            if (this.player.velocity_x > 0)  npcvar.simulation();
+                       
             this.collideObject(npcvar);
 
-
-
-
         }
+
+       
         
         //this.npc.updatePosition(this.gravity, this.friction);
         //this.npc.updateAlive(this.npc);
         //this.collideObject(this.npc);
 
         /*** FRÜ DEN TEST AUSKOMMENTIERT***/
-        this.simulation(this.player);
+        //this.simulation(this.player);
         //this.woCollision();        
     
 
@@ -789,7 +792,15 @@ Game.Npc.prototype = {
 
     },
 
-   
+
+    //From World->update = Moving NPC's 
+    simulation: function () {
+
+        this.moving = false;
+        this.moveLeft();
+        this.stopMoving();
+
+    },
     
     updateAnimation: function () {
 
