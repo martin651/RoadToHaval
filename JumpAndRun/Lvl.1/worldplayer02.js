@@ -257,6 +257,8 @@ Game.Object.prototype = {
 
     },
 
+
+
     getBottom: function () { return this.y + this.height; },
     getCenterX: function () { return this.x + this.width * 0.5; },
     getCenterY: function () { return this.y + this.height * 0.5; },
@@ -285,11 +287,11 @@ Game.MovingObject = function (x, y, width, height, velocity_max = 15) {
     this.velocity_y = 0;
     this.x_old = x;
     this.y_old = y;
-    /***NEW NEW NEW***/
     this.alive = true;
 
 };
 Game.MovingObject.prototype = {
+
 
     getOldBottom: function () { return this.y_old + this.height; },
     getOldCenterX: function () { return this.x_old + this.width * 0.5; },
@@ -571,7 +573,17 @@ Game.World.prototype = {
         this.player.updatePosition(this.gravity, this.friction);
         this.player.updateAlive();
         this.collideObject(this.player);
-        
+        if (this.player.updateAlive() == true) {
+
+
+            //if (confirm('Game Over! Retry?')) {
+            //    window.location.reload();
+
+            //    return false;
+            //};
+        };
+
+               
        
         //NPC
         for (let index = 0; index < this.npcArray.length; index++) {
@@ -584,6 +596,7 @@ Game.World.prototype = {
             if (this.player.velocity_x > 0)  npcvar.simulation();
                        
             this.collideObject(npcvar);
+            this.player.collideObjectGameOver(npcvar);
 
         }
 
@@ -678,6 +691,30 @@ Game.Player.prototype = {
 
     },
 
+
+    collideObjectGameOver: function (object) {
+
+
+        let left = object.getLeft();
+        let right = object.getRight();
+        let bottom = object.getBottom();
+        let top = object.getTop();
+
+
+
+        if (this.getRight() >= left &&
+            this.getLeft() < left &&
+            this.getLeft() < right &&
+            this.getBottom() == bottom &&
+            this.getTop() == top) {
+
+            this.player.alive = false;
+            return true;
+        };
+
+    },
+
+
     updateAnimation: function () {
 
         if (this.velocity_y < 0) {
@@ -729,10 +766,13 @@ Game.Player.prototype = {
 
             this.npc.moving = true;
             this.npc.velocity_x = 0;
-            this.player.velocity_x = 0;         
+            this.player.velocity_x = 0;
 
-
+            
+            return true;
         };
+
+        return false;
     }
 
 };
