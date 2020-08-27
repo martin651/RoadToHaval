@@ -395,68 +395,15 @@ Game.World.prototype = {
 
     },
 
-    /**ANPASSEN**/
-    woCollision: function () {
+    retryGame: function () {
 
-        // GAME OVER Collision
-
-        if (this.player.getRight() >= this.npc.getLeft() &&
-            this.player.getLeft() < this.npc.getLeft() &&
-            this.player.getLeft() < this.npc.getRight() &&
-            this.player.getBottom() == this.npc.getBottom() &&
-            this.player.getTop() == this.npc.getTop()) {
-            
-            this.player.alive = false;
-
-            if (confirm('Game Over! Retry?')) {
-                window.location.reload();
-            }
-
-            return true;
+        if (confirm('Game Over! Retry?')) {
+            window.location.reload();
         };
 
-        // NPC Death Collision
-        if (this.player.getTop() < this.npc.getTop() &&
-            this.player.getRight() >= this.npc.getLeft() &&
-            this.player.getLeft() < this.npc.getRight() &&
-            this.player.getBottom() >= this.npc.getTop()) {
-
-            this.npc.alive = false;
-
-        };
-
-        // Old Version - function is now in update()
-
-
-        //if (this.koeftespiess.getRight() <= this.player.getRight()) {
-
-            //splice-function --> method adds/removes items to/from an array, and returns the removed item(s).
-            //array.splice(index, howmany, item1, ....., itemX) --> index = int specifies pos; 
-            //                                                  --> howmany = optional - The number of items to be removed.If set to 0, no items will be removed
-            //                                                  --> item1/x = optional - The new item(s) to be added to the array
-
-        //    this.koeftespiess_count+=1;
-        //    this.koeftespiess.constructor();
-
-        //};
-
-        return false;
+        return true;
 
     },
-
-    //Moving NPC's => now in Game.NPC
-    //simulation: function (object) {
-
-    //    if (this.player.velocity_x > 0) {
-
-            
-    //        this.npc.moving = false;
-    //        this.npc.moveLeft();
-    //    };
-
-    //    npc.stopMoving();
-
-    //},
 
     //Scrolling Background function 
     scroll: function () {
@@ -510,12 +457,14 @@ Game.World.prototype = {
         //this.columns = zone.columns;
         //this.rows = zone.rows;
         this.zone_id = zone.id;
-        
+
+        var koeftespiess;
+        var npc;
 
         //Reading Koeftespieße position from JSON-File
         for (let index = 0; index <zone.koeftespiesseArray.length; index++) {
 
-            let koeftespiess = zone.koeftespiesseArray[index];
+            koeftespiess = zone.koeftespiesseArray[index];
             this.koeftespiesseArray[index] = new Game.Koeftespiess(koeftespiess[0] * this.tile_setPlayer.tile_size, koeftespiess[1] * this.tile_setPlayer.tile_size - 2);
             
         };
@@ -523,7 +472,7 @@ Game.World.prototype = {
         //Reading NPC's position from JSON-File
         for (let index = 0; index < zone.policeman.length; index++) {
 
-            let npc = zone.policeman[index];
+            npc = zone.policeman[index];
             this.npcArray[index] = new Game.Npc(npc[0], npc[1]);
             //console.log(npc);
 
@@ -567,70 +516,71 @@ Game.World.prototype = {
         if (this.player.velocity_x > 0) {
             this.scroll();
         };
-
-        
+ 
         //Player
         this.player.updatePosition(this.gravity, this.friction);
         this.player.updateAlive();
         this.collideObject(this.player);
-        if (this.player.updateAlive() == true) {
-
-
-            //if (confirm('Game Over! Retry?')) {
-            //    window.location.reload();
-
-            //    return false;
-            //};
-        };
-
-               
+        this.player.updateAnimation();
        
         //NPC
         for (let index = 0; index < this.npcArray.length; index++) {
 
+            //creatin new Array with NPC objects
             let npcvar = this.npcArray[index];
+
+            //Update functions of NPC
             npcvar.updatePosition(this.gravity, this.friction);
             npcvar.updateAnimation();
             npcvar.updateAlive();
 
-            if (this.player.velocity_x > 0)  npcvar.simulation();
-                       
+            //trigger for NPC Moving
+            if (this.player.velocity_x > 0) npcvar.simulation();
+
+            //Hält die NPC im "Spielfeld"
             this.collideObject(npcvar);
-            this.player.collideObjectGameOver(npcvar);
 
-        }
+            //Bei Kollision mit Player von Oben
+            if (npcvar.deathCollide(this.player) == false) {
 
-       
-        
-        //this.npc.updatePosition(this.gravity, this.friction);
-        //this.npc.updateAlive(this.npc);
-        //this.collideObject(this.npc);
+                this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
+            }
 
-        /*** FRÜ DEN TEST AUSKOMMENTIERT***/
-        //this.simulation(this.player);
-        //this.woCollision();        
-    
+
+            //ANPASSUNG
+            //Player kollidiert mit einem NPC-Object 
+            this.player.collideObjectGameOver(npcvar);    
+            if (this.player.collideObjectGameOver(npcvar) === true) {
+
+                this.retryGame(); //=> Aufruf des Pop-Up-Fensters
+                break;
+            };
+
+            //TEST Statusmeldung über NPC-Array
+            if (this.npcArray == 0) console.log("ALL Death");
+        };
 
         //    let carrot = this.carrots[index];
         for (let index = 0; index < this.koeftespiesseArray.length; index++) {
 
+            //creatin new Array with NPC objects
             let koeftespiessvar = this.koeftespiesseArray[index];
+
+            //Update Köfte-Objekt
             koeftespiessvar.updatePosition();
             koeftespiessvar.animate();
 
+            //Bei Zenterkollision mit Player und Köfteobjekt
             if (koeftespiessvar.collideObjectCenter(this.player)) {
 
-                this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);
-                this.koeftespiess_count++;
+                this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);//=> Wird das Köfte-Objekt Array um 1 gelöscht
+                this.koeftespiess_count++;//und der Köftezähler um +1 erhöht
 
             };
+
+            //TEST Statusmeldung über Köfte-Array
+            if (this.koeftespiesseArray == 0) console.log("ALL eaten");
         };
-
-        this.player.updateAnimation();
-        //this.npc.updateAnimation();
-
-        
-        
 
     }
 
@@ -699,6 +649,8 @@ Game.Player.prototype = {
         let right = object.getRight();
         let bottom = object.getBottom();
         let top = object.getTop();
+        let collision = false;
+
 
 
 
@@ -708,9 +660,14 @@ Game.Player.prototype = {
             this.getBottom() == bottom &&
             this.getTop() == top) {
 
-            this.player.alive = false;
-            return true;
+            this.alive = false;
+            collision = true;
+            return collision;
+            
         };
+
+        return false;
+        
 
     },
 
@@ -764,10 +721,9 @@ Game.Player.prototype = {
 
         if (this.alive != true) {
 
-            this.npc.moving = true;
-            this.npc.velocity_x = 0;
-            this.player.velocity_x = 0;
-
+            Game.Npc.moving = true;
+            Game.Npc.velocity_x = 0;
+            this.velocity_x = 0;
             
             return true;
         };
@@ -832,13 +788,35 @@ Game.Npc.prototype = {
 
     },
 
-
     //From World->update = Moving NPC's 
     simulation: function () {
 
         this.moving = false;
         this.moveLeft();
         this.stopMoving();
+
+    },
+
+
+    //New Collision detection
+    deathCollide: function (object) {
+
+        let left = object.getLeft();
+        let right = object.getRight();
+        let bottom = object.getBottom();
+        let top = object.getTop();
+
+
+        if (top < this.getTop() &&
+            right >= this.getLeft() &&
+            left < this.getRight() &&
+            bottom >= this.getTop()) {
+
+            this.alive = false;
+            return false;
+        };
+
+        return true;
 
     },
     
