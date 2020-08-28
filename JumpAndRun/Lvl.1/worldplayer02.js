@@ -328,7 +328,8 @@ Game.World = function (friction = 0.85, gravity = 2) {
     max_distance= 15;
     speed = 5;
     offset = 0;
-    i = 0;
+    idexofcolumns = 0;
+    countLoops = 0;
     //For Scroll function
 
     this.columns = 50; //ALTERNATIV zone.
@@ -410,36 +411,32 @@ Game.World.prototype = {
 
         distance += speed;
 
-
         if (distance > max_distance) max_distance = distance;
 
         offset += speed;
 
-        
+        while (offset >= this.tile_size && idexofcolumns < 50 && countLoops < 250) {
 
-        while (offset >= this.tile_size && i<50) {
+            
 
             offset -= this.tile_size;
 
             
 
-            for (let index = 0; index < this.columns * 8 + 1 + i; index +=this.columns) {
-
-                this.graphical_map.splice(index, 1);
-                this.graphical_map.splice(index + this.columns - 1, 0, index+i);
-
-
-            };
-
-            i += 1;
-
-            if (i == 49) {
-
-                i = 0;
-
-            };
+            for (let index = 0; index < this.columns * 8 + 1 + idexofcolumns; index += this.columns) {
 
                 
+
+                this.graphical_map.splice(index, 1);
+                this.graphical_map.splice(index + this.columns - 1, 0, index + idexofcolumns);
+                
+                
+            };
+
+            idexofcolumns += 1;
+            countLoops++;
+            if (idexofcolumns == 49) idexofcolumns = 0;
+
             
         };
             
