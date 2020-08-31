@@ -136,7 +136,19 @@
         if (controller.right.active) { game.world.player.moveRight(); }
         if (controller.up.active) { game.world.player.jump(); controller.up.active = false; }
 
+
         game.update();
+
+
+        //NEW NEW NEW 
+        if (game.world.player.updateAlive() == false) {
+
+            if (confirm('Game Over! Retry?')) window.location.reload();
+            this.constructor;
+
+            game.stop();
+
+        };
 
 
     };

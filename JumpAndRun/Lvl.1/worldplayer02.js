@@ -771,13 +771,11 @@ Game.Player.prototype = {
             this.velocity_x = 0;
             this.jumping = true;
 
-            if (confirm('Game Over! Retry?')) window.location.reload();
-            this.constructor;
-            
+            return false;
             
         };
 
-        return false;
+        return true;
     }
 
 };
