@@ -98,6 +98,7 @@
         //*** NEW VErSION OF drawNPC ***//
         for (let index = 0; index < game.world.npcArray.length; index++) {
             let policeman = game.world.npcArray[index];
+            //console.log(policeman);
             let npcframe = game.world.tile_setPlayer.frames[policeman.frame_value];
             display.drawObject(assets_manager.tile_set_imageChar,
                 npcframe.x, npcframe.y,
