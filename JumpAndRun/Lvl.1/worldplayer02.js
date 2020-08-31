@@ -410,24 +410,7 @@ Game.World.prototype = {
     },
 
 
-    //BUG BUG BUG BUG//
-    //retryGame: function () {
-
-        
-    //    if (this.player.alive != true) {
-
-    //        if (confirm('Game Over! Retry?')) {
-    //            window.location.reload();
-
-    //        };
-    //    }
-
-        
-        
-
-    //},
-
-    //Scrolling Background function 
+   
     scroll: function () {
 
         distance += speed;
@@ -527,17 +510,36 @@ Game.World.prototype = {
     },
 
     /** NEW NEW NEW **/
-    randomlyGeneratePolice: function (object) {
+    generatePolice: function () {
 
-        var x = this.width - Math.floor(Math.random()*10);
+        var x = this.width - Math.floor(Math.random() * 100) - Math.floor(Math.random() * 210);
         var y = 264;
         var polObj = undefined;
-        polObj = new Game.Npc(x, y);
-        console.log("randomlyGeneratePolice Ausgeführt");
-        console.log(polObj);
-        return polObj;
+
+        return polObj = new Game.Npc(x, y);
+
     },
 
+    randgenPol: function () {
+
+        var p = this.npcArray[this.npcArray.length - 1];
+        var x = p.getRight() + Math.random()*100;
+        var y = 264;
+        var polObj2 = undefined;
+
+        let randvar = undefined;
+        randvar = Math.floor(Math.random() * 110) / 2;
+
+
+        if (this.npcArray.length < 10 && this.player.getRight()>400 && randvar > 50 && x<1600) {
+
+            polObj2 = new Game.Npc(x, y);
+            this.npcArray.push(polObj2);
+        }
+        else return false;
+    },
+
+    //NEXT STEP//
     randomlyGenerateKoefte: function (object) {
 
             var x = this.width - object.getRight() + Math.floor(Math.random() * 10);
@@ -547,10 +549,6 @@ Game.World.prototype = {
     },
 
     update: function () {
-
-        
-
-        
 
         //Trigger Scroll Background
         if (this.player.direction_x > 0.1 && this.player.velocity_x > 0.1 ||
@@ -564,6 +562,7 @@ Game.World.prototype = {
         this.collideObject(this.player);
         this.player.updateAnimation();
         this.collideWall(this.player);
+        
        
         //NPC
         for (let index = 0; index < this.npcArray.length; index++) {
@@ -583,31 +582,24 @@ Game.World.prototype = {
 
             if (npcvar.stopMoving()) {
                 this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
-                this.npcArray.push(this.randomlyGeneratePolice(this.player)); //Fügt ein neues NPC-Objekt an das Array-Ende hinzu
+                this.npcArray.push(this.generatePolice()); //Fügt ein neues NPC-Objekt an das Array-Ende hinzu
             }
 
             //Bei Kollision mit Player von Oben
             if (npcvar.deathCollide(this.player) == true) {
 
                 this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
-                this.npcArray.push(this.randomlyGeneratePolice(this.player));
+                this.npcArray.push(this.generatePolice());
             }
 
-
-            //ANPASSUNG
-            //Player kollidiert mit einem NPC-Object 
             this.player.collideObjectGameOver(npcvar);
-            //if (this.player.alive != true) this.retryGame();
-            //if (this.player.collideObjectGameOver(npcvar) === true) {
 
-            //    this.retryGame(); //=> Aufruf des Pop-Up-Fensters
-            //    break;
-            //};
-
-            
 
         };
 
+        //New New New
+        this.randgenPol();
+        //this.randgenPol();
         for (let index = 0; index < this.koeftespiesseArray.length; index++) {
 
             //creatin new Array with NPC objects
@@ -628,13 +620,10 @@ Game.World.prototype = {
             };
 
         };
-
-
-        console.log(this.npcArray);
-        
         
     }
 
+    
 };
 
 
