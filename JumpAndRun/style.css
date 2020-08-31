@@ -222,3 +222,27 @@ a {
     cursor: pointer;
 }
 
+#text {
+    height: 50px;
+    width: 500px;
+    /*background: black;*/
+    position: absolute;
+    left: 200px;
+    top: 30px;
+    text-align: center;
+    font-size: 25px;
+    font-family: shadows into light;
+    color: white;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    cursor: pointer;
+    padding-top: 0px;
+    padding-bottom: 75px;
+}
+
+img {
+    position:absolute;
+    right: 0px;
+    top: 100px;
+}
+
