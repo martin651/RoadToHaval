@@ -143,7 +143,47 @@
         //NEW NEW NEW 
         if (game.world.player.updateAlive() == false) {
 
-            if (confirm('Game Over! Retry?')) window.location.reload();
+            //if (confirm('Game Over! Retry?')) window.location.reload();
+
+            //ConfirmDialog('Are you sure');
+
+            //function ConfirmDialog(message) {
+            //    $('<div></div>').appendTo('body')
+            //        .html('<div><h6>' + "Do You Wanna Retry?" + '?</h6></div>')
+            //        .dialog({
+            //            modal: true,
+            //            title: 'Game Over!',
+            //            zIndex: 10000,
+            //            autoOpen: true,
+            //            width: '400px',
+            //            resizable: false,
+            //            buttons: {
+            //                Yes: function () {
+            //                    // $(obj).removeAttr('onclick');                                
+            //                    // $(obj).parents('.Parent').remove();
+
+            //                    $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
+
+            //                    //$(this).dialog("close");
+            //                    window.location.reload();
+
+            //                },
+            //                No: function () {
+            //                    l
+            //                    $('body').append('<h1>Confirm Dialog Result: <i>No</i></h1>');
+
+            //                    //$(this).dialog("close");
+
+            //                    //window.location.href = "www.google.de";
+            //                }
+            //            },
+            //            close: function (event, ui) {
+            //                $(this).remove();
+            //            }
+            //        });
+            //};
+
+
             this.constructor;
 
             game.stop();
