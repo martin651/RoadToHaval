@@ -324,8 +324,8 @@ Game.World = function (friction = 0.85, gravity = 2) {
 
     /***NEW NEW NEW***/
     //For Scroll function
-    distance= 0;
-    max_distance= 15;
+    distance = 0;
+    max_distance = 15;
     speed = 5;
     offset = 0;
     idexofcolumns = 0;
@@ -345,9 +345,9 @@ Game.World = function (friction = 0.85, gravity = 2) {
         400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449,
         450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499,
         450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499,
-        500, 501, 502,503, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541, 542, 543, 544, 545, 546, 547, 548, 549
+        500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541, 542, 543, 544, 545, 546, 547, 548, 549
 
-       
+
     ];
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
@@ -364,14 +364,14 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.koeftespiesseArray = []; //Position of Koeftespiess
     this.koeftespiess_count = 0; // the number of Köftespieß you have.
 
-   
+
     //this.doors = [];
     //this.door = undefined;
     this.tile_size = 32;
     this.height = this.tile_setWorld.tile_size * this.rows;
     this.width = this.tile_setWorld.tile_size * this.columns;
 
-};
+}
 Game.World.prototype = {
 
     constructor: Game.World,
@@ -405,7 +405,7 @@ Game.World.prototype = {
             this.player.getLeft() < this.npc.getRight() &&
             this.player.getBottom() == this.npc.getBottom() &&
             this.player.getTop() == this.npc.getTop()) {
-            
+
             this.player.alive = false;
 
             //if (window.confirm('Game Over! Retry?', '#ff0000')) {
@@ -433,9 +433,10 @@ Game.World.prototype = {
 
                                 //$(this).dialog("close");
                                 window.location.reload();
-                                
+
                             },
-                            No: function () {l
+                            No: function () {
+                                l
                                 $('body').append('<h1>Confirm Dialog Result: <i>No</i></h1>');
 
                                 //$(this).dialog("close");
@@ -449,9 +450,8 @@ Game.World.prototype = {
                     });
             };
 
-       
-
-        return true;
+            return true;
+        };
 
     },
 
@@ -960,7 +960,3 @@ Game.Koeftespiess.prototype = {
 Object.assign(Game.Koeftespiess.prototype, Game.Object.prototype);
 Object.assign(Game.Koeftespiess.prototype, Game.Animator.prototype);
 Game.Koeftespiess.prototype.constructor = Game.Koeftespiess;
-
-
-    
-
