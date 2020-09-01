@@ -79,9 +79,6 @@
 
     var render = function () {
 
-       
-
-
         //drawMap
         display.drawMap(assets_manager.tile_set_image,
             game.world.tile_setWorld.columns, game.world.graphical_map, game.world.columns, game.world.tile_setWorld.tile_size);
@@ -145,46 +142,46 @@
 
             //if (confirm('Game Over! Retry?')) window.location.reload();
 
-            //ConfirmDialog('Are you sure');
+            ConfirmDialog('Ab in die Zelle');
 
-            //function ConfirmDialog(message) {
-            //    $('<div></div>').appendTo('body')
-            //        .html('<div><h6>' + "Do You Wanna Retry?" + '?</h6></div>')
-            //        .dialog({
-            //            modal: true,
-            //            title: 'Game Over!',
-            //            zIndex: 10000,
-            //            autoOpen: true,
-            //            width: '400px',
-            //            resizable: false,
-            //            buttons: {
-            //                Yes: function () {
-            //                    // $(obj).removeAttr('onclick');                                
-            //                    // $(obj).parents('.Parent').remove();
+            function ConfirmDialog(message) {
+                $('<div></div>').appendTo('body')
+                    .html('<div><h6>' + "Do You Wanna Retry?" + '?</h6></div>')
+                    .dialog({
+                        modal: true,
+                        title: 'Game Over!',
+                        zIndex: 10000,
+                        autoOpen: true,
+                        width: '400px',
+                        resizable: false,
+                        buttons: {
+                            Yes: function () {
+                                // $(obj).removeAttr('onclick');                                
+                                // $(obj).parents('.Parent').remove();
 
-            //                    $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
+                                $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
 
-            //                    //$(this).dialog("close");
-            //                    window.location.reload();
+                                //$(this).dialog("close");
+                                window.location.reload();
 
-            //                },
-            //                No: function () {
-            //                    l
-            //                    $('body').append('<h1>Confirm Dialog Result: <i>No</i></h1>');
+                            },
+                            No: function () {
+                                l
+                                $('body').append('<h1>Confirm Dialog Result: <i>No</i></h1>');
 
-            //                    //$(this).dialog("close");
+                                //$(this).dialog("close");
 
-            //                    //window.location.href = "www.google.de";
-            //                }
-            //            },
-            //            close: function (event, ui) {
-            //                $(this).remove();
-            //            }
-            //        });
-            //};
+                                //window.location.href = "www.google.de";
+                            }
+                        },
+                        close: function (event, ui) {
+                            $(this).remove();
+                        }
+                    });
+            };
 
 
-            this.constructor;
+            game.world.constructor;
 
             game.stop();
 
