@@ -156,7 +156,7 @@
 
     //Creating p-Element (HTML) for "Köftespieß" Counter 
     var p = document.createElement("p");
-    p.setAttribute("style", "color:#c07000; font-size:2.0em; position:fixed;");
+    p.setAttribute("style", "color:red; font-size:2.0em; position:absolute; top: 0px;font-family: impact;");
     p.innerHTML = "Köftespieße: 0"; /*Köfte-Zähler-Funktion*/
     document.body.appendChild(p);
     
