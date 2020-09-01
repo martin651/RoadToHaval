@@ -146,8 +146,6 @@
     <Content Include="Lvl.1\zone00.json" />
     <None Include="packages.config" />
     <Content Include="readme.md" />
-    <Content Include="RoadToHaval.json" />
-    <Content Include="RTH.json" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.1.min.map" />
     <None Include="Web.Debug.config">
