@@ -523,7 +523,8 @@ Game.World.prototype = {
     randgenPol: function () {
 
         var p = this.npcArray[this.npcArray.length - 1];
-        var x = p.getRight() + Math.random()*100;
+        var x = p.getRight() + Math.random() * 100 + 200;
+        console.log(x);
         var y = 264;
         var polObj2 = undefined;
 
@@ -531,10 +532,11 @@ Game.World.prototype = {
         randvar = Math.floor(Math.random() * 110) / 2;
 
 
-        if (this.npcArray.length < 10 && this.player.getRight()>400 && randvar > 50 && x<1600) {
+        if (this.npcArray.length < 6 && this.player.getRight()>400 && randvar > 50 && x<1600) {
 
             polObj2 = new Game.Npc(x, y);
             this.npcArray.push(polObj2);
+            stop(this.randgenPol());
         }
         else return false;
     },
@@ -620,6 +622,8 @@ Game.World.prototype = {
             };
 
         };
+
+        if (this.player.updateAlive == false) stop();
         
     }
 
