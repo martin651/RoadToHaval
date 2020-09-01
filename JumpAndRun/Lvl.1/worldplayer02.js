@@ -598,8 +598,50 @@ Game.World.prototype = {
             this.player.collideObjectGameOver(npcvar);    
             if (this.player.collideObjectGameOver(npcvar) === true) {
 
-                this.retryGame(); //=> Aufruf des Pop-Up-Fensters
-                break;
+                this.player.alive = false;
+                //this.retryGame(); //=> Aufruf des Pop-Up-Fensters
+                //break;
+                ConfirmDialog('Are you sure');
+
+                function ConfirmDialog(message) {
+                    $('<div></div>').appendTo('body')
+                        .html('<div><h6>' + "Do You Wanna Retry?" + '?</h6></div>')
+                        .dialog({
+                            modal: true,
+                            title: 'Game Over!',
+                            zIndex: 10000,
+                            autoOpen: true,
+                            width: '400px',
+                            resizable: false,
+                            buttons: {
+                                Yes: function () {
+                                    // $(obj).removeAttr('onclick');                                
+                                    // $(obj).parents('.Parent').remove();
+
+                                    $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
+
+                                    //$(this).dialog("close");
+                                    window.location.reload();
+
+                                },
+                                No: function () {
+                                    l
+                                    $('body').append('<h1>Confirm Dialog Result: <i>No</i></h1>');
+
+                                    //$(this).dialog("close");
+
+                                    //window.location.href = "www.google.de";
+                                }
+                            },
+                            close: function (event, ui) {
+                                $(this).remove();
+                            }
+                        });
+                };
+
+
+
+
             };
 
             //TEST Statusmeldung über NPC-Array
