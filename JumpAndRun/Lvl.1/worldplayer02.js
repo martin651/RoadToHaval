@@ -312,6 +312,10 @@ Object.assign(Game.MovingObject.prototype, Game.Object.prototype);
 Game.MovingObject.prototype.constructor = Game.MovingObject;
 //MOVING OBJECT
 
+
+
+
+
 //_____________________________________________________________________________________//
 
 //WORLD Definition
@@ -322,10 +326,9 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.friction = friction;
     this.gravity = gravity;
 
-    /***NEW NEW NEW***/
     //For Scroll function
-    distance= 0;
-    max_distance= 15;
+    distance = 0;
+    max_distance = 15;
     speed = 5;
     offset = 0;
     idexofcolumns = 0;
@@ -345,9 +348,9 @@ Game.World = function (friction = 0.85, gravity = 2) {
         400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449,
         450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499,
         450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499,
-        500, 501, 502,503, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541, 542, 543, 544, 545, 546, 547, 548, 549
+        500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541, 542, 543, 544, 545, 546, 547, 548, 549
 
-       
+
     ];
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
@@ -358,24 +361,26 @@ Game.World = function (friction = 0.85, gravity = 2) {
 
     /**NEW for creating NPC' s **/
     this.npcArray = [];
+    this.randNpcArray = [];
 
     this.zone_id = "00";
 
     this.koeftespiesseArray = []; //Position of Koeftespiess
     this.koeftespiess_count = 0; // the number of Köftespieß you have.
 
-   
+
     //this.doors = [];
     //this.door = undefined;
     this.tile_size = 32;
     this.height = this.tile_setWorld.tile_size * this.rows;
     this.width = this.tile_setWorld.tile_size * this.columns;
+    this.wall = 900;
 
-};
+}
 Game.World.prototype = {
 
     constructor: Game.World,
-
+        
     collideObject: function (object) {
 
 
@@ -389,24 +394,23 @@ Game.World.prototype = {
 
         //boundry of the world (left rim)
         if (object.x < 0) { object.x = 0; object.velocity_x = 0; }
-        else if (object.x + object.width > this.width) { object.x = this.width - object.width; /*object.velocity_x = 0;*/ }
+        else if (object.x + object.width > this.width) { object.x = this.width - object.width; object.velocity_x = 0;}
         //boundry of the world  (upper rim)
         if (object.y < 0) { object.y = 0; object.velocity_y = 0; }
         else if (object.y + object.height > this.height) { object.jumping = false; object.y = this.height - object.height; object.velocity_y = 0; }
 
     },
 
-    retryGame: function () {
+    /** NEW NEW NEW **/
+    collideWall: function (object) {
 
-        if (confirm('Game Over! Retry?')) {
-            window.location.reload();
-        };
-
+        if (object.getRight() >= this.wall - 2) object.velocity_x -= 0.55;
         return true;
 
     },
 
-    //Scrolling Background function 
+
+   
     scroll: function () {
 
         distance += speed;
@@ -425,8 +429,6 @@ Game.World.prototype = {
 
             for (let index = 0; index < this.columns * 8 + 1 + idexofcolumns; index += this.columns) {
 
-                
-
                 this.graphical_map.splice(index, 1);
                 this.graphical_map.splice(index + this.columns - 1, 0, index + idexofcolumns);
                 
@@ -443,7 +445,7 @@ Game.World.prototype = {
         
     },
 
-    //NEW for creating Koeftespiess & NPC's
+    //Level-Setup
     setup: function (zone) {
 
         this.koeftespiesseArray = new Array();
@@ -506,11 +508,53 @@ Game.World.prototype = {
         //}
 
     },
-    
+
+    /** NEW NEW NEW **/
+    generatePolice: function () {
+
+        var x = this.width - Math.floor(Math.random() * 100) - Math.floor(Math.random() * 210);
+        var y = 264;
+        var polObj = undefined;
+
+        return polObj = new Game.Npc(x, y);
+
+    },
+
+    randgenPol: function () {
+
+        var p = this.npcArray[this.npcArray.length - 1];
+        var x = p.getRight() + Math.random() * 100 + 200;
+        console.log(x);
+        var y = 264;
+        var polObj2 = undefined;
+
+        let randvar = undefined;
+        randvar = Math.floor(Math.random() * 110) / 2;
+
+
+        if (this.npcArray.length < 6 && this.player.getRight()>400 && randvar > 50 && x<1600) {
+
+            polObj2 = new Game.Npc(x, y);
+            this.npcArray.push(polObj2);
+            stop(this.randgenPol());
+        }
+        else return false;
+    },
+
+    //NEXT STEP//
+    randomlyGenerateKoefte: function (object) {
+
+            var x = this.width - object.getRight() + Math.floor(Math.random() * 10);
+            var y = 264-Math.random()*10;
+            var koefObj = undefined;
+            return koefObj = new Game.Koeftespiess(x, y);
+    },
+
     update: function () {
 
         //Trigger Scroll Background
-        if (this.player.velocity_x > 0) {
+        if (this.player.direction_x > 0.1 && this.player.velocity_x > 0.1 ||
+            this.player.direction_x > 0.1 && this.player.velocity_x < 0.1) {
             this.scroll();
         };
  
@@ -519,6 +563,8 @@ Game.World.prototype = {
         this.player.updateAlive();
         this.collideObject(this.player);
         this.player.updateAnimation();
+        this.collideWall(this.player);
+        
        
         //NPC
         for (let index = 0; index < this.npcArray.length; index++) {
@@ -530,38 +576,32 @@ Game.World.prototype = {
             npcvar.updatePosition(this.gravity, this.friction);
             npcvar.updateAnimation();
             npcvar.updateAlive();
-
-            //trigger for NPC Moving
-            if (this.player.velocity_x > 0) npcvar.simulation();
-
             //Hält die NPC im "Spielfeld"
             this.collideObject(npcvar);
 
-            //Bei Kollision mit Player von Oben
-            if (npcvar.deathCollide(this.player) == false) {
+            //trigger for NPC Moving
+            if (this.player.x > 10) npcvar.simulation();
 
+            if (npcvar.stopMoving()) {
                 this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
+                this.npcArray.push(this.generatePolice()); //Fügt ein neues NPC-Objekt an das Array-Ende hinzu
             }
 
+            //Bei Kollision mit Player von Oben
+            if (npcvar.deathCollide(this.player) == true) {
 
-            //ANPASSUNG
-            //Player kollidiert mit einem NPC-Object 
-            this.player.collideObjectGameOver(npcvar);    
-            if (this.player.collideObjectGameOver(npcvar) === true) {
+                this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
+                this.npcArray.push(this.generatePolice());
+            }
 
-                this.retryGame(); //=> Aufruf des Pop-Up-Fensters
-                break;
-            };
+            this.player.collideObjectGameOver(npcvar);
 
-            //TEST Statusmeldung über NPC-Array
-            if (this.npcArray == 0) {
 
-                
-                console.log("ALL Death")
-            };
         };
 
-        //    let carrot = this.carrots[index];
+        //New New New
+        this.randgenPol();
+        //this.randgenPol();
         for (let index = 0; index < this.koeftespiesseArray.length; index++) {
 
             //creatin new Array with NPC objects
@@ -576,15 +616,18 @@ Game.World.prototype = {
 
                 this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);//=> Wird das Köfte-Objekt Array um 1 gelöscht
                 this.koeftespiess_count++;//und der Köftezähler um +1 erhöht
+                this.koeftespiesseArray.splice(this.koeftespiesseArray.length + 1, 0, this.randomlyGenerateKoefte(this.player));
+
 
             };
 
-            //TEST Statusmeldung über Köfte-Array
-            if (this.koeftespiesseArray == 0) console.log("ALL eaten");
         };
 
+        if (this.player.updateAlive == false) stop();
+        
     }
 
+    
 };
 
 
@@ -650,10 +693,6 @@ Game.Player.prototype = {
         let right = object.getRight();
         let bottom = object.getBottom();
         let top = object.getTop();
-        let collision = false;
-
-
-
 
         if (this.getRight() >= left &&
             this.getLeft() < left &&
@@ -662,13 +701,8 @@ Game.Player.prototype = {
             this.getTop() == top) {
 
             this.alive = false;
-            collision = true;
-            return collision;
             
-        };
-
-        return false;
-        
+        };       
 
     },
 
@@ -677,7 +711,7 @@ Game.Player.prototype = {
 
         if (this.velocity_y < 0) {
 
-            if (this.direction_x < 0) this.changeFrameSet(this.frame_sets["jump-left"], "pause");
+            if (this.direction_x < 0) this.changeFrameSet(this.frame_sets["jump-left"], "pause"); 
             else this.changeFrameSet(this.frame_sets["jump-right"], "pause");
 
         } else if (this.direction_x < 0) {
@@ -687,8 +721,22 @@ Game.Player.prototype = {
 
         } else if (this.direction_x > 0) {
 
-            if (this.velocity_x > 0.1) this.changeFrameSet(this.frame_sets["move-right"], "loop", 5);
-            else this.changeFrameSet(this.frame_sets["idle-right"], "pause");
+            if (this.velocity_x > 0.1) {
+
+                this.changeFrameSet(this.frame_sets["move-right"], "loop", 5);
+
+            }
+            if (this.velocity_x < -0.1) {
+
+                this.changeFrameSet(this.frame_sets["move-right"], "loop", 5);
+            }
+            //else {
+            //    this.changeFrameSet(this.frame_sets["idle-right"], "pause");
+            //    console.log("1.2-Animation!");
+            //}
+
+            
+
 
         }
 
@@ -725,11 +773,13 @@ Game.Player.prototype = {
             Game.Npc.moving = true;
             Game.Npc.velocity_x = 0;
             this.velocity_x = 0;
+            this.jumping = true;
+
+            return false;
             
-            return true;
         };
 
-        return false;
+        return true;
     }
 
 };
@@ -763,7 +813,7 @@ Game.Npc.prototype = {
 
     },
         
-    moveLeft: function () { //analog ==> Game.World.Npc.move()
+    moveLeft: function () {
 
         this.direction_x = -1;
 
@@ -783,9 +833,11 @@ Game.Npc.prototype = {
 
 
             this.alive = false;
+            return true;
             
         };
 
+        return false;
 
     },
 
@@ -814,11 +866,9 @@ Game.Npc.prototype = {
             bottom >= this.getTop()) {
 
             this.alive = false;
-            return false;
+            return true;
         };
-
-        return true;
-
+        return false;
     },
     
     updateAnimation: function () {
@@ -873,6 +923,7 @@ Object.assign(Game.Npc.prototype, Game.MovingObject.prototype);
 Object.assign(Game.Npc.prototype, Game.Animator.prototype);
 Game.Npc.prototype.constructor = Game.Npc;
 
+
 //NPC Definition
 // The Köftespieß class extends Game.Object and Game.Animation. //
 Game.Koeftespiess = function (x, y) {
@@ -910,4 +961,3 @@ Game.Koeftespiess.prototype = {
 Object.assign(Game.Koeftespiess.prototype, Game.Object.prototype);
 Object.assign(Game.Koeftespiess.prototype, Game.Animator.prototype);
 Game.Koeftespiess.prototype.constructor = Game.Koeftespiess;
-

@@ -79,9 +79,6 @@
 
     var render = function () {
 
-       
-
-
         //drawMap
         display.drawMap(assets_manager.tile_set_image,
             game.world.tile_setWorld.columns, game.world.graphical_map, game.world.columns, game.world.tile_setWorld.tile_size);
@@ -98,6 +95,7 @@
         //*** NEW VErSION OF drawNPC ***//
         for (let index = 0; index < game.world.npcArray.length; index++) {
             let policeman = game.world.npcArray[index];
+            //console.log(policeman);
             let npcframe = game.world.tile_setPlayer.frames[policeman.frame_value];
             display.drawObject(assets_manager.tile_set_imageChar,
                 npcframe.x, npcframe.y,
@@ -135,7 +133,59 @@
         if (controller.right.active) { game.world.player.moveRight(); }
         if (controller.up.active) { game.world.player.jump(); controller.up.active = false; }
 
+
         game.update();
+
+
+        //NEW NEW NEW 
+        if (game.world.player.updateAlive() == false) {
+
+            //if (confirm('Game Over! Retry?')) window.location.reload();
+
+            ConfirmDialog('Ab in die Zelle');
+
+            function ConfirmDialog(message) {
+                $('<div></div>').appendTo('body')
+                    .html('<div><h6>' + "Do You Wanna Retry?" + '?</h6></div>')
+                    .dialog({
+                        modal: true,
+                        title: 'Game Over!',
+                        zIndex: 10000,
+                        autoOpen: true,
+                        width: '400px',
+                        resizable: false,
+                        buttons: {
+                            Yes: function () {
+                                // $(obj).removeAttr('onclick');                                
+                                // $(obj).parents('.Parent').remove();
+
+                                $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
+
+                                //$(this).dialog("close");
+                                window.location.reload();
+
+                            },
+                            No: function () {
+                                l
+                                $('body').append('<h1>Confirm Dialog Result: <i>No</i></h1>');
+
+                                //$(this).dialog("close");
+
+                                //window.location.href = "www.google.de";
+                            }
+                        },
+                        close: function (event, ui) {
+                            $(this).remove();
+                        }
+                    });
+            };
+
+
+            game.world.constructor;
+
+            game.stop();
+
+        };
 
 
     };
