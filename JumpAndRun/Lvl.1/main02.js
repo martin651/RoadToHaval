@@ -150,7 +150,6 @@
         //NEW NEW NEW 
         if (game.world.player.updateAlive() == false) {
 
-            game.stop();
             //if (confirm('Game Over! Retry?')) window.location.reload();
 
             ConfirmDialog('Ab in die Zelle');
@@ -191,7 +190,12 @@
                     });
             };     
 
+
+
         };
+
+
+        
 
 
     };

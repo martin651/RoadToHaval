@@ -416,7 +416,7 @@ Game.World.prototype = {
 
         offset += speed;
 
-        while (offset >= this.tile_size && idexofcolumns < 50 && countLoops < 50) {
+        while (offset >= this.tile_size && idexofcolumns < 50 && countLoops < 250) {
 
 
 
@@ -435,13 +435,13 @@ Game.World.prototype = {
             idexofcolumns += 1;
             countLoops++;
             if (idexofcolumns == 49) idexofcolumns = 0;
+            this.randgenPol();
 
-            if (countLoops == 50) {
+            if (countLoops == 250) {
 
                 //NEW NEW NEW NEW
                 this.wall = undefined;
                 this.door = new Game.Door(this.width-67, 168);
-                console.log("Hier bin ich: " + this.door);
                 this.doors.push(this.door);
 
             }
@@ -545,6 +545,7 @@ Game.World.prototype = {
             this.npcArray.push(polObj2);
             stop(this.randgenPol());
         }
+        if (this.player.getRight() > 950) this.stop;
         else return false;
     },
 
@@ -567,65 +568,69 @@ Game.World.prototype = {
         //Player
         this.player.updatePosition(this.gravity, this.friction);
         this.player.updateAlive();
+        if (this.player.updateAlive() == false) this.stop;
         this.collideObject(this.player);
         this.player.updateAnimation();
         this.collideWall(this.player);
         
        
-        ////NPC
-        //for (let index = 0; index < this.npcArray.length; index++) {
+        //NPC
+        for (let index = 0; index < this.npcArray.length; index++) {
 
-        //    //creatin new Array with NPC objects
-        //    let npcvar = this.npcArray[index];
+            //creatin new Array with NPC objects
+            let npcvar = this.npcArray[index];
 
-        //    //Update functions of NPC
-        //    npcvar.updatePosition(this.gravity, this.friction);
-        //    npcvar.updateAnimation();
-        //    npcvar.updateAlive();
-        //    //Hält die NPC im "Spielfeld"
-        //    this.collideObject(npcvar);
+            //Update functions of NPC
+            npcvar.updatePosition(this.gravity, this.friction);
+            npcvar.updateAnimation();
+            npcvar.updateAlive();
+            //Hält die NPC im "Spielfeld"
+            this.collideObject(npcvar);
 
-        //    //trigger for NPC Moving
-        //    if (this.player.x > 10) npcvar.simulation();
+            //trigger for NPC Moving
+            if (this.player.x > 10) npcvar.simulation();
 
-        //    if (npcvar.stopMoving()) {
-        //        this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
-        //        this.npcArray.push(this.generatePolice()); //Fügt ein neues NPC-Objekt an das Array-Ende hinzu
-        //    }
+            if (npcvar.stopMoving() && this.player.getRight()<950) {
+                this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
+                this.npcArray.push(this.generatePolice()); //Fügt ein neues NPC-Objekt an das Array-Ende hinzu
+            }
 
-        //    //Bei Kollision mit Player von Oben
-        //    if (npcvar.deathCollide(this.player) == true) {
+            //Bei Kollision mit Player von Oben
+            if (npcvar.deathCollide(this.player) == true && this.player.getRight() < 950) {
 
-        //        this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
-        //        this.npcArray.push(this.generatePolice());
-        //    }
+                this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
+                this.npcArray.push(this.generatePolice());
+            }
 
-        //    this.player.collideObjectGameOver(npcvar);
+            this.player.collideObjectGameOver(npcvar);
+            
 
 
-        //};
+
+
+        };
 
         
-        //for (let index = 0; index < this.koeftespiesseArray.length; index++) {
+        for (let index = 0; index < this.koeftespiesseArray.length; index++) {
 
-        //    //creatin new Array with NPC objects
-        //    let koeftespiessvar = this.koeftespiesseArray[index];
+            //creatin new Array with NPC objects
+            let koeftespiessvar = this.koeftespiesseArray[index];
 
-        //    //Update Köfte-Objekt
-        //    koeftespiessvar.updatePosition();
-        //    koeftespiessvar.animate();
+            //Update Köfte-Objekt
+            koeftespiessvar.updatePosition();
+            koeftespiessvar.animate();
 
-        //    //Bei Zenterkollision mit Player und Köfteobjekt
-        //    if (koeftespiessvar.collideObjectCenter(this.player)) {
+            //Bei Zenterkollision mit Player und Köfteobjekt
+            if (koeftespiessvar.collideObjectCenter(this.player)) {
 
-        //        this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);//=> Wird das Köfte-Objekt Array um 1 gelöscht
-        //        this.koeftespiess_count++;//und der Köftezähler um +1 erhöht
-        //        this.koeftespiesseArray.splice(this.koeftespiesseArray.length + 1, 0, this.randomlyGenerateKoefte(this.player));
+                this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);//=> Wird das Köfte-Objekt Array um 1 gelöscht
+                this.koeftespiess_count++;//und der Köftezähler um +1 erhöht
+                this.koeftespiesseArray.splice(this.koeftespiesseArray.length + 1, 0, this.randomlyGenerateKoefte(this.player));
 
 
-        //    };
+            };
 
-        //};
+        };
 
 
         //this.randgenPol();
@@ -636,15 +641,11 @@ Game.World.prototype = {
 
             let door = this.doors[index];
 
-            if (door.collideObjectCenter(this.player)) {
-
-                door.closed = true;
-                console.log("engine.stop() + alert(Endlich)");
-                //engine.stop();
-            };
+            if (door.update(this.player) == true) this.stop();
+            
         };
 
-        if (this.player.updateAlive == false) engine.stop();
+        if (this.player.updateAlive == false) this.stop();
         
     }
 
@@ -981,23 +982,71 @@ Object.assign(Game.Koeftespiess.prototype, Game.Object.prototype);
 Object.assign(Game.Koeftespiess.prototype, Game.Animator.prototype);
 Game.Koeftespiess.prototype.constructor = Game.Koeftespiess;
 
-//NEW NEW NEW//
+//********NEW NEW NEW********//
 //Door => Object
 Game.Door = function (x,y) {
 
     Game.Object.call(this, x, y, 73, 160);
     Game.Animator.call(this, Game.Door.prototype.frame_sets["door"], 10);
 
-    this.closed = false;
-
-    //this.destination_x = door.destination_x;
-    //this.destination_y = door.destination_y;
-    //this.destination_zone = door.destination_zone;
 
 };
 Game.Door.prototype = {
 
     frame_sets: { "door": [20] },
+
+    update: function (object) {
+
+        if (this.collideObjectCenter(object)) {
+
+            ConfirmDialog('Glückwunsch');
+
+            function ConfirmDialog(message) {
+                $('<div></div>').appendTo('body')
+                    .html('<div><h5>' + "Glückwunsch du bist aus der JVA enflohen!! Bist du bereit für die Freiheit?" + '?</h5></div>')
+                    .dialog({
+                        modal: true,
+                        title: 'Game Over!',
+                        zIndex: 10000,
+                        autoOpen: true,
+                        width: '400px',
+                        resizable: false,
+                        buttons: {
+                            Yes: function () {
+                                // $(obj).removeAttr('onclick');                                
+                                // $(obj).parents('.Parent').remove();
+
+                                $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
+
+                                //$(this).dialog("close");
+                                //$('body').load("/MainMenu.html");
+                                window.location.reload();
+
+
+                            },
+                            No: function () {
+                                l
+                                $('body').append('<h1>Confirm Dialog Result: <i>No</i></h1>');
+
+                                //$(this).dialog("close");
+
+                                //window.location.href = "www.google.de";
+                            }
+                        },
+                        close: function (event, ui) {
+                            $(this).remove();
+                        }
+                    });
+            };     
+
+
+
+            //alert("Glückwunsch du bist aus der JVA enflohen!! Auf geht's in die Freiheit");
+
+        };
+        return false;
+     },
+
 
 };
 Object.assign(Game.Door.prototype, Game.Object.prototype);
