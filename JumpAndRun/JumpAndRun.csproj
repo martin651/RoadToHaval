@@ -117,6 +117,7 @@
     <Content Include="Lvl.1\engine.js" />
     <Content Include="Lvl.1\level1_02.html" />
     <Content Include="Lvl.1\main02.js" />
+    <Content Include="Lvl.1\pictures\Exit-Tür.png" />
     <Content Include="Lvl.1\pictures\Gefängnisgitter.jpg" />
     <Content Include="Lvl.1\pictures\Gitter.jpg" />
     <Content Include="Lvl.1\pictures\Haval Einzel.png" />

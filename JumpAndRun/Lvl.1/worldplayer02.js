@@ -103,8 +103,10 @@ Game.TileSet = function (columns, tile_size) {
         /**NPC FRAMES***/
         new f(0, 0, 64, 64, 0, 0), new f(65, 0, 64, 64, 0, 0), new f(129, 0, 64, 64, 0, 0), // NPC walk left
         /**KÖFTE FRAMES***/
-        new f(7*64, 3*64, 64, 64, 0, -4), // Köftespieß
-        
+        new f(7 * 64, 3 * 64, 64, 64, 0, -4), // Köftespieß
+        /**Door FRAME***/
+        new f(0, 0, 68, 160, 0, 0), // Haval Grill
+
     ];
 
 };
@@ -354,23 +356,19 @@ Game.World = function (friction = 0.85, gravity = 2) {
     ];
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
+    this.tile_setDoor = new Game.TileSet(1, 73)
     this.player = new Game.Player(10, 360 - 32 - 64);
 
-    //this.npc = new Game.Npc(1100, 360 - 32 - 64);
-    //this.koeftespiess = new Game.Koeftespiess(50, 360 - 32 - 64);
 
-    /**NEW for creating NPC' s **/
-    this.npcArray = [];
-    this.randNpcArray = [];
-
-    this.zone_id = "00";
+    //NPC's
+    this.zone_id = "00"; //=> zone.json identifier
+    this.npcArray = []; 
 
     this.koeftespiesseArray = []; //Position of Koeftespiess
     this.koeftespiess_count = 0; // the number of Köftespieß you have.
+    this.doors = [];
 
 
-    //this.doors = [];
-    //this.door = undefined;
     this.tile_size = 32;
     this.height = this.tile_setWorld.tile_size * this.rows;
     this.width = this.tile_setWorld.tile_size * this.columns;
@@ -409,7 +407,6 @@ Game.World.prototype = {
 
     },
 
-
    
     scroll: function () {
 
@@ -419,28 +416,40 @@ Game.World.prototype = {
 
         offset += speed;
 
-        while (offset >= this.tile_size && idexofcolumns < 50 && countLoops < 250) {
+        while (offset >= this.tile_size && idexofcolumns < 50 && countLoops < 50) {
 
-            
+
 
             offset -= this.tile_size;
 
-            
+
 
             for (let index = 0; index < this.columns * 8 + 1 + idexofcolumns; index += this.columns) {
 
                 this.graphical_map.splice(index, 1);
                 this.graphical_map.splice(index + this.columns - 1, 0, index + idexofcolumns);
-                
-                
+
+
             };
 
             idexofcolumns += 1;
             countLoops++;
             if (idexofcolumns == 49) idexofcolumns = 0;
 
+            if (countLoops == 50) {
+
+                //NEW NEW NEW NEW
+                this.wall = undefined;
+                this.door = new Game.Door(this.width-67, 168);
+                console.log("Hier bin ich: " + this.door);
+                this.doors.push(this.door);
+
+            }
             
         };
+
+        
+        return false;
             
         
     },
@@ -473,7 +482,6 @@ Game.World.prototype = {
 
             npc = zone.policeman[index];
             this.npcArray[index] = new Game.Npc(npc[0], npc[1]);
-            //console.log(npc);
 
         };
        
@@ -524,7 +532,6 @@ Game.World.prototype = {
 
         var p = this.npcArray[this.npcArray.length - 1];
         var x = p.getRight() + Math.random() * 100 + 200;
-        console.log(x);
         var y = 264;
         var polObj2 = undefined;
 
@@ -554,9 +561,8 @@ Game.World.prototype = {
 
         //Trigger Scroll Background
         if (this.player.direction_x > 0.1 && this.player.velocity_x > 0.1 ||
-            this.player.direction_x > 0.1 && this.player.velocity_x < 0.1) {
-            this.scroll();
-        };
+            this.player.direction_x > 0.1 && this.player.velocity_x < 0.1) this.scroll();
+        
  
         //Player
         this.player.updatePosition(this.gravity, this.friction);
@@ -566,64 +572,79 @@ Game.World.prototype = {
         this.collideWall(this.player);
         
        
-        //NPC
-        for (let index = 0; index < this.npcArray.length; index++) {
+        ////NPC
+        //for (let index = 0; index < this.npcArray.length; index++) {
 
-            //creatin new Array with NPC objects
-            let npcvar = this.npcArray[index];
+        //    //creatin new Array with NPC objects
+        //    let npcvar = this.npcArray[index];
 
-            //Update functions of NPC
-            npcvar.updatePosition(this.gravity, this.friction);
-            npcvar.updateAnimation();
-            npcvar.updateAlive();
-            //Hält die NPC im "Spielfeld"
-            this.collideObject(npcvar);
+        //    //Update functions of NPC
+        //    npcvar.updatePosition(this.gravity, this.friction);
+        //    npcvar.updateAnimation();
+        //    npcvar.updateAlive();
+        //    //Hält die NPC im "Spielfeld"
+        //    this.collideObject(npcvar);
 
-            //trigger for NPC Moving
-            if (this.player.x > 10) npcvar.simulation();
+        //    //trigger for NPC Moving
+        //    if (this.player.x > 10) npcvar.simulation();
 
-            if (npcvar.stopMoving()) {
-                this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
-                this.npcArray.push(this.generatePolice()); //Fügt ein neues NPC-Objekt an das Array-Ende hinzu
-            }
+        //    if (npcvar.stopMoving()) {
+        //        this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
+        //        this.npcArray.push(this.generatePolice()); //Fügt ein neues NPC-Objekt an das Array-Ende hinzu
+        //    }
 
-            //Bei Kollision mit Player von Oben
-            if (npcvar.deathCollide(this.player) == true) {
+        //    //Bei Kollision mit Player von Oben
+        //    if (npcvar.deathCollide(this.player) == true) {
 
-                this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
-                this.npcArray.push(this.generatePolice());
-            }
+        //        this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
+        //        this.npcArray.push(this.generatePolice());
+        //    }
 
-            this.player.collideObjectGameOver(npcvar);
+        //    this.player.collideObjectGameOver(npcvar);
 
 
-        };
+        //};
 
-        //New New New
-        this.randgenPol();
+        
+        //for (let index = 0; index < this.koeftespiesseArray.length; index++) {
+
+        //    //creatin new Array with NPC objects
+        //    let koeftespiessvar = this.koeftespiesseArray[index];
+
+        //    //Update Köfte-Objekt
+        //    koeftespiessvar.updatePosition();
+        //    koeftespiessvar.animate();
+
+        //    //Bei Zenterkollision mit Player und Köfteobjekt
+        //    if (koeftespiessvar.collideObjectCenter(this.player)) {
+
+        //        this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);//=> Wird das Köfte-Objekt Array um 1 gelöscht
+        //        this.koeftespiess_count++;//und der Köftezähler um +1 erhöht
+        //        this.koeftespiesseArray.splice(this.koeftespiesseArray.length + 1, 0, this.randomlyGenerateKoefte(this.player));
+
+
+        //    };
+
+        //};
+
+
         //this.randgenPol();
-        for (let index = 0; index < this.koeftespiesseArray.length; index++) {
-
-            //creatin new Array with NPC objects
-            let koeftespiessvar = this.koeftespiesseArray[index];
-
-            //Update Köfte-Objekt
-            koeftespiessvar.updatePosition();
-            koeftespiessvar.animate();
-
-            //Bei Zenterkollision mit Player und Köfteobjekt
-            if (koeftespiessvar.collideObjectCenter(this.player)) {
-
-                this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);//=> Wird das Köfte-Objekt Array um 1 gelöscht
-                this.koeftespiess_count++;//und der Köftezähler um +1 erhöht
-                this.koeftespiesseArray.splice(this.koeftespiesseArray.length + 1, 0, this.randomlyGenerateKoefte(this.player));
 
 
+        //NEW NEW NEW//
+        for (let index = 0; index < this.doors.length; index++) {
+
+            let door = this.doors[index];
+
+            if (door.collideObjectCenter(this.player)) {
+
+                door.closed = true;
+                console.log("engine.stop() + alert(Endlich)");
+                //engine.stop();
             };
-
         };
 
-        if (this.player.updateAlive == false) stop();
+        if (this.player.updateAlive == false) engine.stop();
         
     }
 
@@ -685,7 +706,6 @@ Game.Player.prototype = {
 
     },
 
-
     collideObjectGameOver: function (object) {
 
 
@@ -705,7 +725,6 @@ Game.Player.prototype = {
         };       
 
     },
-
 
     updateAnimation: function () {
 
@@ -961,3 +980,25 @@ Game.Koeftespiess.prototype = {
 Object.assign(Game.Koeftespiess.prototype, Game.Object.prototype);
 Object.assign(Game.Koeftespiess.prototype, Game.Animator.prototype);
 Game.Koeftespiess.prototype.constructor = Game.Koeftespiess;
+
+//NEW NEW NEW//
+//Door => Object
+Game.Door = function (x,y) {
+
+    Game.Object.call(this, x, y, 73, 160);
+    Game.Animator.call(this, Game.Door.prototype.frame_sets["door"], 10);
+
+    this.closed = false;
+
+    //this.destination_x = door.destination_x;
+    //this.destination_y = door.destination_y;
+    //this.destination_zone = door.destination_zone;
+
+};
+Game.Door.prototype = {
+
+    frame_sets: { "door": [20] },
+
+};
+Object.assign(Game.Door.prototype, Game.Object.prototype);
+Game.Door.prototype.constructor = Game.Door;
