@@ -111,7 +111,7 @@ Game.TileSet = function (columns, tile_size) {
 Game.TileSet.prototype = { constructor: Game.TileSet };
 
 
-//COLIDER Definition
+//COLLIDER Definition
 Game.Collider = function () {
 
 
@@ -401,7 +401,6 @@ Game.World.prototype = {
 
     },
 
-    /** NEW NEW NEW **/
     collideWall: function (object) {
 
         if (object.getRight() >= this.wall - 2) object.velocity_x -= 0.55;
@@ -409,8 +408,6 @@ Game.World.prototype = {
 
     },
 
-
-   
     scroll: function () {
 
         distance += speed;
@@ -509,7 +506,6 @@ Game.World.prototype = {
 
     },
 
-    /** NEW NEW NEW **/
     generatePolice: function () {
 
         var x = this.width - Math.floor(Math.random() * 100) - Math.floor(Math.random() * 210);
