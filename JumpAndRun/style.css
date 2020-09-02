@@ -228,11 +228,11 @@ a {
     /*background: black;*/
     position: absolute;
     left: 200px;
-    top: 30px;
+    bottom: 5px;
     text-align: center;
-    font-size: 25px;
+    font-size: 30px;
     font-family: shadows into light;
-    color: white;
+    color: red;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     cursor: pointer;
@@ -240,9 +240,18 @@ a {
     padding-bottom: 75px;
 }
 
+#text:hover {
+    /*background: black;*/
+    color: white;
+    -webkit-transform: rotate(-1deg);
+    transform: rotate(-2deg);
+}
+
 img {
     position:absolute;
     right: 0px;
     top: 100px;
 }
+
+
 
