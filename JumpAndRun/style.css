@@ -206,20 +206,52 @@ a {
     font-family: Arial;
 }
 
+#storyaudio {
+    height: 100px;
+    width: 500px;
+    background: black;
+    position: relative;
+    right: 950px;
+    top: 100px;
+    text-align: center;
+    font-size: 50px;
+    font-family: shadows into light;
+    color: red;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
 #text {
     height: 50px;
     width: 500px;
     /*background: black;*/
     position: absolute;
     left: 200px;
-    bottom: 70px;
+    bottom: 5px;
     text-align: center;
-    font-size: 25px;
+    font-size: 30px;
     font-family: shadows into light;
-    color: white;
+    color: red;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     cursor: pointer;
     padding-top: 0px;
     padding-bottom: 75px;
 }
+
+#text:hover {
+    /*background: black;*/
+    color: white;
+    -webkit-transform: rotate(-1deg);
+    transform: rotate(-2deg);
+}
+
+img {
+    position:absolute;
+    right: 0px;
+    top: 100px;
+}
+
+
+

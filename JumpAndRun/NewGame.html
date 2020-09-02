@@ -7,8 +7,18 @@
 </head>
 <body>
 
+
+    <script>
+        function play() {
+            var audio = document.getElementById("audio");
+            audio.play();
+        }
+    </script>
+
     <div id="all">
-        <div id="story"><p>STORY</p></div>
+        <input id="storyaudio" type="button" value="STORY AUDIO..." onclick="play()">
+        <audio id="audio" src="Haval Story Text.mp3"></audio>
+
         <br />
         <a href="Lvl.1/level1_02.html">
             <div id="start"><p>ENTKOMME MIT HAVAL...</p></div>
@@ -19,10 +29,15 @@
             Haval ist ein deutscher Sprechgesangsartist welcher momentan im Knast sitzt weil er unmengen an Gold gestohlen hat.
             Im Gefängnis kommt ihm dann eine lebensverändernde Eingebung welcher er nachgehen muss und somit unmöglich im Gefängnis verweilen kann.
             Er will einfach nur ein Köftespieß von seinem geliebten Haval Grill der sich in der Keuptstraße befindet.
-            Am liebsten mit garkeinem reden und diese eiran von diese Maschine All you can drink mäsisch.
+            Am liebsten mit garkeinem reden und diese Ayran von diese Maschine All you can drink mäsisch.
             Begleite Haval auf seinem Abenteuer in die Freiheit. Hrrrrrrr
         </p>
-</div>
+        <img id="haval" src="Lvl.1/pictures/Haval Einzel.png" />
+    </div>
+
+
+
+
 
 
 </body>
