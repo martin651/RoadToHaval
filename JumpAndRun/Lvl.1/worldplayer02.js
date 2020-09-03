@@ -550,7 +550,7 @@ Game.World.prototype = {
     //NEXT STEP//
     randomlyGenerateKoefte: function (object) {
 
-            var x = this.width - object.getRight() + Math.floor(Math.random() * 10);
+            var x = object.getRight() + (this.width - Math.floor((Math.random() * 100)));
             var y = 264-Math.random()*10;
             var koefObj = undefined;
             return koefObj = new Game.Koeftespiess(x, y);
@@ -623,8 +623,7 @@ Game.World.prototype = {
 
                 this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);//=> Wird das Köfte-Objekt Array um 1 gelöscht
                 this.koeftespiess_count++;//und der Köftezähler um +1 erhöht
-                this.koeftespiesseArray.splice(this.koeftespiesseArray.length + 1, 0, this.randomlyGenerateKoefte(this.player));
-
+                this.koeftespiesseArray.push(this.randomlyGenerateKoefte(this.player));   
 
             };
 
