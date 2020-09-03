@@ -113,7 +113,7 @@ Game.TileSet = function (columns, tile_size) {
 Game.TileSet.prototype = { constructor: Game.TileSet };
 
 
-//COLLIDER Definition
+//COLLIDER Definition ===> Benötigen wir das??
 Game.Collider = function () {
 
 
@@ -313,10 +313,6 @@ Game.MovingObject.prototype = {
 Object.assign(Game.MovingObject.prototype, Game.Object.prototype);
 Game.MovingObject.prototype.constructor = Game.MovingObject;
 //MOVING OBJECT
-
-
-
-
 
 //_____________________________________________________________________________________//
 
@@ -942,9 +938,6 @@ Game.Npc.prototype.constructor = Game.Npc;
 Game.Koeftespiess = function (x, y) {
 
     Game.Object.call(this, x, y, 64, 64);
-
-    //Game.MovingObject.call(this, x, y, 64, 64);
-
     Game.Animator.call(this, Game.Koeftespiess.prototype.frame_sets["twirl"], 15);
 
     this.frame_index = Math.floor(Math.random() * 2);
@@ -978,7 +971,6 @@ Object.assign(Game.Koeftespiess.prototype, Game.Object.prototype);
 Object.assign(Game.Koeftespiess.prototype, Game.Animator.prototype);
 Game.Koeftespiess.prototype.constructor = Game.Koeftespiess;
 
-//********NEW NEW NEW********//
 //Door => Object
 Game.Door = function (x,y) {
 
