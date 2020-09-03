@@ -548,12 +548,13 @@ Game.World.prototype = {
     },
 
     //NEXT STEP//
-    randomlyGenerateKoefte: function (object) {
+    randomlyGenerateKoefte: function () {
 
-            var x = object.getRight() + (this.width - Math.floor((Math.random() * 100)));
+            var x = this.width - Math.random() * 1000;
             var y = 264-Math.random()*10;
             var koefObj = undefined;
-            return koefObj = new Game.Koeftespiess(x, y);
+            koefObj = new Game.Koeftespiess(x, y);
+            return koefObj;
     },
 
     update: function () {
@@ -623,17 +624,12 @@ Game.World.prototype = {
 
                 this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);//=> Wird das Köfte-Objekt Array um 1 gelöscht
                 this.koeftespiess_count++;//und der Köftezähler um +1 erhöht
-                this.koeftespiesseArray.push(this.randomlyGenerateKoefte(this.player));   
+                this.koeftespiesseArray.push(this.randomlyGenerateKoefte());   
 
             };
 
         };
 
-
-        //this.randgenPol();
-
-
-        //NEW NEW NEW//
         for (let index = 0; index < this.doors.length; index++) {
 
             let door = this.doors[index];
@@ -946,6 +942,9 @@ Game.Npc.prototype.constructor = Game.Npc;
 Game.Koeftespiess = function (x, y) {
 
     Game.Object.call(this, x, y, 64, 64);
+
+    //Game.MovingObject.call(this, x, y, 64, 64);
+
     Game.Animator.call(this, Game.Koeftespiess.prototype.frame_sets["twirl"], 15);
 
     this.frame_index = Math.floor(Math.random() * 2);
