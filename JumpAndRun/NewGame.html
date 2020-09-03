@@ -11,6 +11,11 @@
     <script>
         var audio, playbtn, seek_bar;
 
+        function play() {
+            var story = document.getElementById("story");
+            story.play();
+        }
+
         function initAudioPlayer() {
             audio = new Audio();
             audio.src = "Retrogame Menue.mp3";
@@ -32,10 +37,10 @@
             function playPause() {
                 if (audio.paused) {
                     audio.play();
-                    playbtn.style.background = "url('Lvl.1/pictures/Haval Einzel.png') no-repeat";
+                    //playbtn.style.background = "url('Lvl.1/pictures/Play.png') no-repeat";
                 } else {
                     audio.pause();
-                    playbtn.style.background = "url('Lvl.1/pictures/Exit- Tür.png') no-repeat";
+                    //playbtn.style.background = "url('Lvl.1/pictures/Play.png') no-repeat";
                 }
             }
         }
@@ -46,16 +51,9 @@
 
     <div id="all">
         <input id="storyaudio" type="button" value="STORY AUDIO..." onclick="play()">
-        <audio id="audio" src="Haval Story Text.mp3"></audio>
+        <audio id="story" src="Haval Story Text.mp3"></audio>
 
-
-        <!--<input id="musicon" type="button" value="Music on" onclick="playMusic()">
-        <audio id="music" src="Retrogame Menue.mp3"></audio>
-        <input id="musicoff" type="button" value="Music off" onclick="stopMusic()">-->
-
-        <button id="playpausebtn" value="TEST"></button>
-
-
+        <button id="playpausebtn">MUSIC</button>
 
         <br />
         <a href="Lvl.1/level1_02.html">
