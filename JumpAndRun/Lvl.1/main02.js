@@ -116,7 +116,20 @@
                    
         };
 
-        
+
+        //TEST TEST TEST TEST//
+
+        //drawDoor ruft relevanten Informationen ab um eine Animation zu ermöglichen
+
+        for (let index = 0; index < game.world.doors.length; index++) {
+            let door = game.world.doors[index];
+            let doorframe = game.world.tile_setDoor.frames[door.frame_value]; //abholen des Frame-Wertes aus den Klassen (worldplayer.js)
+
+            display.drawObject(assets_manager.tile_set_imageDoor,
+                doorframe.x, doorframe.y,
+                game.world.door.x + Math.floor(game.world.door.width * 0.5 - doorframe.width * 0.5) + doorframe.offset_x, //--> "Inperfektion" überlappen der Pixel und Verzögerung der Animation mit Zentrum-Ermittlung des Frames
+                game.world.door.y + doorframe.offset_y, doorframe.width, doorframe.height);
+        };
 
         ////****NEW NEW NEW****//
         p.innerHTML = "Köftespieß: " + game.world.koeftespiess_count;
@@ -132,10 +145,7 @@
         if (controller.left.active) { game.world.player.moveLeft(); }
         if (controller.right.active) { game.world.player.moveRight(); }
         if (controller.up.active) { game.world.player.jump(); controller.up.active = false; }
-
-
         game.update();
-
 
         //NEW NEW NEW 
         if (game.world.player.updateAlive() == false) {
@@ -178,14 +188,14 @@
                             $(this).remove();
                         }
                     });
-            };
+            };     
 
 
-            game.world.constructor;
-
-            game.stop();
 
         };
+
+
+        
 
 
     };
@@ -235,10 +245,19 @@
             engine.start();
 
         });
-        //Char-Image//
+        //Char+NPC-Image//
         assets_manager.requestImage("pictures/RoadToHavalChars.png", (image) => {
 
             assets_manager.tile_set_imageChar = image;
+
+            resize();
+            engine.start();
+
+        });
+        //Door
+        assets_manager.requestImage("pictures/Exit-Tür.png", (image) => {
+
+            assets_manager.tile_set_imageDoor = image;
 
             resize();
             engine.start();

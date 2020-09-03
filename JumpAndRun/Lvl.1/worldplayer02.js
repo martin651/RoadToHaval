@@ -103,8 +103,10 @@ Game.TileSet = function (columns, tile_size) {
         /**NPC FRAMES***/
         new f(0, 0, 64, 64, 0, 0), new f(65, 0, 64, 64, 0, 0), new f(129, 0, 64, 64, 0, 0), // NPC walk left
         /**KÖFTE FRAMES***/
-        new f(7*64, 3*64, 64, 64, 0, -4), // Köftespieß
-        
+        new f(7 * 64, 3 * 64, 64, 64, 0, -4), // Köftespieß
+        /**Door FRAME***/
+        new f(0, 0, 68, 160, 0, 0), // Haval Grill
+
     ];
 
 };
@@ -354,23 +356,19 @@ Game.World = function (friction = 0.85, gravity = 2) {
     ];
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
+    this.tile_setDoor = new Game.TileSet(1, 73)
     this.player = new Game.Player(10, 360 - 32 - 64);
 
-    //this.npc = new Game.Npc(1100, 360 - 32 - 64);
-    //this.koeftespiess = new Game.Koeftespiess(50, 360 - 32 - 64);
 
-    /**NEW for creating NPC' s **/
-    this.npcArray = [];
-    this.randNpcArray = [];
-
-    this.zone_id = "00";
+    //NPC's
+    this.zone_id = "00"; //=> zone.json identifier
+    this.npcArray = []; 
 
     this.koeftespiesseArray = []; //Position of Koeftespiess
     this.koeftespiess_count = 0; // the number of Köftespieß you have.
+    this.doors = [];
 
 
-    //this.doors = [];
-    //this.door = undefined;
     this.tile_size = 32;
     this.height = this.tile_setWorld.tile_size * this.rows;
     this.width = this.tile_setWorld.tile_size * this.columns;
@@ -408,6 +406,7 @@ Game.World.prototype = {
 
     },
 
+   
     scroll: function () {
 
         distance += speed;
@@ -418,26 +417,38 @@ Game.World.prototype = {
 
         while (offset >= this.tile_size && idexofcolumns < 50 && countLoops < 250) {
 
-            
+
 
             offset -= this.tile_size;
 
-            
+
 
             for (let index = 0; index < this.columns * 8 + 1 + idexofcolumns; index += this.columns) {
 
                 this.graphical_map.splice(index, 1);
                 this.graphical_map.splice(index + this.columns - 1, 0, index + idexofcolumns);
-                
-                
+
+
             };
 
             idexofcolumns += 1;
             countLoops++;
             if (idexofcolumns == 49) idexofcolumns = 0;
+            this.randgenPol();
 
+            if (countLoops == 250) {
+
+                //NEW NEW NEW NEW
+                this.wall = undefined;
+                this.door = new Game.Door(this.width-67, 168);
+                this.doors.push(this.door);
+
+            }
             
         };
+
+        
+        return false;
             
         
     },
@@ -470,7 +481,6 @@ Game.World.prototype = {
 
             npc = zone.policeman[index];
             this.npcArray[index] = new Game.Npc(npc[0], npc[1]);
-            //console.log(npc);
 
         };
        
@@ -520,7 +530,6 @@ Game.World.prototype = {
 
         var p = this.npcArray[this.npcArray.length - 1];
         var x = p.getRight() + Math.random() * 100 + 200;
-        console.log(x);
         var y = 264;
         var polObj2 = undefined;
 
@@ -534,6 +543,7 @@ Game.World.prototype = {
             this.npcArray.push(polObj2);
             stop(this.randgenPol());
         }
+        if (this.player.getRight() > 950) this.stop;
         else return false;
     },
 
@@ -550,13 +560,13 @@ Game.World.prototype = {
 
         //Trigger Scroll Background
         if (this.player.direction_x > 0.1 && this.player.velocity_x > 0.1 ||
-            this.player.direction_x > 0.1 && this.player.velocity_x < 0.1) {
-            this.scroll();
-        };
+            this.player.direction_x > 0.1 && this.player.velocity_x < 0.1) this.scroll();
+        
  
         //Player
         this.player.updatePosition(this.gravity, this.friction);
         this.player.updateAlive();
+        if (this.player.updateAlive() == false) this.stop;
         this.collideObject(this.player);
         this.player.updateAnimation();
         this.collideWall(this.player);
@@ -578,26 +588,27 @@ Game.World.prototype = {
             //trigger for NPC Moving
             if (this.player.x > 10) npcvar.simulation();
 
-            if (npcvar.stopMoving()) {
+            if (npcvar.stopMoving() && this.player.getRight()<950) {
                 this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
                 this.npcArray.push(this.generatePolice()); //Fügt ein neues NPC-Objekt an das Array-Ende hinzu
             }
 
             //Bei Kollision mit Player von Oben
-            if (npcvar.deathCollide(this.player) == true) {
+            if (npcvar.deathCollide(this.player) == true && this.player.getRight() < 950) {
 
                 this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
                 this.npcArray.push(this.generatePolice());
             }
 
             this.player.collideObjectGameOver(npcvar);
+            
+
+
 
 
         };
 
-        //New New New
-        this.randgenPol();
-        //this.randgenPol();
+        
         for (let index = 0; index < this.koeftespiesseArray.length; index++) {
 
             //creatin new Array with NPC objects
@@ -619,7 +630,20 @@ Game.World.prototype = {
 
         };
 
-        if (this.player.updateAlive == false) stop();
+
+        //this.randgenPol();
+
+
+        //NEW NEW NEW//
+        for (let index = 0; index < this.doors.length; index++) {
+
+            let door = this.doors[index];
+
+            if (door.update(this.player) == true) this.stop();
+            
+        };
+
+        if (this.player.updateAlive == false) this.stop();
         
     }
 
@@ -681,7 +705,6 @@ Game.Player.prototype = {
 
     },
 
-
     collideObjectGameOver: function (object) {
 
 
@@ -701,7 +724,6 @@ Game.Player.prototype = {
         };       
 
     },
-
 
     updateAnimation: function () {
 
@@ -957,3 +979,73 @@ Game.Koeftespiess.prototype = {
 Object.assign(Game.Koeftespiess.prototype, Game.Object.prototype);
 Object.assign(Game.Koeftespiess.prototype, Game.Animator.prototype);
 Game.Koeftespiess.prototype.constructor = Game.Koeftespiess;
+
+//********NEW NEW NEW********//
+//Door => Object
+Game.Door = function (x,y) {
+
+    Game.Object.call(this, x, y, 73, 160);
+    Game.Animator.call(this, Game.Door.prototype.frame_sets["door"], 10);
+
+
+};
+Game.Door.prototype = {
+
+    frame_sets: { "door": [20] },
+
+    update: function (object) {
+
+        if (this.collideObjectCenter(object)) {
+
+            ConfirmDialog('Glückwunsch');
+
+            function ConfirmDialog(message) {
+                $('<div></div>').appendTo('body')
+                    .html('<div><h5>' + "Glückwunsch du bist aus der JVA enflohen!! Bist du bereit für die Freiheit?" + '?</h5></div>')
+                    .dialog({
+                        modal: true,
+                        title: 'Game Over!',
+                        zIndex: 10000,
+                        autoOpen: true,
+                        width: '400px',
+                        resizable: false,
+                        buttons: {
+                            Yes: function () {
+                                // $(obj).removeAttr('onclick');                                
+                                // $(obj).parents('.Parent').remove();
+
+                                $('body').append('<h1>Confirm Dialog Result: <i>Yes</i></h1>');
+
+                                //$(this).dialog("close");
+                                //$('body').load("/MainMenu.html");
+                                window.location.reload();
+
+
+                            },
+                            No: function () {
+                                l
+                                $('body').append('<h1>Confirm Dialog Result: <i>No</i></h1>');
+
+                                //$(this).dialog("close");
+
+                                //window.location.href = "www.google.de";
+                            }
+                        },
+                        close: function (event, ui) {
+                            $(this).remove();
+                        }
+                    });
+            };     
+
+
+
+            //alert("Glückwunsch du bist aus der JVA enflohen!! Auf geht's in die Freiheit");
+
+        };
+        return false;
+     },
+
+
+};
+Object.assign(Game.Door.prototype, Game.Object.prototype);
+Game.Door.prototype.constructor = Game.Door;

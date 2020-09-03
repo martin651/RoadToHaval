@@ -71,7 +71,7 @@ Engine.prototype = {
 
     stop: function () {
         window.cancelAnimationFrame(this.animation_frame_request);
-        alert("GAME OVER");
+        
     }
 
 };
