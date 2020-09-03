@@ -8,9 +8,25 @@
 </head>
 <body>
 
-  
+    <script>
+        function playMusic() {
+            var music = document.getElementById("music");
+            music.play();
+        }
+
+        function stopMusic() {
+            var stop = document.getElementById("music");
+            music.pause();
+            music.CurrentTime = 0;
+        }
+    </script>
+
     <h1 id="Title"><strong>Road to Haval</strong></h1>
     <br />
+    <input id="musicon" type="button" value="Music on" onclick="playMusic()">
+    <audio id="music" src="Retrogame Menue.mp3"></audio>
+    <input id="musicoff" type="button" value="Music off" onclick="stopMusic()">
+
     <div id="all">
         <form id="NewGame" action="NewGame.html">
             <input id="single" type="submit" value="NEW GAME" />
@@ -20,5 +36,9 @@
             <input id="about" type="submit" value="ABOUT">
         </form>
     </div>
+
+    <script src="sound.js"></script>
+
+
 </body>
 </html>

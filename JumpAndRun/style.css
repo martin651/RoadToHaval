@@ -253,5 +253,60 @@ img {
     top: 100px;
 }
 
+#musicoff {
+    height: 50px;
+    width: 200px;
+    background: black;
+    position: absolute;
+    left: 200px;
+    bottom: 5px;
+    text-align: center;
+    font-size: 30px;
+    font-family: shadows into light;
+    color: red;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    cursor: pointer;
+    padding-top: 0px;
+    padding-bottom: 75px;
+}
 
+    #musicoff:hover {
+        color: white;
+        -webkit-transform: rotate(-1deg);
+        transform: rotate(-2deg);
+    }
+
+
+#musicon {
+    height: 50px;
+    width: 200px;
+    background: black;
+    position: absolute;
+    left: 0px;
+    bottom: 5px;
+    text-align: center;
+    font-size: 30px;
+    font-family: shadows into light;
+    color: red;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    cursor: pointer;
+    padding-top: 0px;
+    padding-bottom: 75px;
+}
+
+    #musicon:hover {
+        color: white;
+        -webkit-transform: rotate(-1deg);
+        transform: rotate(-2deg);
+    }
+
+/*button#playpausebtn {
+    background: url('Lvl.1/pictures/Haval Einzel.png') no-repeat ;
+    border:none;
+    width:12px;
+    height:14px;
+    cursor:pointer;
+}*/
 

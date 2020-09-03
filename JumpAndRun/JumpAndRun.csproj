@@ -130,6 +130,7 @@
     <Content Include="MainMenu.html" />
     <Content Include="NewGame.html" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Retrogame Menue.mp3" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.js" />
