@@ -219,7 +219,8 @@
     p.setAttribute("style", "color:red; font-size:2.0em; position:absolute; top: 0px;font-family: impact;");
     p.innerHTML = "Köftespieße: 0"; /*Köfte-Zähler-Funktion*/
     document.body.appendChild(p);
-    
+
+
 
      ////////////////////
     //// INITIALIZE ////

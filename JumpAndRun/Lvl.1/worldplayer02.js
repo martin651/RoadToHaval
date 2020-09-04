@@ -319,6 +319,18 @@ Game.MovingObject.prototype.constructor = Game.MovingObject;
 //WORLD Definition
 Game.World = function (friction = 0.85, gravity = 2) {
 
+    
+    fxKoefte = new Audio();
+    fxDeath = new Audio();
+    fxStart = new Audio();
+    fxKoefte.src = "/Sounds/Xatar Item.mp3";
+    fxDeath.src = "/Sounds/Xatar AMK.mp3";
+    fxStart.src = "/Sounds/Xatar was läuft.mp3";
+    fxKoefte.loop = false;
+    fxDeath.loop = false;
+    fxStart.loop = false;
+
+
     this.collider = new Game.Collider();
 
     this.friction = friction;
@@ -353,7 +365,7 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
     this.tile_setDoor = new Game.TileSet(1, 73)
-    this.player = new Game.Player(10, 360 - 32 - 64);
+    this.player = new Game.Player(10, 264);
 
 
     //NPC's
@@ -374,7 +386,7 @@ Game.World = function (friction = 0.85, gravity = 2) {
 Game.World.prototype = {
 
     constructor: Game.World,
-        
+         
     collideObject: function (object) {
 
 
@@ -401,7 +413,6 @@ Game.World.prototype = {
         return true;
 
     },
-
    
     scroll: function () {
 
@@ -554,6 +565,7 @@ Game.World.prototype = {
     },
 
     update: function () {
+        
 
         //Trigger Scroll Background
         if (this.player.direction_x > 0.1 && this.player.velocity_x > 0.1 ||
@@ -598,13 +610,7 @@ Game.World.prototype = {
             }
 
             this.player.collideObjectGameOver(npcvar);
-            
-
-
-
-
         };
-
         
         for (let index = 0; index < this.koeftespiesseArray.length; index++) {
 
@@ -618,6 +624,7 @@ Game.World.prototype = {
             //Bei Zenterkollision mit Player und Köfteobjekt
             if (koeftespiessvar.collideObjectCenter(this.player)) {
 
+                
                 this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);//=> Wird das Köfte-Objekt Array um 1 gelöscht
                 this.koeftespiess_count++;//und der Köftezähler um +1 erhöht
                 this.koeftespiesseArray.push(this.randomlyGenerateKoefte());   
