@@ -9,15 +9,51 @@
 
 
     <script>
+        var audio, playbtn, seek_bar;
+
         function play() {
-            var audio = document.getElementById("audio");
-            audio.play();
+            var story = document.getElementById("story");
+            story.play();
         }
+
+        function initAudioPlayer() {
+            audio = new Audio();
+            audio.src = "Retrogame Menue.mp3";
+            audio.loop = true;
+            audio.play();
+
+            //Objekt Referenzen
+
+            playbtn = document.getElementById("playpausebtn");
+
+
+            //Event Handling
+
+            playbtn.addEventListener("click", playPause)
+
+
+            //Funktionen
+
+            function playPause() {
+                if (audio.paused) {
+                    audio.play();
+                    //playbtn.style.background = "url('Lvl.1/pictures/Play.png') no-repeat";
+                } else {
+                    audio.pause();
+                    //playbtn.style.background = "url('Lvl.1/pictures/Play.png') no-repeat";
+                }
+            }
+        }
+
+    window.addEventListener("load", initAudioPlayer);
+
     </script>
 
     <div id="all">
         <input id="storyaudio" type="button" value="STORY AUDIO..." onclick="play()">
-        <audio id="audio" src="Haval Story Text.mp3"></audio>
+        <audio id="story" src="Haval Story Text.mp3"></audio>
+
+        <button id="playpausebtn">MUSIC</button>
 
         <br />
         <a href="Lvl.1/level1_02.html">
@@ -33,6 +69,8 @@
             Begleite Haval auf seinem Abenteuer in die Freiheit. Hrrrrrrr
         </p>
         <img id="haval" src="Lvl.1/pictures/Haval Einzel.png" />
+
+
     </div>
 
 

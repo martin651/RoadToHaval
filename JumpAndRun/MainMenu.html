@@ -8,9 +8,47 @@
 </head>
 <body>
 
-  
+    <script>
+        var audio, playbtn, seek_bar;
+
+        function initAudioPlayer() {
+            audio = new Audio();
+            audio.src = "Retrogame Menue.mp3";
+            audio.loop = true;
+            audio.play();
+
+            //Objekt Referenzen
+
+            playbtn = document.getElementById("playbtn");
+
+
+            //Event Handling
+
+            playbtn.addEventListener("click", playPause)
+
+
+            //Funktionen
+
+            function playPause() {
+                if (audio.paused) {
+                    audio.play();
+                    //playbtn.style.background = "url('Lvl.1/pictures/Play.png') no-repeat";
+                } else {
+                    audio.pause();
+                    //playbtn.style.background = "url('Lvl.1/pictures/Play.png') no-repeat";
+                }
+            }
+        }
+
+        window.addEventListener("load", initAudioPlayer);
+
+    </script>
+
     <h1 id="Title"><strong>Road to Haval</strong></h1>
     <br />
+    <br />
+    <button id="playbtn">MUSIC</button>
+
     <div id="all">
         <form id="NewGame" action="NewGame.html">
             <input id="single" type="submit" value="NEW GAME" />
@@ -20,5 +58,8 @@
             <input id="about" type="submit" value="ABOUT">
         </form>
     </div>
+
+
+
 </body>
 </html>
