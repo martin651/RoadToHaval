@@ -152,6 +152,7 @@
 
             //if (confirm('Game Over! Retry?')) window.location.reload();
 
+           
             ConfirmDialog('Ab in die Zelle');
 
             function ConfirmDialog(message) {

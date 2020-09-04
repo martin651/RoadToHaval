@@ -320,15 +320,26 @@ Game.MovingObject.prototype.constructor = Game.MovingObject;
 Game.World = function (friction = 0.85, gravity = 2) {
 
     
-    fxKoefte = new Audio();
+
+    document.getElementById("unmuteButton");
+    unmuteButton.addEventListener('click', function () {
+
+        
+        return Audio.muted = false;
+
+    });
+    
+
+    fxKoefte = new Audio(); 
     fxDeath = new Audio();
     fxStart = new Audio();
-    fxKoefte.src = "/Sounds/Xatar Item.mp3";
-    fxDeath.src = "/Sounds/Xatar AMK.mp3";
-    fxStart.src = "/Sounds/Xatar was läuft.mp3";
-    fxKoefte.loop = false;
+    fxKoefte.src = "/Sounds/Habal AMK.mp3"; 
+    fxDeath.src = "/Sounds/Haval Death.mp3";
+    fxStart.src = "/Sounds/was läuft.mp3";
+    fxKoefte.loop = false,
     fxDeath.loop = false;
     fxStart.loop = false;
+    
 
 
     this.collider = new Game.Collider();
@@ -366,6 +377,7 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.tile_setPlayer = new Game.TileSet(8, 64);
     this.tile_setDoor = new Game.TileSet(1, 73)
     this.player = new Game.Player(10, 264);
+   /* if (audiomuted==true)*/fxStart.play();
 
 
     //NPC's
@@ -422,7 +434,7 @@ Game.World.prototype = {
 
         offset += speed;
 
-        while (offset >= this.tile_size && idexofcolumns < 50 && countLoops < 250) {
+        while (offset >= this.tile_size && idexofcolumns < 50 && countLoops < 50) {
 
 
 
@@ -443,7 +455,7 @@ Game.World.prototype = {
             if (idexofcolumns == 49) idexofcolumns = 0;
             this.randgenPol();
 
-            if (countLoops == 250) {
+            if (countLoops == 50) {
 
                 //NEW NEW NEW NEW
                 this.wall = undefined;
@@ -575,7 +587,10 @@ Game.World.prototype = {
         //Player
         this.player.updatePosition(this.gravity, this.friction);
         this.player.updateAlive();
-        if (this.player.updateAlive() == false) this.stop;
+        if (this.player.updateAlive() == false) {
+            fxDeath.play();
+            this.stop();
+        };
         this.collideObject(this.player);
         this.player.updateAnimation();
         this.collideWall(this.player);
@@ -624,7 +639,7 @@ Game.World.prototype = {
             //Bei Zenterkollision mit Player und Köfteobjekt
             if (koeftespiessvar.collideObjectCenter(this.player)) {
 
-                
+                fxKoefte.play();
                 this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);//=> Wird das Köfte-Objekt Array um 1 gelöscht
                 this.koeftespiess_count++;//und der Köftezähler um +1 erhöht
                 this.koeftespiesseArray.push(this.randomlyGenerateKoefte());   
@@ -637,12 +652,18 @@ Game.World.prototype = {
 
             let door = this.doors[index];
 
-            if (door.update(this.player) == true) this.stop();
+            if (door.update(this.player) == true) {
+
+                fxFinish.play();
+                this.stop();
+            };
             
         };
 
-        if (this.player.updateAlive == false) this.stop();
-        
+        //if (this.player.updateAlive == false) {
+
+        //    this.stop();
+        //};
     }
 
     
