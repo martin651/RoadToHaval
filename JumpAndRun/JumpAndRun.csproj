@@ -127,7 +127,7 @@
     <Content Include="Lvl.1\pictures\RoadToHavalChars.png" />
     <Content Include="Lvl.1\pictures\RoadToHavalComplete.PNG" />
     <Content Include="Lvl.1\worldplayer02.js" />
-    <Content Include="MainMenu.html" />
+    <Content Include="MainMenue.html" />
     <Content Include="NewGame.html" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
