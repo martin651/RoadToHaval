@@ -231,7 +231,8 @@
 
     //assets_manager.requestJSON(ZONE_PREFIX + game.world.zone_id + ZONE_SUFFIX, (zone) => {
 
-        game.world.setup(/*zone*/);
+    game.world.setup(/*zone*/);
+    
 
 
         //Map-Image//
