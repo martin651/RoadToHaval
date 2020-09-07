@@ -235,7 +235,7 @@
 
 
         //Map-Image//
-        assets_manager.requestImage("pictures/RoadToHavalComplete.png", (image) => {
+        assets_manager.requestImage("pictures/RTH MAP.png", (image) => {
 
             assets_manager.tile_set_image = image;
 

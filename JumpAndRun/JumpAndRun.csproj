@@ -127,6 +127,7 @@
     <Content Include="Lvl.1\pictures\RoadToHaval.PNG" />
     <Content Include="Lvl.1\pictures\RoadToHavalChars.png" />
     <Content Include="Lvl.1\pictures\RoadToHavalComplete.PNG" />
+    <Content Include="Lvl.1\pictures\RTH MAP.PNG" />
     <Content Include="Lvl.1\Retrogame Menue.mp3" />
     <Content Include="Lvl.1\worldplayer02.js" />
     <Content Include="MainMenue.html" />
