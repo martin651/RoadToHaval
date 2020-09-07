@@ -226,9 +226,9 @@ Game.World = function (friction = 0.85, gravity = 2) {
     fxKoefte = new Audio(); 
     fxDeath = new Audio();
     fxStart = new Audio();
-    fxKoefte.src = "/Sounds/Haval_Köftespieß.mp3"; 
-    fxDeath.src = "/Sounds/Haval_death.mp3";
-    fxStart.src = "/Sounds/Haval_start.wav";
+    fxKoefte.src = "../Sounds/Haval_Köftespieß.mp3"; 
+    fxDeath.src = "../Sounds/Haval_death.mp3";
+    fxStart.src = "../Sounds/Haval_start.wav";
     fxKoefte.loop = false;
     fxDeath.loop = false;
     fxStart.loop = false;
