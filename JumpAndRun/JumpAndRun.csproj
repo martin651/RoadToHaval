@@ -128,7 +128,7 @@
     <Content Include="Lvl.1\pictures\RoadToHavalChars.png" />
     <Content Include="Lvl.1\pictures\RoadToHavalComplete.PNG" />
     <Content Include="Lvl.1\worldplayer02.js" />
-    <Content Include="MainMenu.html" />
+    <Content Include="MainMenue.html" />
     <Content Include="NewGame.html" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Retrogame Menue.mp3" />
@@ -138,12 +138,6 @@
     <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
-    <Content Include="Sounds\Retrogame Endlevel Beat.mp3" />
-    <Content Include="Sounds\Retrogame Menue.mp3" />
-    <Content Include="Sounds\Road 2 Haval.mp3" />
-    <Content Include="Sounds\Xatar AMK.mp3" />
-    <Content Include="Sounds\Xatar Item.mp3" />
-    <Content Include="Sounds\Xatar was läuft.mp3" />
     <Content Include="style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -164,7 +158,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Sounds\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
