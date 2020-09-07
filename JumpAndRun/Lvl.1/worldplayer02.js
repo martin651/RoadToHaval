@@ -19,7 +19,7 @@ Game.Animator = function (frame_set, delay, mode = "loop") {
     //ANimator Klasse --> Es "loopt" das Frame 
     this.count = 0;
     this.delay = (delay >= 1) ? delay : 1;
-    this.frame_set = frame_set;         //Sheet/Bildarray - unterschiedliche Frame Sets von Player; 
+    this.frame_set = frame_set;         //Sheet/Bild-Array - unterschiedliche Frame Sets von Player; 
     this.frame_index = 0;               //Array index - unterschiedliche Frame Sets von Player; 
     this.frame_value = frame_set[0];
     this.mode = mode;                   //es gibt pause/loop 
@@ -102,10 +102,10 @@ Game.TileSet = function (columns, tile_size) {
         new f(0, 128, 64, 60, 0, 0), new f(64, 128, 64, 60, 0, 0), new f(128, 128, 64, 60, 0, 0), new f(192, 128, 64, 60, 0, 0), // Player walk-right
         /**NPC FRAMES***/
         new f(0, 0, 64, 64, 0, 0), new f(65, 0, 64, 64, 0, 0), new f(129, 0, 64, 64, 0, 0), // NPC walk left
-        /**KÖFTE FRAMES***/
-        new f(7 * 64, 3 * 64, 64, 64, 0, -4), // Köftespieß
+        /**KÖFTE FRAME***/
+        new f(7 * 64, 3 * 64, 64, 64, 0, -4), // Koeftespieß
         /**Door FRAME***/
-        new f(0, 0, 68, 160, 0, 0), // Haval Grill
+        new f(0, 0, 68, 160, 0, 0), // Door
 
     ];
 
@@ -232,9 +232,6 @@ Game.World = function (friction = 0.85, gravity = 2) {
     //fxKoefte.loop = false,
     //fxDeath.loop = false;
     //fxStart.loop = false;
-    
-
-
 
     this.friction = friction;
     this.gravity = gravity;
