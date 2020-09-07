@@ -51,7 +51,6 @@ Die gesamten Funktionen innerhalb der Spielwelt, sowie der Charaktere und NPC' s
 #### Known Bugs
 ***
 Zu den bekannten Bugs in der aktuellen Version 1.0.0 zählen zum jetzigen Zeitpunkt des Entwicklungsstandes die Inkompatibilität mit dem Browser Internet Explorer.
-Außerdem besteht im Browser Google Chrome eine fehlende Funktionalität zur automatischen Abspielung von im Spiel integrierten Audiokomponenten, basierend auf der Google AutoPlay Policy.
 
 Die derzeitige Version 1.0.0 wurde am 06.09.2020 fertig gestellt.
 
