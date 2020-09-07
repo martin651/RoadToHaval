@@ -113,113 +113,6 @@ Game.TileSet = function (columns, tile_size) {
 Game.TileSet.prototype = { constructor: Game.TileSet };
 
 
-//COLLIDER Definition ===> Benötigen wir das??
-Game.Collider = function () {
-
-
-
-
-    /* I changed this so all the checks happen in y first order. */
-    this.collide = function (value, object, tile_x, tile_y, tile_size) {
-
-
-        switch (value) {
-
-            case 1: this.collidePlatformTop(object, tile_y); break;
-            case 2: this.collidePlatformRight(object, tile_x + tile_size); break;
-            case 3: if (this.collidePlatformTop(object, tile_y)) return;
-                this.collidePlatformRight(object, tile_x + tile_size); break;
-            case 4: this.collidePlatformBottom(object, tile_y + tile_size); break;
-            case 5: if (this.collidePlatformTop(object, tile_y)) return;
-                this.collidePlatformBottom(object, tile_y + tile_size); break;
-            case 6: if (this.collidePlatformRight(object, tile_x + tile_size)) return;
-                this.collidePlatformBottom(object, tile_y + tile_size); break;
-            case 7: if (this.collidePlatformTop(object, tile_y)) return;
-                if (this.collidePlatformBottom(object, tile_y + tile_size)) return;
-                this.collidePlatformRight(object, tile_x + tile_size); break;
-            case 8: this.collidePlatformLeft(object, tile_x); break;
-            case 9: if (this.collidePlatformTop(object, tile_y)) return;
-                this.collidePlatformLeft(object, tile_x); break;
-            case 10: if (this.collidePlatformLeft(object, tile_x)) return;
-                this.collidePlatformRight(object, tile_x + tile_size); break;
-            case 11: if (this.collidePlatformTop(object, tile_y)) return;
-                if (this.collidePlatformLeft(object, tile_x)) return;
-                this.collidePlatformRight(object, tile_x + tile_size); break;
-            case 12: if (this.collidePlatformBottom(object, tile_y + tile_size)) return;
-                this.collidePlatformLeft(object, tile_x); break;
-            case 13: if (this.collidePlatformTop(object, tile_y)) return;
-                if (this.collidePlatformBottom(object, tile_y + tile_size)) return;
-                this.collidePlatformLeft(object, tile_x); break;
-            case 14: if (this.collidePlatformBottom(object, tile_y + tile_size)) return;
-                if (this.collidePlatformLeft(object, tile_x)) return;
-                this.collidePlatformRight(object, tile_x + tile_size); break;
-            case 15: if (this.collidePlatformTop(object, tile_y)) return;
-                if (this.collidePlatformBottom(object, tile_y + tile_size)) return;
-                if (this.collidePlatformLeft(object, tile_x)) return;
-                this.collidePlatformRight(object, tile_x + tile_size); break;
-
-        }
-
-    }
-
-};
-Game.Collider.prototype = {
-
-    constructor: Game.Collider,
-
-    collidePlatformBottom: function (object, tile_bottom) {
-
-        if (object.getTop() < tile_bottom && object.getOldTop() >= tile_bottom) {
-
-            object.setTop(tile_bottom);
-            object.velocity_y = 0;
-            return true;
-
-        } return false;
-
-    },
-
-    collidePlatformLeft: function (object, tile_left) {
-
-        if (object.getRight() > tile_left && object.getOldRight() <= tile_left) {
-
-            object.setRight(tile_left - 0.01);
-            object.velocity_x = 0;
-            return true;
-
-        } return false;
-
-    },
-
-    collidePlatformRight: function (object, tile_right) {
-
-        if (object.getLeft() < tile_right && object.getOldLeft() >= tile_right) {
-
-            object.setLeft(tile_right);
-            object.velocity_x = 0;
-            return true;
-
-        } return false;
-
-    },
-
-    collidePlatformTop: function (object, tile_top) {
-
-        if (object.getBottom() > tile_top && object.getOldBottom() <= tile_top) {
-
-            object.setBottom(tile_top - 0.01);
-            object.velocity_y = 0;
-            object.jumping = false;
-            return true;
-
-        } return false;
-
-    }
-
-};
-
-
-
 //OBJECT Definition
 Game.Object = function (x, y, width, height) {
 
@@ -321,43 +214,41 @@ Game.World = function (friction = 0.85, gravity = 2) {
 
     
 
-    document.getElementById("unmuteButton");
-    unmuteButton.addEventListener('click', function () {
+    //document.getElementById("unmuteButton");
+    //unmuteButton.addEventListener('click', function () {
 
         
-        return Audio.muted = false;
+    //    return Audio.muted = false;
 
-    });
+    //});
     
 
-    fxKoefte = new Audio(); 
-    fxDeath = new Audio();
-    fxStart = new Audio();
-    fxKoefte.src = "/Sounds/Habal AMK.mp3"; 
-    fxDeath.src = "/Sounds/Haval Death.mp3";
-    fxStart.src = "/Sounds/was läuft.mp3";
-    fxKoefte.loop = false,
-    fxDeath.loop = false;
-    fxStart.loop = false;
+    //fxKoefte = new Audio(); 
+    //fxDeath = new Audio();
+    //fxStart = new Audio();
+    //fxKoefte.src = "/Sounds/Habal AMK.mp3"; 
+    //fxDeath.src = "/Sounds/Haval Death.mp3";
+    //fxStart.src = "/Sounds/was läuft.mp3";
+    //fxKoefte.loop = false,
+    //fxDeath.loop = false;
+    //fxStart.loop = false;
     
 
 
-    this.collider = new Game.Collider();
 
     this.friction = friction;
     this.gravity = gravity;
 
-    //For Scroll function
+    //variables for Scroll-function
     distance = 0;
     max_distance = 15;
     speed = 5;
     offset = 0;
     idexofcolumns = 0;
-    countLoops = 0;
-    //For Scroll function
+    //countLoops = 0;
 
-    this.columns = 50; //ALTERNATIV zone.
-    this.rows = 12; //ALTERNATIV zone.
+    this.columns = 50; //defines Background Tileset
+    this.rows = 12; //Adefines Background Tileset
     this.graphical_map = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
         50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
         100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149,
@@ -372,27 +263,27 @@ Game.World = function (friction = 0.85, gravity = 2) {
         500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510, 511, 512, 513, 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535, 536, 537, 538, 539, 540, 541, 542, 543, 544, 545, 546, 547, 548, 549
 
 
-    ];
+    ]; //definition Background
     this.tile_setWorld = new Game.TileSet(50, 32);
     this.tile_setPlayer = new Game.TileSet(8, 64);
     this.tile_setDoor = new Game.TileSet(1, 73)
     this.player = new Game.Player(10, 264);
-   /* if (audiomuted==true)*/fxStart.play();
+   ///* if (audiomuted==true)*/fxStart.play();
 
 
     //NPC's
     this.zone_id = "00"; //=> zone.json identifier
-    this.npcArray = []; 
+    this.npcArray = []; //Array for policemen
 
     this.koeftespiesseArray = []; //Position of Koeftespiess
     this.koeftespiess_count = 0; // the number of Köftespieß you have.
-    this.doors = [];
+    this.doors = [];    //Array for door
 
 
     this.tile_size = 32;
     this.height = this.tile_setWorld.tile_size * this.rows;
     this.width = this.tile_setWorld.tile_size * this.columns;
-    this.wall = 900;
+    //this.wall = 900; //for features
 
 }
 Game.World.prototype = {
@@ -419,12 +310,12 @@ Game.World.prototype = {
 
     },
 
-    collideWall: function (object) {
+    //collideWall: function (object) {
 
-        if (object.getRight() >= this.wall - 2) object.velocity_x -= 0.55;
-        return true;
+    //    if (object.getRight() >= this.wall - 2) object.velocity_x -= 0.55;
+    //    return true;
 
-    },
+    //}, //for features
    
     scroll: function () {
 
@@ -434,7 +325,7 @@ Game.World.prototype = {
 
         offset += speed;
 
-        while (offset >= this.tile_size && idexofcolumns < 50 && countLoops < 50) {
+        while (offset >= this.tile_size && idexofcolumns < 50 && this.koeftespiess_count < 26) {
 
 
 
@@ -451,18 +342,20 @@ Game.World.prototype = {
             };
 
             idexofcolumns += 1;
-            countLoops++;
             if (idexofcolumns == 49) idexofcolumns = 0;
-            this.randgenPol();
+            // generating new policemen
+            this.randgenPol(); 
 
-            if (countLoops == 50) {
+            if (this.koeftespiess_count == 20) {
 
                 //NEW NEW NEW NEW
-                this.wall = undefined;
-                this.door = new Game.Door(this.width-67, 168);
+                //this.wall = undefined;
+                this.door = new Game.Door(this.width - 67, 168);
                 this.doors.push(this.door);
 
-            }
+
+            };
+
             
         };
 
@@ -556,20 +449,20 @@ Game.World.prototype = {
         randvar = Math.floor(Math.random() * 110) / 2;
 
 
-        if (this.npcArray.length < 6 && this.player.getRight()>400 && randvar > 50 && x<1600) {
+        if (this.npcArray.length < 8 && this.player.getRight()>400 && randvar > 50 && x<1600) {
 
             polObj2 = new Game.Npc(x, y);
             this.npcArray.push(polObj2);
-            stop(this.randgenPol());
+            //stop(this.randgenPol());
         }
-        if (this.player.getRight() > 950) this.stop;
+        if (this.player.getRight() > 1300) this.stop;
         else return false;
     },
 
-    //NEXT STEP//
+    //Koefte-Generator//
     randomlyGenerateKoefte: function () {
 
-            var x = this.width - Math.random() * 1000;
+            var x = /*this.width - */0+ Math.random() * 1300;
             var y = 264-Math.random()*10;
             var koefObj = undefined;
             koefObj = new Game.Koeftespiess(x, y);
@@ -588,15 +481,16 @@ Game.World.prototype = {
         this.player.updatePosition(this.gravity, this.friction);
         this.player.updateAlive();
         if (this.player.updateAlive() == false) {
-            fxDeath.play();
+            //fxDeath.play();
             this.stop();
         };
         this.collideObject(this.player);
         this.player.updateAnimation();
-        this.collideWall(this.player);
+        //this.collideWall(this.player);
         
        
         //NPC
+        //updating policemen
         for (let index = 0; index < this.npcArray.length; index++) {
 
             //creatin new Array with NPC objects
@@ -612,9 +506,10 @@ Game.World.prototype = {
             //trigger for NPC Moving
             if (this.player.x > 10) npcvar.simulation();
 
-            if (npcvar.stopMoving() && this.player.getRight()<950) {
+            if (npcvar.stopMoving() && this.player.getRight()<1200) {
                 this.npcArray.splice(this.npcArray.indexOf(npcvar), 1); //=> Wird das NPC-Objekt Array um 1 gelöscht
                 this.npcArray.push(this.generatePolice()); //Fügt ein neues NPC-Objekt an das Array-Ende hinzu
+                this.randgenPol();
             }
 
             //Bei Kollision mit Player von Oben
@@ -626,20 +521,22 @@ Game.World.prototype = {
 
             this.player.collideObjectGameOver(npcvar);
         };
-        
+
+        //updating köftespiesse
         for (let index = 0; index < this.koeftespiesseArray.length; index++) {
 
             //creatin new Array with NPC objects
             let koeftespiessvar = this.koeftespiesseArray[index];
 
-            //Update Köfte-Objekt
+            //Update koefte-Object
             koeftespiessvar.updatePosition();
             koeftespiessvar.animate();
+
 
             //Bei Zenterkollision mit Player und Köfteobjekt
             if (koeftespiessvar.collideObjectCenter(this.player)) {
 
-                fxKoefte.play();
+                //fxKoefte.play();
                 this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);//=> Wird das Köfte-Objekt Array um 1 gelöscht
                 this.koeftespiess_count++;//und der Köftezähler um +1 erhöht
                 this.koeftespiesseArray.push(this.randomlyGenerateKoefte());   
@@ -648,22 +545,19 @@ Game.World.prototype = {
 
         };
 
+        //updating door
         for (let index = 0; index < this.doors.length; index++) {
 
             let door = this.doors[index];
 
             if (door.update(this.player) == true) {
 
-                fxFinish.play();
+                //fxFinish.play();
                 this.stop();
             };
             
         };
 
-        //if (this.player.updateAlive == false) {
-
-        //    this.stop();
-        //};
     }
 
     
@@ -1019,10 +913,10 @@ Game.Door.prototype = {
 
             function ConfirmDialog(message) {
                 $('<div></div>').appendTo('body')
-                    .html('<div><h5>' + "Glückwunsch du bist aus der JVA enflohen!! Bist du bereit für die Freiheit?" + '?</h5></div>')
+                    .html('<div><h5>' + "Glückwunsch du bist aus der JVA entflohen!! Bist du bereit für die Freiheit?" + '?</h5></div>')
                     .dialog({
                         modal: true,
-                        title: 'Game Over!',
+                        title: 'Glückwunsch!',
                         zIndex: 10000,
                         autoOpen: true,
                         width: '400px',
@@ -1057,7 +951,6 @@ Game.Door.prototype = {
 
 
 
-            //alert("Glückwunsch du bist aus der JVA enflohen!! Auf geht's in die Freiheit");
 
         };
         return false;

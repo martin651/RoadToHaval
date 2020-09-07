@@ -116,9 +116,6 @@
                    
         };
 
-
-        //TEST TEST TEST TEST//
-
         //drawDoor ruft relevanten Informationen ab um eine Animation zu ermöglichen
 
         for (let index = 0; index < game.world.doors.length; index++) {
@@ -131,9 +128,8 @@
                 game.world.door.y + doorframe.offset_y, doorframe.width, doorframe.height);
         };
 
-        ////****NEW NEW NEW****//
+        //****Köftespießcounter****//
         p.innerHTML = "Köftespieß: " + game.world.koeftespiess_count;
-        ////****NEW NEW NEW****//
 
 
         display.render();
