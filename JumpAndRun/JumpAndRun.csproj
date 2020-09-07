@@ -148,7 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Haval Charakter.json" />
-    <Content Include="Lvl.1\zone00.json" />
     <None Include="packages.config" />
     <Content Include="readme.md" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.map" />

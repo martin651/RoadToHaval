@@ -269,10 +269,10 @@ Game.World = function (friction = 0.85, gravity = 2) {
 
 
     //NPC's
-    this.zone_id = "00"; //=> zone.json identifier
+    //this.zone_id = "zone00.json"; //=> zone.json identifier
     this.npcArray = []; //Array for policemen
 
-    this.koeftespiesseArray = []; //Position of Koeftespiess
+    this.koeftespiesseArray = []; //Array of Koeftespiess-Objects
     this.koeftespiess_count = 0; // the number of Köftespieß you have.
     this.doors = [];    //Array for door
 
@@ -363,35 +363,54 @@ Game.World.prototype = {
     },
 
     //Level-Setup
-    setup: function (zone) {
+    setup: function (/*zone*/) {
 
         this.koeftespiesseArray = new Array();
         this.npcArray = new Array();
+
+        //***Not needed****
         //this.doors = new Array();
         //this.collision_map = zone.collision_map;
         //this.graphical_map = zone.graphical_map;
         //this.columns = zone.columns;
         //this.rows = zone.rows;
-        this.zone_id = zone.id;
+        //this.zone_id = zone.id;
 
-        var koeftespiess;
-        var npc;
+        var koeftespiess1 = new Game.Koeftespiess(4 * this.tile_setPlayer.tile_size, 2.8 * this.tile_setPlayer.tile_size);
+        var koeftespiess2 = new Game.Koeftespiess(6 * this.tile_setPlayer.tile_size, 3 * this.tile_setPlayer.tile_size);
+        var koeftespiess3 = new Game.Koeftespiess(3 * this.tile_setPlayer.tile_size, 4 * this.tile_setPlayer.tile_size);
+        var koeftespiess4 = new Game.Koeftespiess(8 * this.tile_setPlayer.tile_size, 4 * this.tile_setPlayer.tile_size);
+        var koeftespiess5 = new Game.Koeftespiess(10 * this.tile_setPlayer.tile_size, 3 * this.tile_setPlayer.tile_size);
+        var koeftespiess6 = new Game.Koeftespiess(14 * this.tile_setPlayer.tile_size, 3.95 * this.tile_setPlayer.tile_size);
+        var koeftespiess7 = new Game.Koeftespiess(18 * this.tile_setPlayer.tile_size, 4.04 * this.tile_setPlayer.tile_size);
 
+        this.koeftespiesseArray.push(koeftespiess1, koeftespiess2, koeftespiess3, koeftespiess4, koeftespiess5, koeftespiess6, koeftespiess7)
+
+        var police1 = new Game.Npc(1139, 264 );
+        var police2 = new Game.Npc(1330, 264);
+        var police3 = new Game.Npc(1497, 264);
+        this.npcArray.push(police1, police2, police3);
+
+
+
+
+
+        /***Not needed****
         //Reading Koeftespieße position from JSON-File
-        for (let index = 0; index <zone.koeftespiesseArray.length; index++) {
+        //for (let index = 0; index <zone.koeftespiesseArray.length; index++) {
 
-            koeftespiess = zone.koeftespiesseArray[index];
-            this.koeftespiesseArray[index] = new Game.Koeftespiess(koeftespiess[0] * this.tile_setPlayer.tile_size, koeftespiess[1] * this.tile_setPlayer.tile_size - 2);
+        //    koeftespiess = zone.koeftespiesseArray[index];
+        //    this.koeftespiesseArray[index] = new Game.Koeftespiess(koeftespiess[0] * this.tile_setPlayer.tile_size, koeftespiess[1] * this.tile_setPlayer.tile_size - 2);
             
-        };
+        //};
 
         //Reading NPC's position from JSON-File
-        for (let index = 0; index < zone.policeman.length; index++) {
+        //for (let index = 0; index < zone.policeman.length; index++) {
 
-            npc = zone.policeman[index];
-            this.npcArray[index] = new Game.Npc(npc[0], npc[1]);
+        //    npc = zone.policeman[index];
+        //    this.npcArray[index] = new Game.Npc(npc[0], npc[1]);
 
-        };
+        //};
        
         
         //for (let index = zone.doors.length - 1; index > -1; --index) {

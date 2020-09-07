@@ -26,20 +26,20 @@
         constructor: Game.AssetsManager,
 
         
-        requestJSON: function (url, callback) {
+        //requestJSON: function (url, callback) {
 
-            let request = new XMLHttpRequest();
+        //    let request = new XMLHttpRequest();
 
-            request.addEventListener("load", function (event) {
+        //    request.addEventListener("load", function (event) {
 
-                callback(JSON.parse(this.responseText));
+        //        callback(JSON.parse(this.responseText));
 
-            }, { once: true });
+        //    }, { once: true });
 
-            request.open("GET", url);
-            request.send();
+        //    request.open("GET", url);
+        //    request.send();
 
-        },
+        //},
         
 
         requestImage: function (url, callback) {
@@ -229,9 +229,9 @@
 
     //Koefteposition
 
-    assets_manager.requestJSON(ZONE_PREFIX + game.world.zone_id + ZONE_SUFFIX, (zone) => {
+    //assets_manager.requestJSON(ZONE_PREFIX + game.world.zone_id + ZONE_SUFFIX, (zone) => {
 
-        game.world.setup(zone);
+        game.world.setup(/*zone*/);
 
 
         //Map-Image//
@@ -261,7 +261,7 @@
             engine.start();
 
         });
-    });
+    //});
 
     window.addEventListener("keydown", keyDownUp);
     window.addEventListener("keyup", keyDownUp);
