@@ -173,12 +173,12 @@
 
                             },
                             No: function () {
-                                l
+                                
                                 $('body').append('<h1>Confirm Dialog Result: <i>No</i></h1>');
 
                                 //$(this).dialog("close");
 
-                                //window.location.href = "www.google.de";
+                                window.location.href = "../MainMenue.html";
                             }
                         },
                         close: function (event, ui) {

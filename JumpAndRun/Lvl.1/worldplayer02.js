@@ -343,7 +343,7 @@ Game.World.prototype = {
             // generating new policemen
             this.randgenPol(); 
 
-            if (this.koeftespiess_count == 20) {
+            if (this.koeftespiess_count == /*20*/ 1) {
 
                 //NEW NEW NEW NEW
                 //this.wall = undefined;
@@ -947,17 +947,18 @@ Game.Door.prototype = {
 
                                 //$(this).dialog("close");
                                 //$('body').load("/MainMenu.html");
-                                window.location.reload();
+                                window.location.href = "../MainMenue.html";
 
 
                             },
                             No: function () {
-                                l
+                          
                                 $('body').append('<h1>Confirm Dialog Result: <i>No</i></h1>');
 
                                 //$(this).dialog("close");
 
                                 //window.location.href = "www.google.de";
+                                window.location.href = "../MainMenue.html";
                             }
                         },
                         close: function (event, ui) {
