@@ -68,15 +68,85 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.html" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Datenschutz.html" />
+    <Content Include="Haval Story Text.mp3" />
     <Content Include="Impressum.html" />
     <Content Include="Lvl.1\controller.js" />
     <Content Include="Lvl.1\display.js" />
-    <Content Include="Lvl.1\level1.html" />
-    <Content Include="Lvl.1\main.js" />
-    <Content Include="Lvl.1\world+player.js" />
-    <Content Include="MainMenu.html" />
+    <Content Include="Lvl.1\engine.js" />
+    <Content Include="Lvl.1\level1_02.html" />
+    <Content Include="Lvl.1\main02.js" />
+    <Content Include="Lvl.1\pictures\Exit-Tür.png" />
+    <Content Include="Lvl.1\pictures\Gefängnisgitter.jpg" />
+    <Content Include="Lvl.1\pictures\Gitter.jpg" />
+    <Content Include="Lvl.1\pictures\Haval Einzel.png" />
+    <Content Include="Lvl.1\pictures\Level 2.png" />
+    <Content Include="Lvl.1\pictures\License.png" />
+    <Content Include="Lvl.1\pictures\Play.png" />
+    <Content Include="Lvl.1\pictures\Prison Pixel Art.png" />
+    <Content Include="Lvl.1\pictures\RoadToHaval.PNG" />
+    <Content Include="Lvl.1\pictures\RoadToHavalChars.png" />
+    <Content Include="Lvl.1\pictures\RoadToHavalComplete.PNG" />
+    <Content Include="Lvl.1\pictures\RTH MAP.PNG" />
+    <Content Include="Lvl.1\Retrogame Menue.mp3" />
+    <Content Include="Lvl.1\worldplayer02.js" />
+    <Content Include="MainMenue.html" />
     <Content Include="NewGame.html" />
+    <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Retrogame Menue.mp3" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Sounds\Haval Story.mp3" />
+    <Content Include="Sounds\Haval_death.mp3" />
+    <Content Include="Sounds\Haval_Game_Menue-1.mp3" />
+    <Content Include="Sounds\Haval_Köftespieß.mp3" />
+    <Content Include="Sounds\Haval_Level-1.mp3" />
+    <Content Include="Sounds\Haval_start.wav" />
     <Content Include="style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -84,8 +154,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Haval Charakter.json" />
     <None Include="packages.config" />
     <Content Include="readme.md" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -93,11 +166,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Fin Lvl\" />
-    <Folder Include="Lvl.1\pictures\" />
-    <Folder Include="Lvl.2\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
