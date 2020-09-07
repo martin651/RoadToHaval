@@ -395,7 +395,7 @@ Game.World.prototype = {
 
 
 
-        /***Not needed****
+        //**Not needed****//
         //Reading Koeftespieße position from JSON-File
         //for (let index = 0; index <zone.koeftespiesseArray.length; index++) {
 
@@ -474,11 +474,12 @@ Game.World.prototype = {
         if (this.player.getRight() > 1300) this.stop;
         else return false;
     },
+    
 
     //Koefte-Generator//
     randomlyGenerateKoefte: function () {
 
-            var x = /*this.width - */0+ Math.random() * 1300;
+            var x = 0+ Math.random() * 1300;
             var y = 264-Math.random()*10;
             var koefObj = undefined;
             koefObj = new Game.Koeftespiess(x, y);
