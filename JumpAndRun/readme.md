@@ -74,24 +74,22 @@ Folgende Komponenten des Spiels wurden von folgenden Quellen mit den dazugehöri
   
     Sämtliche Audiokomponenten wurden von Herrn Simic zusammengeschnitten, verändert und unkenntlich gemacht.
 * Storyteller - von Frau Sarah Mänz eingesprochen und durch Herrn Simic bearbeitet.
-* Gaming-Musik - von Herrn Simic produziert und zur Verfügung gestellt.
+* Gaming-Musik - sämtliche Melodien/Songs wurden von Herrn Simic produziert und zur Verfügung gestellt.
 
 
 **Grafik**
 Folgende Komponenten des Spiels wurden von folgenden Quellen mit den dazugehörigen Lizenzen als Grundlage herangezogen:
 * Haval  
-  * Kopf - https://www.16bars.de/newsartikel/264118/koeftespiess-mit-gar-kein-reden-eroeffnungsdatum-fuer-xatars-havalgrill-steht/
+  * Kopf - https://www.spriters-resource.com/pc_computer/hitmanbloodmoney/sheet/87564/
   * Körper - https://www.spriters-resource.com/ds_dsi/wariomod/sheet/77857/
   
 * Polizisten - https://www.spriters-resource.com/mobile/policestory/sheet/12757/
 
-* Köftespieß - https://www.123rf.com/clipart-vector/chicken_bit.html?sti=m9pr8uzx0dksjt87a4|
-
-* Spielwelt - https://www.pinterest.de/pin/250935010465353638/
+* Köftespieß - https://www.spriters-resource.com/playstation/cvsotn/sheet/15213/
 
 * Ausgangstür - https://www.spriters-resource.com/pc_computer/beetlejunior/sheet/75218/
 
-Sämtliche Bilder/Grafiken wurden von Herrn Simic zur Verfügung gestellt und von Herrn Naumann verpixelt und bearbeitet, um sie somit unkenntlich zu machen.
+Sämtliche anderen Bilder/Grafiken wurden von Herrn Simic und von Herrn Naumann selber erstellt.
 
 **Gaming-Logik**
 
