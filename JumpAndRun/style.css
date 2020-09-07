@@ -247,7 +247,7 @@ a {
     transform: rotate(-2deg);
 }
 
-img {
+img#haval {
     position:absolute;
     right: 0px;
     top: 100px;
@@ -357,4 +357,22 @@ button#sound {
     cursor: pointer;
     padding-top: 0px;
     padding-bottom: 40px;
+}
+
+img#license {
+    position: absolute;
+    right:0px;
+    bottom:50px;
+}
+
+img#license1 {
+    position: absolute;
+    left: 850px;
+    top: 600px;
+}
+
+img#license2 {
+    position: absolute;
+    right: 35px;
+    bottom: 35px;
 }
