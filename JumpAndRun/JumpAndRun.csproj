@@ -141,6 +141,10 @@
     <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Sounds\Haval Story.mp3" />
+    <Content Include="Sounds\Haval_death.mp3" />
+    <Content Include="Sounds\Haval_Köftespieß.mp3" />
+    <Content Include="Sounds\Haval_start.wav" />
     <Content Include="style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -160,9 +164,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Sounds\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
