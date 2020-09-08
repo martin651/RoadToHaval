@@ -63,10 +63,15 @@ Da der jetzige Entwicklungsstand bislang nur im Windows 10-Umfeld getestet worde
  
  
 
-#### Copyright / Lizenzen
+#### Lizenzen & Drittlizenzen
 ***
+
+Das vorliegende Projetk unterliegt der *"Creative Commons Namensnennung-Nicht kommerziell-Keine Bearbeitungen 4.0 International Public License*". Weitere Informationen und Haftungsbeschränkungen können aus der *"License"* entnommen werden.
+
+Desweiteren wurden folgende Spielkomponenten implementiert, die teilweise nicht aus eigener Schöpfung stammen. Hierzu werde die Quellen angegeben.
+
 **Audio**
-Folgende Komponenten des Spiels wurden von folgenden Quellen mit den dazugehörigen Lizenzen als Grundlage herangezogen:
+Folgende Komponenten des Spiels wurden von folgenden Quellen als Grundlage herangezogen:
 * Haval 
   * Start - von Herrn Naumann nachgesprochen basierend auf https://www.youtube.com/watch?v=q895IF1JjqM
   * Tot - von Herrn Naumann nachgesprochen basierend auf https://www.youtube.com/watch?v=5etnFGOZ2x8
@@ -77,7 +82,7 @@ Folgende Komponenten des Spiels wurden von folgenden Quellen mit den dazugehöri
 
 
 **Grafik**
-Folgende Komponenten des Spiels wurden von folgenden Quellen mit den dazugehörigen Lizenzen als Grundlage herangezogen:
+Folgende Komponenten des Spiels wurden von folgenden Quellen als Grundlage herangezogen und dürfen solang kein "kommerzieller-Nutzen" vorliegt, verwendet werden.
 * Haval  
   * Kopf - https://www.spriters-resource.com/pc_computer/hitmanbloodmoney/sheet/87564/
   * Körper - https://www.spriters-resource.com/ds_dsi/wariomod/sheet/77857/
@@ -88,7 +93,7 @@ Folgende Komponenten des Spiels wurden von folgenden Quellen mit den dazugehöri
 
 * Ausgangstür - https://www.spriters-resource.com/pc_computer/beetlejunior/sheet/75218/
 
-Sämtliche anderen Bilder/Grafiken wurden von Herrn Simic und von Herrn Naumann selber erstellt.
+Sämtliche restlichen Bilder/Grafiken wurden von Herrn Simic und von Herrn Naumann selber erstellt.
 
 **Gaming-Logik**
 
