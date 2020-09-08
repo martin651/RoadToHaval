@@ -7,26 +7,77 @@
 </head>
 <body>
 
-    <div class="picture">
-        <img src="https://i.ytimg.com/vi/Tq_KxhV2iYk/maxresdefault.jpg" />
+
+    <script>
+        var audio, playbtn, seek_bar;
+
+        function play() {
+            var story = document.getElementById("story");
+            story.play();
+        }
+
+        function initAudioPlayer() {
+            audio = new Audio();
+            audio.src = "Sounds/Haval_Game_Menue-1.mp3";
+            audio.loop = true;
+            audio.play();
+
+            //Objekt Referenzen
+
+            playbtn = document.getElementById("playpausebtn");
+
+
+            //Event Handling
+
+            playbtn.addEventListener("click", playPause)
+
+
+            //Funktionen
+
+            function playPause() {
+                if (audio.paused) {
+                    audio.play();
+                    //playbtn.style.background = "url('Lvl.1/pictures/Play.png') no-repeat";
+                } else {
+                    audio.pause();
+                    //playbtn.style.background = "url('Lvl.1/pictures/Play.png') no-repeat";
+                }
+            }
+        }
+
+    window.addEventListener("load", initAudioPlayer);
+
+    </script>
+
+    <div id="all">
+        <input id="storyaudio" type="button" value="STORY AUDIO..." onclick="play()">
+        <audio id="story" src="Sounds/Haval Story.mp3"></audio>
+
+        <button id="playpausebtn">MUSIC</button>
+
+        <br />
+        <a href="Lvl.1/level1_02.html">
+            <div id="start"><p>ENTKOMME MIT HAVAL...</p></div>
+        </a>
+        <br />
+        <p id="text">
+            Was läuft was läuft was läuft
+            Haval ist ein deutscher Sprechgesangsartist welcher momentan im Knast sitzt weil er unmengen an Gold gestohlen hat.
+            Im Gefängnis kommt ihm dann eine lebensverändernde Eingebung welcher er nachgehen muss und somit unmöglich im Gefängnis verweilen kann.
+            Er will einfach nur ein Köftespieß von seinem geliebten Haval Grill der sich in der Keuptstraße befindet.
+            Am liebsten mit garkeinem reden und diese Ayran von diese Maschine All you can drink mäsisch.
+            Begleite Haval auf seinem Abenteuer in die Freiheit. Hrrrrrrr
+        </p>
+        <img id="haval" src="Lvl.1/pictures/Haval Einzel.png" />
+        <img id="license1" src="Lvl.1/pictures/License.png" />
+
+
     </div>
-    <p>Story mäsisch</p>
-    <br />
-    <!--Verlinkung zu level1.html funtkioniert nicht!!-->
-    <form class="NewGame" action="/Lvl.1/level1.html">
-        <input type="submit" name="StartGame" value="Start New Game" id="StartGame" />
-    </form>
 
 
-    <!--optionale Charaktere:
-    <br />
-    <input type="radio" name="character" value="Farid" id="farid" />
-    <label class="character" for="farid">Farid</label>
-    <input type="image" src="https://ocdn.eu/pulscms-transforms/1/A5Nk9kpTURBXy84ZWE0ZDI4ZjQwNjMwN2M4NTViMmE3NGEwNjIwZTk0OC5qcGeTlQM2AM0Etc0HEZMFzQFozQH0kwXNAWjNAfSCoTABoTEA" width="240" height="240" />
-    <br />
-    <input type="radio" name="character" value="Petra" id="petra" />
-    <label class="character" for="petra">Petra</label>
-    <input type="image" src="https://i.ytimg.com/vi/E5n4sO-p_V0/maxresdefault.jpg" width="240" height="240" />-->
+
+
+
 
 </body>
 </html>
