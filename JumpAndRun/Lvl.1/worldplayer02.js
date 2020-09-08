@@ -214,24 +214,24 @@ Game.World = function (friction = 0.85, gravity = 2) {
 
     
 
-    //document.getElementById("unmuteButton");
-    //unmuteButton.addEventListener('click', function () {
+    document.getElementById("sound");
+    sound.addEventListener('click', function () {
 
         
-    //    return Audio.muted = false;
+        return Audio.muted = false;
 
-    //});
+    });
     
 
-    //fxKoefte = new Audio(); 
-    //fxDeath = new Audio();
-    //fxStart = new Audio();
-    //fxKoefte.src = "/Sounds/Habal AMK.mp3"; 
-    //fxDeath.src = "/Sounds/Haval Death.mp3";
-    //fxStart.src = "/Sounds/was läuft.mp3";
-    //fxKoefte.loop = false,
-    //fxDeath.loop = false;
-    //fxStart.loop = false;
+    fxKoefte = new Audio(); 
+    fxDeath = new Audio();
+    fxStart = new Audio();
+    fxKoefte.src = "/Sounds/Haval_Köftespieß.mp3"; 
+    fxDeath.src = "/Sounds/Haval_death.mp3";
+    fxStart.src = "/Sounds/Haval_start.wav";
+    fxKoefte.loop = false;
+    fxDeath.loop = false;
+    fxStart.loop = false;
 
     this.friction = friction;
     this.gravity = gravity;
@@ -265,7 +265,6 @@ Game.World = function (friction = 0.85, gravity = 2) {
     this.tile_setPlayer = new Game.TileSet(8, 64);
     this.tile_setDoor = new Game.TileSet(1, 73)
     this.player = new Game.Player(10, 264);
-   ///* if (audiomuted==true)*/fxStart.play();
 
 
     //NPC's
@@ -343,15 +342,7 @@ Game.World.prototype = {
             // generating new policemen
             this.randgenPol(); 
 
-            if (this.koeftespiess_count == /*20*/ 1) {
-
-                //NEW NEW NEW NEW
-                //this.wall = undefined;
-                this.door = new Game.Door(this.width - 67, 168);
-                this.doors.push(this.door);
-
-
-            };
+            
 
             
         };
@@ -361,6 +352,20 @@ Game.World.prototype = {
             
         
     },
+
+    openDoor: function () {
+
+
+        let kcvar = this.koeftespiess_count;
+        if (kcvar == 20) {
+
+            this.door = new Game.Door(this.width - 67, 168);
+            this.doors.push(this.door);
+
+        };
+
+    },
+
 
     //Level-Setup
     setup: function (/*zone*/) {
@@ -498,7 +503,7 @@ Game.World.prototype = {
         this.player.updatePosition(this.gravity, this.friction);
         this.player.updateAlive();
         if (this.player.updateAlive() == false) {
-            //fxDeath.play();
+            fxDeath.play();
             this.stop();
         };
         this.collideObject(this.player);
@@ -536,7 +541,7 @@ Game.World.prototype = {
                 this.npcArray.push(this.generatePolice());
             }
 
-            this.player.collideObjectGameOver(npcvar);
+           this.player.collideObjectGameOver(npcvar);
         };
 
         //updating köftespiesse
@@ -555,12 +560,16 @@ Game.World.prototype = {
 
                 //fxKoefte.play();
                 this.koeftespiesseArray.splice(this.koeftespiesseArray.indexOf(koeftespiessvar), 1);//=> Wird das Köfte-Objekt Array um 1 gelöscht
+                fxKoefte.play();
                 this.koeftespiess_count++;//und der Köftezähler um +1 erhöht
                 this.koeftespiesseArray.push(this.randomlyGenerateKoefte());   
 
             };
 
         };
+
+        this.openDoor();
+
 
         //updating door
         for (let index = 0; index < this.doors.length; index++) {
