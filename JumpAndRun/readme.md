@@ -64,8 +64,9 @@ Da der jetzige Entwicklungsstand bislang nur im Windows 10-Umfeld getestet worde
  
  
 
-#### Copyright / Lizenzen
+#### Lizenzen und Dritt-Lizenzen
 ***
+
 **Audio**
 Folgende Komponenten des Spiels wurden von folgenden Quellen mit den dazugehörigen Lizenzen als Grundlage herangezogen:
 * Haval 
@@ -75,7 +76,6 @@ Folgende Komponenten des Spiels wurden von folgenden Quellen mit den dazugehöri
     Sämtliche Audiokomponenten wurden von Herrn Simic zusammengeschnitten, verändert und unkenntlich gemacht.
 * Storyteller - von Frau Sarah Mänz eingesprochen und durch Herrn Simic bearbeitet.
 * Gaming-Musik - sämtliche Melodien/Songs wurden von Herrn Simic produziert und zur Verfügung gestellt.
-
 
 **Grafik**
 Folgende Komponenten des Spiels wurden von folgenden Quellen mit den dazugehörigen Lizenzen als Grundlage herangezogen:
