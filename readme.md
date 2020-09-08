@@ -5,7 +5,7 @@
 2) Beschreibung des Programms
 3) Known Bugs
 4) Systemvoraussetzungen
-5) Copyright / Lizenzen
+5) Lizenzen & Drittlizenzen
 
 
 ##### Allgemeine Informationen
