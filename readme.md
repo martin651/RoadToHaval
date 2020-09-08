@@ -50,8 +50,19 @@ Die gesamten Funktionen innerhalb der Spielwelt, sowie der Charaktere und NPC' s
 
 #### Known Bugs
 ***
-Zu den bekannten Bugs in der aktuellen Version 1.0.0 zählen zum jetzigen Zeitpunkt des Entwicklungsstandes die Inkompatibilität mit dem Browser Internet Explorer.
+Zu den bekannten Bugs in der aktuellen Version 1.0.0 zählen zum jetzigen Zeitpunkt des Entwicklungsstandes, die Inkompatibilität mit dem Browser Internet Explorer. Zusätzlich werden folgende Meldungen in der Konsole des jeweiligen Browsers ausgegeben:
 
+* Google Chrome
+ *"Uncaught (in promise) DOMException: play() failed because the user didn't interact with the document first."* und 
+ *"Uncaught TypeError: Failed to execute 'drawImage' on 'CanvasRenderingContext2D': The provided value is not of type '(CSSImageValue or HTMLImageElement or SVGImageElement or   HTMLVideoElement or HTMLCanvasElement or ImageBitmap or OffscreenCanvas)'"*
+
+* Mozilla Firefox
+ *"TypeError: this.stop is not a function"*,
+ *"Die automatische Wiedergabe ist nur erlaubt, wenn durch den Benutzer erlaubt, die Seite vom Benutzer aktiviert wurde oder das Medium stummgeschaltet ist."* und 
+ *"NotAllowedError: The play method is not allowed by the user agent or the platform in the current context, possibly because the user denied permission."*
+
+
+Allerdings haben diese Rückmeldungen keinen Einfluss auf das Spiel bzw. Gaming. Das Feedback bzw. die Fehler der jeweiligen Browser gilt es in Zukunft für die Folgeversionen zu beheben.
 Die derzeitige Version 1.0.0 wurde am 06.09.2020 fertig gestellt.
 
 #### Systemvoraussetzungen
